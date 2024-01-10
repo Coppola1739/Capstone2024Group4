@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CapstoneWebAPi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e55aadbe17bc2c56d374cb9a851ac939b1de3b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2297eb0c3305a149b53deac1081d35638ef2b2a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("CapstoneWebAPi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CapstoneWebAPi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
