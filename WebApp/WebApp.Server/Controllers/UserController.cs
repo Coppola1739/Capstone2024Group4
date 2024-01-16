@@ -17,14 +17,10 @@ namespace WebApp.Server.Controllers
         {
             try
             {
-                Debug.WriteLine("Here");
                 return await _context.Users.ToListAsync();
             }
             catch (Exception ex)
             {
-                // Log the error and return a proper error response
-                Debug.WriteLine("HERERERERERER");
-                Debug.WriteLine(ex);
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }

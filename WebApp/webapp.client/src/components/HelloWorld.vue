@@ -7,6 +7,7 @@
             Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationvue">https://aka.ms/jspsintegrationvue</a> for more details.
         </div>
 
+
         <div v-if="post" class="content">
             <table>
                 <thead>
@@ -24,6 +25,11 @@
             </table>
         </div>
     </div>
+
+    <!-- PDF location -->
+    <h2>PDF Upload</h2>
+    <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
+    <button @click="uploadFile">Upload PDF</button>
 </template>
 
 <script lang="js">
@@ -57,9 +63,36 @@
                         this.loading = false;
                         return;
                     });
-            }
+            },
+
+            async uploadFile() {
+                const fileInput = this.$refs.fileInput;
+                const file = fileInput.files[0];
+
+                const formData = new FormData();
+                formData.append('pdfFile', file);
+
+                try {
+                    const response = await fetch('api/File/uploadpdf', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log(result);
+                        // You can handle the result as needed (e.g., display a success message)
+                    } else {
+                        console.error('File upload failed');
+                        console.log(response);
+                    }
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            },
         },
     });
+
 </script>
 
 <style scoped>
