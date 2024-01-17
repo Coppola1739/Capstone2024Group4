@@ -14,3 +14,5 @@ How to set up test reports with fresh package:
 
 
 	Eventually this will be scripted.
+	Update: this has been scripted for WebApp. To run, just open terminal within the CapstoneTests directory and run:
+		.\run-coverage-report.cmd
