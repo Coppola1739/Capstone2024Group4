@@ -46,7 +46,11 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/api': {
+            '^/File': {
+                target: 'https://localhost:7280/',
+                secure: false
+            },
+            '^/User': {
                 target: 'https://localhost:7280/',
                 secure: false
             }

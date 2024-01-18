@@ -12,7 +12,7 @@ using WebApp.Server.Models;
 namespace WebApp.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class FileController : ControllerBase
     {
         private readonly CapstoneDbContext _context;

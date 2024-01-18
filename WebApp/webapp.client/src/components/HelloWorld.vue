@@ -1,12 +1,11 @@
 <template>
-    <div class="weather-component">
-        <h1>Weather forecast</h1>
+    <div class="title-component">
+        <h1>Capstone Project</h1>
         <p>This component demonstrates fetching data from the server.</p>
 
         <div v-if="loading" class="loading">
             Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationvue">https://aka.ms/jspsintegrationvue</a> for more details.
         </div>
-
 
         <div v-if="post" class="content">
             <table>
@@ -24,12 +23,15 @@
                 </tbody>
             </table>
         </div>
+        <!-- PDF location -->
+        <div class="content">
+            <h2>PDF Upload</h2>
+            <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
+            <button @click="uploadFile">Upload PDF</button>
+        </div>
     </div>
 
-    <!-- PDF location -->
-    <h2>PDF Upload</h2>
-    <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
-    <button @click="uploadFile">Upload PDF</button>
+
 </template>
 
 <script lang="js">
@@ -56,7 +58,7 @@
                 this.post = null;
                 this.loading = true;
 
-                fetch('user')
+                fetch('User/getallusers')
                     .then(r => r.json())
                     .then(json => {
                         this.post = json;
@@ -73,7 +75,7 @@
                 formData.append('pdfFile', file);
 
                 try {
-                    const response = await fetch('api/File/uploadpdf', {
+                    const response = await fetch('File/uploadpdf', {
                         method: 'POST',
                         body: formData,
                     });
@@ -112,7 +114,7 @@ th, td {
     padding-right: .5rem;
 }
 
-.weather-component {
+.title-component {
     text-align: center;
 }
 

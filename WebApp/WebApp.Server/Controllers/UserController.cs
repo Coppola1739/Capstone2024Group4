@@ -12,7 +12,7 @@ namespace WebApp.Server.Controllers
     {
         private readonly CapstoneDbContext _context = context;
 
-        [HttpGet (Name = "GetUsers")]
+        [HttpGet ("getallusers")]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             try
