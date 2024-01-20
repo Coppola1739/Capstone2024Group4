@@ -43,3 +43,11 @@ C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capst
 C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\UserControls\VideoPlayer.g.cs
 C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\UserControls\VideoPlayer.baml
 C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.csproj.CopyComplete
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_Content.g.cs
