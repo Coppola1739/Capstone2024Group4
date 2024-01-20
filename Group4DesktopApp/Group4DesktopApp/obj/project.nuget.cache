@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jhPGWpBKZUBmZWzcOWagHYBZtk2EWyqlNx30MpMRSQiHg4/YreR1BvGMSgVUmoO17Oaq8C0jeXFHeiFH4kqXqg==",
+  "dgSpecHash": "4z7o2gmd4q387sWXeKBAVDhkUOsyK308da5JQqD2hGSVz19iyUXDQ8vsH1xrN8Jau+O66eYiPEPAVXSjtQqJAQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\CapstoneProj\\Capstone2024Group4\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.web.webview2\\1.0.2210.55\\microsoft.web.webview2.1.0.2210.55.nupkg.sha512"
   ],
