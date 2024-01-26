@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "xO4Irq/TPfYpSkXAPdo0l/GhHAmEaRJ5VQDDTY+fubWkxYM8zrg5TyVfDLXzRDJG3xjUy4BW4lavlVmXyYN/Dw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\CapProj\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\victo\\.nuget\\packages\\coverlet.msbuild\\6.0.0\\coverlet.msbuild.6.0.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.web.webview2\\1.0.2210.55\\microsoft.web.webview2.1.0.2210.55.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\reportgenerator\\5.2.0\\reportgenerator.5.2.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
+  ],
+  "logs": []
+}

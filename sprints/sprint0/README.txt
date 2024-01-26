@@ -1,0 +1,1 @@
+The index.html file is the coverage report

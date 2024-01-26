@@ -1,0 +1,6 @@
+@WebApp.Server_HostAddress = https://localhost:5056
+
+GET {{WebApp.Server_HostAddress}}/user/
+Accept: application/json
+
+###

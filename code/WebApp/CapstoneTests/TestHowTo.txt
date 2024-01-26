@@ -1,0 +1,18 @@
+How to set up test reports with fresh package:
+	Open NuGet Package Manager and install coverlet.msbuild and ReportGenerator
+	In the test directory, run: dotnet tool update -g dotnet-reportgenerator-globaltool
+		This will allow you to use the reportgenerator cmd line arg
+	Once you build your project and tests, run:
+		dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+			This will run the tests and show you a terminal view of your coverage report
+	Then:
+		reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coverage-report" "-reporttypes:HTML"
+			This creates a human-readable version of the cover report. To view this:
+				open the coverage-report folder
+				find index.html
+				open with- firefox (or whatever browser you want)
+
+
+	Eventually this will be scripted.
+	Update: this has been scripted for WebApp. To run, just open terminal within the CapstoneTests directory and run:
+		.\run-coverage-report.cmd
