@@ -47,11 +47,11 @@ export default defineConfig({
     server: {
         proxy: {
             '^/File': {
-                target: 'https://localhost:7280/',
+                target: 'http://localhost:5056/',
                 secure: false
             },
             '^/User': {
-                target: 'https://localhost:7280/',
+                target: 'http://localhost:5056/',
                 secure: false
             }
         },
