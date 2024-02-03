@@ -12,7 +12,7 @@ namespace WebApp.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "UserFiles",
+                name: "Sources",
                 columns: table => new
                 {
                     UserFileId = table.Column<int>(type: "int", nullable: false)
@@ -29,13 +29,13 @@ namespace WebApp.Server.Migrations
                         name: "FK_UserFiles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFiles_UserId",
-                table: "UserFiles",
+                table: "Sources",
                 column: "UserId");
         }
 
@@ -43,7 +43,7 @@ namespace WebApp.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserFiles");
+                name: "Sources");
         }
     }
 }

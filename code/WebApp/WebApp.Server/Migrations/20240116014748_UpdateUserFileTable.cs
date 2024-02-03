@@ -12,7 +12,7 @@ namespace WebApp.Server.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "FilePath",
-                table: "UserFiles");
+                table: "Sources");
         }
 
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace WebApp.Server.Migrations
         {
             migrationBuilder.AddColumn<string>(
                 name: "FilePath",
-                table: "UserFiles",
+                table: "Sources",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");

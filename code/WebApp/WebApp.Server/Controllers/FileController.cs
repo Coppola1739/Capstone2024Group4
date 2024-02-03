@@ -41,17 +41,17 @@ namespace WebApp.Server.Controllers
                     var pdfContent = memoryStream.ToArray();
 
                     // Create a new UserFile entity
-                    var userFile = new UserFile
+                    var source = new Source
                     {
                         UserId = userId,
-                        FileName = pdfFile.FileName,
+                        SourceName = pdfFile.FileName,
                         UploadDate = DateTime.UtcNow,
                         // Save the PDF content as a byte array
-                        FileContent = pdfContent,
+                        Content = pdfContent,
                     };
 
                     // Save the UserFile entity to the database
-                    _context.UserFiles.Add(userFile);
+                    _context.Source.Add(source);
                     await _context.SaveChangesAsync();
 
                     return Ok(new { Message = "PDF uploaded successfully" });

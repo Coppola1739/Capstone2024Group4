@@ -11,8 +11,8 @@ namespace WebApp.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<byte[]>(
-                name: "FileContent",
-                table: "UserFiles",
+                name: "Content",
+                table: "Sources",
                 type: "varbinary(max)",
                 nullable: false,
                 defaultValue: new byte[0]);
@@ -22,8 +22,8 @@ namespace WebApp.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FileContent",
-                table: "UserFiles");
+                name: "Content",
+                table: "Sources");
         }
     }
 }
