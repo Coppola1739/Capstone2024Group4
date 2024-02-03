@@ -21,36 +21,36 @@ namespace WebApp.Server.Controllers
         {
             _context = context;
         }
+
         [HttpPost("uploadpdf")]
-        public async Task<IActionResult> UploadPdf(IFormFile pdfFile)
+        public async Task<IActionResult> UploadPdf([FromForm] FileUploadModel model)
         {
             try
             {
-                if (pdfFile == null || pdfFile.Length == 0)
+                if (model == null || model.PdfFile == null || model.PdfFile.Length == 0)
                 {
                     return BadRequest(new { Message = "Invalid file" });
                 }
 
-                // Get authenticated user ID (replace this with your authentication logic)
-                int userId = 1; // Replace with your logic to get the authenticated user ID
+                int userId = 1; // Assuming you get the userId from the request or authentication
 
-                // Read the PDF content into a byte array
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    await pdfFile.CopyToAsync(memoryStream);
+                    await model.PdfFile.CopyToAsync(memoryStream);
                     var pdfContent = memoryStream.ToArray();
 
-                    // Create a new UserFile entity
                     var source = new Source
                     {
                         UserId = userId,
-                        SourceName = pdfFile.FileName,
+                        SourceName = model.SourceName,
                         UploadDate = DateTime.UtcNow,
-                        // Save the PDF content as a byte array
                         Content = pdfContent,
+                        AuthorFirstName = model.AuthorFirstName,
+                        AuthorLastName = model.AuthorLastName,
+                        Title = model.Title,
+                        SourceType = model.SourceType // Set the sourceType from model
                     };
 
-                    // Save the UserFile entity to the database
                     _context.Source.Add(source);
                     await _context.SaveChangesAsync();
 
@@ -59,10 +59,18 @@ namespace WebApp.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the error
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
+    }
 
+    public class FileUploadModel
+    {
+        public IFormFile PdfFile { get; set; }
+        public string SourceName { get; set; }
+        public string AuthorFirstName { get; set; }
+        public string AuthorLastName { get; set; }
+        public string Title { get; set; }
+        public string SourceType { get; set; } // Add SourceType property
     }
 }

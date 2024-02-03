@@ -23,14 +23,27 @@
                 </tbody>
             </table>
         </div>
-        <!-- PDF location -->
-        <div class="content">
+ 
+        <div class="pdf-upload-section">
             <h2>PDF Upload</h2>
             <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
-            <button @click="uploadFile">Upload PDF</button>
+            <form v-if="showForm">
+                <label for="sourceName">Source Name:</label>
+                <input type="text" id="sourceName" v-model="formData.sourceName" required />
+
+                <label for="authorFirstName">Author First Name:</label>
+                <input type="text" id="authorFirstName" v-model="formData.authorFirstName" />
+
+                <label for="authorLastName">Author Last Name:</label>
+                <input type="text" id="authorLastName" v-model="formData.authorLastName" />
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" v-model="formData.title" />
+
+                <button type="button" @click="submitForm">Submit</button>
+            </form>
         </div>
     </div>
-
 
 </template>
 
@@ -41,17 +54,16 @@
         data() {
             return {
                 loading: false,
-                post: null
+                post: null,
+                showForm: false,
+                formData: {
+                    sourceName: '',
+                    authorFirstName: '',
+                    authorLastName: '',
+                    title: '',
+                    sourceType: ''
+                }
             };
-        },
-        created() {
-            // fetch the data when the view is created and the data is
-            // already being observed
-            this.fetchData();
-        },
-        watch: {
-            // call again the method if the route changes
-            '$route': 'fetchData'
         },
         methods: {
             fetchData() {
@@ -66,13 +78,24 @@
                         return;
                     });
             },
+            handleFileUpload() {
+                this.showForm = true;
 
-            async uploadFile() {
-                const fileInput = this.$refs.fileInput;
-                const file = fileInput.files[0];
-
+                const fileName = this.$refs.fileInput.files[0].name;
+                const fileType = fileName.split('.').pop().toUpperCase();
+                this.formData.sourceType = fileType;
+            },
+            async submitForm() {
                 const formData = new FormData();
-                formData.append('pdfFile', file);
+                formData.append('pdfFile', this.$refs.fileInput.files[0]);
+                formData.append('sourceName', this.formData.sourceName);
+                formData.append('authorFirstName', this.formData.authorFirstName);
+                formData.append('authorLastName', this.formData.authorLastName);
+                formData.append('title', this.formData.title);
+                formData.append('sourceType', this.formData.sourceType);
+
+                this.$refs.fileInput.value = ''; // Reset file input
+                this.showForm = false;
 
                 try {
                     const response = await fetch('File/uploadpdf', {
@@ -82,44 +105,52 @@
 
                     if (response.ok) {
                         const result = await response.json();
-                        console.log(result);
-                        // You can handle the result as needed (e.g., display a success message)
+                        // Display success message using alert or custom modal
+                        alert('PDF uploaded successfully');
                     } else {
                         console.error('File upload failed');
+                        // Display error message using alert or custom modal
+                        alert('File upload failed');
                         console.log(response);
                     }
                 } catch (error) {
                     console.error('Error uploading file:', error);
+                    // Display error message using alert or custom modal
+                    alert('Error uploading file: ' + error.message);
                 }
             },
         },
+        created() {
+            this.fetchData();
+        },
     });
-
 </script>
 
+
 <style scoped>
-th {
-    font-weight: bold;
-}
-tr:nth-child(even) {
-    background: #F2F2F2;
-}
+    th {
+        font-weight: bold;
+    }
 
-tr:nth-child(odd) {
-    background: #FFF;
-}
+    tr:nth-child(even) {
+        background: #F2F2F2;
+    }
 
-th, td {
-    padding-left: .5rem;
-    padding-right: .5rem;
-}
+    tr:nth-child(odd) {
+        background: #FFF;
+    }
 
-.title-component {
-    text-align: center;
-}
+    th, td {
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
 
-table {
-    margin-left: auto;
-    margin-right: auto;
-}
+    .title-component {
+        text-align: center;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
