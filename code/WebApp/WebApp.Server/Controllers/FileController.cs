@@ -120,6 +120,6 @@ namespace WebApp.Server.Controllers
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }
         public string Title { get; set; }
-        public string SourceType { get; set; } // Add SourceType property
+        public string SourceType { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'SourcePage', params: { id: 4 }}">
+    <router-link :to="{ name: 'SourcePage', params: { id: sourceId }}">
         <div class="source-module">
             <h3>{{ sourceName }}</h3>
             <p>Uploaded on: {{ uploadDate }}</p>
