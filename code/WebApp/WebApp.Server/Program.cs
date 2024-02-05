@@ -26,6 +26,7 @@ app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseRouting();
     app.UseSwagger();
     app.UseSwaggerUI();
 

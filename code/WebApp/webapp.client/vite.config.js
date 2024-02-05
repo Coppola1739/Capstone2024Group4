@@ -53,6 +53,10 @@ export default defineConfig({
             '^/User': {
                 target: 'http://localhost:5056/',
                 secure: false
+            },
+            '^/Notes': {
+                target: 'http://localhost:5056/',
+                secure: false
             }
         },
         port: 5173,
