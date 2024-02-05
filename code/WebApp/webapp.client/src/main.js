@@ -5,6 +5,7 @@ import App from './App.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import SourcePage from './components/SourcePage.vue';
 import HomePage from './components/HelloWorld.vue';
+import LoginPage from './components/LoginPage.vue';
 
 const routes = [
     {
@@ -14,10 +15,15 @@ const routes = [
         props: true
     },
     {
-        path: '/',
+        path: '/home',
         name: 'HomePage',
         component: HomePage
-    }
+    },
+    {
+        path: '/',
+        name: 'LoginPage',
+        component: LoginPage
+    },
 ];
 
 const router = createRouter({
