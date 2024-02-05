@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace WebApp.Server.Controllers
                     return BadRequest(new { Message = "Invalid file" });
                 }
 
-                int userId = 1; // Assuming you get the userId from the request or authentication
+                int userId = 1;
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -48,7 +49,7 @@ namespace WebApp.Server.Controllers
                         AuthorFirstName = model.AuthorFirstName,
                         AuthorLastName = model.AuthorLastName,
                         Title = model.Title,
-                        SourceType = model.SourceType // Set the sourceType from model
+                        SourceType = model.SourceType
                     };
 
                     _context.Source.Add(source);
@@ -56,6 +57,54 @@ namespace WebApp.Server.Controllers
 
                     return Ok(new { Message = "PDF uploaded successfully" });
                 }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
+        [HttpGet("GetUsersSources")]
+        public async Task<IActionResult> GetUsersSources()
+        {
+            Debug.WriteLine("Im in file");
+            try
+            {
+                // Get user id from authentication or request
+                int userId = 1;
+
+                // Retrieve sources belonging to the user
+                var userSources = await _context.Source
+                    .Where(s => s.UserId == userId)
+                    .Select(s => new
+                    {
+                        s.SourceId,
+                        s.SourceName,
+                        s.UploadDate
+                    })
+                    .ToListAsync();
+
+                return Ok(new { Sources = userSources });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
+        [HttpGet("GetSourceById")]
+        public async Task<IActionResult> GetSourceById(int id)
+        {
+            try
+            {
+                var source = await _context.Source.FindAsync(id);
+
+                if (source == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(source);
             }
             catch (Exception ex)
             {
