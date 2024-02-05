@@ -53,5 +53,42 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }
+
+        [HttpPost("createAccount")]
+        public async Task<IActionResult> CreateAccount([FromForm] UserModel model)
+        {
+            try
+            {
+                if (model == null || String.IsNullOrWhiteSpace(model.userName) || String.IsNullOrWhiteSpace(model.passWord))
+                {
+                    return BadRequest(new { Message = "Invalid credentials" });
+                }
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+
+                    var user = new User
+                    {
+
+                        Username = model.userName,
+                        Password = model.passWord,
+                    };
+
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { Message = "Account successfully created!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+    }
+    public class UserModel
+    {
+        public string userName { get; set; }
+        public string passWord { get; set; }
     }
 }

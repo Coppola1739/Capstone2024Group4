@@ -50,6 +50,12 @@
         <input type="password" name="password" placeholder="Password" ref="passField" required>
         <input @click="getUserIdBy" type="submit" value="Login">
         
+        <router-link to="/signup" custom
+                     v-slot="{ href, navigate, isActive }">
+            <a style="display: block; text-align: center; margin-top: 20px" :href="href" @click="navigate">
+                Create an Account
+            </a>
+        </router-link>
     </div>
 </template>
 
