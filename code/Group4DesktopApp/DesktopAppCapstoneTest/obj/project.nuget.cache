@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SmRYchibHQg1i2T1glji9uFVfCJAC4P/iG5A2KznGf5M+9rM4L8KUF4bl3dL7eYDC1bD1YyUe9cs0RjBC56zTA==",
+  "dgSpecHash": "UYMxlWl9vmBq/nFJxEOcXOfdKfOgewdk5D+I29+5o1QXthipRp1PpC3m8+SNT4/qBta4SNu29b1gjWP1SErB5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\CapProj\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",
@@ -52,10 +52,7 @@
     "C:\\Users\\victo\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\system.threading.tasks.extensions\\4.0.0\\system.threading.tasks.extensions.4.0.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\system.xml.readerwriter\\4.0.11\\system.xml.readerwriter.4.0.11.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512"
+    "C:\\Users\\victo\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512"
   ],
   "logs": []
 }
