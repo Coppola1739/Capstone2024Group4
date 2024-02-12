@@ -1,22 +1,22 @@
 <template>
     <div class="source-page">
         <div class="source-details" v-if="source">
-            <h1>{{ source.sourceName }}</h1>
             <div class="pdf-viewer">
-                <iframe :src="pdfUrl" type="application/pdf" width="100%" height="600px"></iframe>
+                <h1>{{ source.sourceName }}</h1>
+                <iframe :src="pdfUrl" type="application/pdf" width="100%" height="800px"></iframe>
             </div>
+            <div class="notes-section">
+                <div class="add-note-section">
+                    <h2>Add Note</h2>
+                    <textarea v-model="newNoteContent" placeholder="Enter your note"></textarea>
+                    <button @click="addNote">Add Note</button>
+                </div>
 
-            <div class="add-note-section">
-                <h2>Add Note</h2>
-                <textarea v-model="newNoteContent" placeholder="Enter your note"></textarea>
-                <button @click="addNote">Add Note</button>
+                <div class="notes-column">
+                    <h2>Notes</h2>
+                    <notes-module v-for="note in notes" :key="note.noteId" :note="note" :note-id="note.noteId" :show-all-notes="showAllNotes" @note-updated="updateNote"></notes-module>
+                </div>
             </div>
-
-            <div class="notes-column">
-                <h2>Notes</h2>
-                <notes-module v-for="note in notes" :key="note.noteId" :note="note" :note-id="note.noteId" @note-updated="updateNote"></notes-module>
-            </div>
-
         </div>
         <div v-else>
             <p>Loading...</p>
@@ -43,6 +43,7 @@
                 source: null,
                 newNoteContent: '',
                 notes: [],
+                showAllNotes: false,
             };
         },
         mounted() {
@@ -92,10 +93,8 @@
                     for (let i = 0; i < pdfSource.length; i++) {
                         dataArray[i] = pdfSource.charCodeAt(i);
                     }
-                    // Create Blob object from Uint8Array
-                    const blob = new Blob([dataArray], { type: 'application/pdf' });
 
-                    // Create URL for the Blob object
+                    const blob = new Blob([dataArray], { type: 'application/pdf' });
                     this.pdfUrl = URL.createObjectURL(blob);
                 } else {
                     console.error('Source or content is missing');
@@ -107,7 +106,7 @@
                 formData.append('content', this.newNoteContent);
                 console.log(this.id);
                 console.log(this.newNoteContent);
-                try { 
+                try {
                     const response = await fetch('/Notes/AddNote', {
                         method: 'POST',
                         body: formData,
@@ -127,36 +126,56 @@
             async updateNote() {
                 this.fetchNotes(this.id);
             },
+            toggleShowAllNotes() {
+                this.showAllNotes = !this.showAllNotes;
+            },
         },
     };
 </script>
 
+
 <style scoped>
-    .pdf-viewer {
-        width: 100%;
-        height: 100%;
-    }
     .source-page {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: space-between;
+    }
+
+    .pdf-viewer {
+        width: 100%; /* Adjust the width for desktop */
+        height: 100%;
+    }
+
+    .source-details {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* Adjust spacing for desktop */
+    }
+
+    .notes-column {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-left: 20%;
+        margin-top: 5%;
+        width: 60%; 
     }
 
     .add-note-section {
-        margin-top: 20px;
+        width: 100%;
+        margin-left: 20%;
+        margin-top: 5%;
     }
 
     textarea {
         width: 100%;
-        height: 100px;
-        margin-bottom: 10px;
-    }
-
-    .notes-column {
-        margin-top: 20px;
+        height: 70%;
+        margin-bottom: 3%;
     }
 
     .note {
-        margin-bottom: 10px;
+        margin-bottom: 5%;
     }
 </style>
+
