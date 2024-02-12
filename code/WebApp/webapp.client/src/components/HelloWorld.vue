@@ -1,46 +1,46 @@
 <template>
-    <div class="title-component">
-        <h1>Capstone Project</h1>
-    </div>
     <div class="box">
-        <div class="upload-box">
-            <div class="pdf-upload-section">
-                <h2>Source Upload</h2>
-                <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
-                <form v-if="showForm">
-                    <div class="form-group">
-                        <label for="sourceName">Source Name:</label>
-                        <input type="text" id="sourceName" v-model="formData.sourceName" required />
-                    </div>
+        <h1>Capstone Project</h1>
+        <div class="source-content">
+            <div class="upload-box">
+                <div class="pdf-upload-section">
+                    <h2>Source Upload</h2>
+                    <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
+                    <form v-if="showForm">
+                        <div class="form-group">
+                            <label for="sourceName">Source Name:</label>
+                            <input type="text" id="sourceName" v-model="formData.sourceName" required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="authorFirstName">Author First Name:</label>
-                        <input type="text" id="authorFirstName" v-model="formData.authorFirstName" />
-                    </div>
+                        <div class="form-group">
+                            <label for="authorFirstName">Author First Name:</label>
+                            <input type="text" id="authorFirstName" v-model="formData.authorFirstName" />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="authorLastName">Author Last Name:</label>
-                        <input type="text" id="authorLastName" v-model="formData.authorLastName" />
-                    </div>
+                        <div class="form-group">
+                            <label for="authorLastName">Author Last Name:</label>
+                            <input type="text" id="authorLastName" v-model="formData.authorLastName" />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="title">Title:</label>
-                        <input type="text" id="title" v-model="formData.title" />
-                    </div>
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" v-model="formData.title" />
+                        </div>
 
-                    <button type="button" @click="submitForm">Submit</button>
-                </form>
+                        <button type="button" @click="submitForm">Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="uploaded-sources-box">
-            <div class="source-modules-column">
-                <h2>Uploaded Sources</h2>
-                <SourceModule v-for="source in userSources"
-                              :key="source.sourceId"
-                              :sourceId="source.sourceId"
-                              :sourceName="source.sourceName"
-                              :uploadDate="source.uploadDate" />
+            <div class="uploaded-sources-box">
+                <div class="source-modules-column">
+                    <h2>Uploaded Sources</h2>
+                    <SourceModule v-for="source in userSources"
+                                  :key="source.sourceId"
+                                  :sourceId="source.sourceId"
+                                  :sourceName="source.sourceName"
+                                  :uploadDate="source.uploadDate" />
+                </div>
             </div>
         </div>
     </div>
@@ -149,8 +149,11 @@
 <style scoped>
     .box {
         display: flex;
+        flex-direction: column;
+    }
+    .source-content {
+        display: flex;
         flex-direction: row-reverse;
-        justify-content: space-around;
     }
     .upload-box{
         display:flex;
@@ -163,12 +166,13 @@
         flex-direction: column;
     }
     .pdf-upload-section {
-        margin-top: 20px;
+        margin-top: 10%;
+        margin-left: 20%
     }
     .pdf-upload-section form {
-            display: flex;
-            flex-direction: column;
-            margin: auto;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
     }
     .source-modules-column {
         flex: content;
@@ -186,9 +190,6 @@
     th, td {
         padding-left: .5rem;
         padding-right: .5rem;
-    }
-    .title-component {
-        text-align: center;
     }
     table {
         margin-left: auto;
