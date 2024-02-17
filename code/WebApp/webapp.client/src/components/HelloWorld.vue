@@ -5,7 +5,17 @@
             <div class="upload-box">
                 <div class="pdf-upload-section">
                     <h2>Source Upload</h2>
-                    <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
+                    <select v-model="selectedFileType">
+                        <option value="pdf">PDF</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <div v-if="selectedFileType === 'pdf'">
+                        <input type="file" ref="fileInput" @change="handleFileUpload" accept=".pdf" />
+                    </div>
+                    <div v-else-if="selectedFileType === 'video'">
+                        <textarea v-model="videoLink" placeholder="Enter video link"></textarea>
+                        <button @click="confirmVideoLink">OK</button>
+                    </div>
                     <form v-if="showForm">
                         <div class="form-group">
                             <label for="sourceName">Source Name:</label>
@@ -46,7 +56,7 @@
     </div>
 </template>
 
-<script lang="js">
+<script>
     import { defineComponent } from 'vue';
     import SourceModule from './SourceModule.vue';
 
@@ -66,7 +76,9 @@
                     authorLastName: '',
                     title: '',
                     sourceType: ''
-                }
+                },
+                selectedFileType: 'pdf',
+                videoLink: '',
             };
         },
         methods: {
@@ -102,34 +114,60 @@
             handleFileUpload() {
                 this.showForm = true;
 
-                const fileName = this.$refs.fileInput.files[0].name;
-                const fileType = fileName.split('.').pop().toUpperCase();
-                this.formData.sourceType = fileType;
+                if (this.selectedFileType === 'pdf') {
+                    const fileName = this.$refs.fileInput.files[0].name;
+                    const fileType = fileName.split('.').pop().toUpperCase();
+                    this.formData.sourceType = fileType;
+                } else if (this.selectedFileType === 'video') {
+                    this.formData.sourceType = 'video';
+                    this.formData.content = this.videoLink;
+                }
+            },
+            confirmVideoLink() {
+                this.showForm = true;
             },
             async submitForm() {
                 const formData = new FormData();
-                formData.append('pdfFile', this.$refs.fileInput.files[0]);
+                if (this.selectedFileType === 'pdf') {
+                    formData.append('pdfFile', this.$refs.fileInput.files[0]);
+                } else if (this.selectedFileType === 'video') {
+                    formData.append('content', this.videoLink);
+                }
                 formData.append('sourceName', this.formData.sourceName);
                 formData.append('authorFirstName', this.formData.authorFirstName);
                 formData.append('authorLastName', this.formData.authorLastName);
                 formData.append('title', this.formData.title);
                 formData.append('sourceType', this.formData.sourceType);
+                if (this.$refs.fileInput) {
+                    this.$refs.fileInput.value = '';
+                }
 
-                this.$refs.fileInput.value = '';
+
+                //object failed. TODO
+
                 this.showForm = false;
 
                 try {
-                    const response = await fetch('File/uploadpdf', {
-                        method: 'POST',
-                        body: formData,
-                    });
-
+                    let response;
+                    console.log(this.selectedFileType);
+                    if (this.selectedFileType === 'video') {
+                         response = await fetch('File/uploadvideo', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                    }
+                    else if (this.selectedFileType === 'pdf') {
+                         response = await fetch('File/uploadpdf', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                    }
                     if (response.ok) {
                         const result = await response.json();
                         alert('PDF uploaded successfully');
                     } else {
                         console.error('File upload failed');
-                        alert('File upload failed');
+                        alert('File upload failed' + response);
                         console.log(response);
                     }
                 } catch (error) {
@@ -151,50 +189,62 @@
         display: flex;
         flex-direction: column;
     }
+
     .source-content {
         display: flex;
         flex-direction: row-reverse;
     }
-    .upload-box{
-        display:flex;
+
+    .upload-box {
+        display: flex;
         justify-content: space-between;
         flex-direction: column;
     }
-    .uploaded-sources-box{
+
+    .uploaded-sources-box {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
         flex-direction: column;
     }
+
     .pdf-upload-section {
         margin-top: 10%;
         margin-left: 20%
     }
-    .pdf-upload-section form {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-    }
+
+        .pdf-upload-section form {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+        }
+
     .source-modules-column {
         flex: content;
         margin-left: 20px;
     }
+
     th {
         font-weight: bold;
     }
+
     tr:nth-child(even) {
         background: #F2F2F2;
     }
+
     tr:nth-child(odd) {
         background: #FFF;
     }
+
     th, td {
         padding-left: .5rem;
         padding-right: .5rem;
     }
+
     table {
         margin-left: auto;
         margin-right: auto;
     }
+
     .form-group {
         margin-bottom: 15px;
     }
@@ -202,12 +252,14 @@
     label {
         font-weight: bold;
     }
+
     input[type="text"] {
         width: 100%;
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
     }
+
     button {
         padding: 10px 20px;
         background-color: #007bff;
@@ -216,6 +268,7 @@
         border-radius: 4px;
         cursor: pointer;
     }
+
         button:hover {
             background-color: #0056b3;
         }

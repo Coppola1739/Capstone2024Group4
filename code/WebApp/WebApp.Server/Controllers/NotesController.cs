@@ -35,6 +35,7 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /*
         [HttpPost("UpdateNote/{noteId:int}")]
         public async Task<IActionResult> UpdateNote(int noteId, [FromBody] string updatedContent)
         {
@@ -56,7 +57,7 @@ namespace WebApp.Server.Controllers
             {
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
-        }
+        }*/
         [HttpPost("AddNote")]
         public async Task<IActionResult> AddNote([FromForm] AddNoteModel model)
         {
@@ -76,7 +77,7 @@ namespace WebApp.Server.Controllers
                 _context.Notes.Add(note);
                 await _context.SaveChangesAsync();
 
-                return Ok(new { Message = "Note added successfully", NoteId = note.NotesId });
+                return Ok(new { Message = "Note added successfully"});
             }
             catch (Exception ex)
             {

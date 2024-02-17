@@ -6,7 +6,7 @@
         public int UserId { get; set; }
         public string SourceName { get; set; }
         public DateTime UploadDate { get; set; }
-        public byte[] Content { get; set; } // New property for storing PDF content
+        public byte[] Content { get; set; }
         public string SourceType { get; set; }
 
         public string AuthorFirstName { get; set; }
