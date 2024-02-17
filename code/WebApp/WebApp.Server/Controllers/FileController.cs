@@ -25,8 +25,9 @@ namespace WebApp.Server.Controllers
         }
 
         [HttpPost("uploadvideo")]
-        public async Task<IActionResult> UploadVideo([FromBody] VideoUploadModel model)
+        public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
         {
+            Console.WriteLine(model.VideoLink);
             try
             {
                 if (model == null || string.IsNullOrEmpty(model.VideoLink))

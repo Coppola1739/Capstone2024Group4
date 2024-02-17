@@ -119,19 +119,20 @@
                     const fileType = fileName.split('.').pop().toUpperCase();
                     this.formData.sourceType = fileType;
                 } else if (this.selectedFileType === 'video') {
-                    this.formData.sourceType = 'video';
-                    this.formData.content = this.videoLink;
+
                 }
             },
             confirmVideoLink() {
                 this.showForm = true;
+                this.selectedFileType = "video"
+                this.formData.sourceType = 'video';
             },
             async submitForm() {
                 const formData = new FormData();
                 if (this.selectedFileType === 'pdf') {
                     formData.append('pdfFile', this.$refs.fileInput.files[0]);
                 } else if (this.selectedFileType === 'video') {
-                    formData.append('content', this.videoLink);
+                    formData.append('videolink', this.videoLink);
                 }
                 formData.append('sourceName', this.formData.sourceName);
                 formData.append('authorFirstName', this.formData.authorFirstName);
@@ -142,14 +143,11 @@
                     this.$refs.fileInput.value = '';
                 }
 
-
-                //object failed. TODO
-
                 this.showForm = false;
-
+                console.log(formData.videoLink);
+                console.log(formData.sourceName);
                 try {
                     let response;
-                    console.log(this.selectedFileType);
                     if (this.selectedFileType === 'video') {
                          response = await fetch('File/uploadvideo', {
                             method: 'POST',
@@ -164,11 +162,9 @@
                     }
                     if (response.ok) {
                         const result = await response.json();
-                        alert('PDF uploaded successfully');
+                        alert('Source uploaded successfully');
                     } else {
-                        console.error('File upload failed');
                         alert('File upload failed' + response);
-                        console.log(response);
                     }
                 } catch (error) {
                     console.error('Error uploading file:', error);
@@ -178,7 +174,7 @@
         },
         created() {
             this.fetchData();
-            this.fetchUserSources(); // Call the new method to fetch user sources
+            this.fetchUserSources();
         },
     });
 </script>
