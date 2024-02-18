@@ -61,7 +61,6 @@ namespace CapstoneTests
         [Test]
         public async Task UploadPdf_ValidModel_ReturnsOkResult()
         {
-            // Arrange
             var pdfContent = Encoding.UTF8.GetBytes("Test PDF Content");
             var formFileMock = new Mock<IFormFile>();
             formFileMock.Setup(f => f.Length).Returns(pdfContent.Length);
@@ -82,10 +81,8 @@ namespace CapstoneTests
             var dbContext = _dbContext;
             var controller = new FileController(dbContext);
 
-            // Act
             var result = await controller.UploadPdf(model);
 
-            // Assert
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
             Assert.That("{ Message = PDF uploaded successfully }", Is.EqualTo(okResult.Value.ToString()));
@@ -99,7 +96,6 @@ namespace CapstoneTests
         [Test]
         public async Task GetUsersSources_ValidUserId_ReturnsOkResult()
         {
-            // Arrange
             var dbContext = _dbContext;
             dbContext.Source.Add(new Source
             {
@@ -143,7 +139,6 @@ namespace CapstoneTests
         [Test]
         public async Task GetSourceById_ValidId_ReturnsOkResult()
         {
-            // Arrange
             var dbContext = _dbContext;  
             var source = new Source {
                 UserId = 1,
@@ -160,15 +155,52 @@ namespace CapstoneTests
 
             var controller = new FileController(dbContext);
 
-            // Act
             var result = await controller.GetSourceById(1);
 
-            // Assert
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
 
             var retrievedSource = okResult.Value as Source;
             Assert.That(source.SourceId, Is.EqualTo(retrievedSource.SourceId));
+        }
+
+        [Test]
+        public async Task UploadVideo_InvalidModel_ReturnsBadRequest()
+        {
+            var model = new VideoUploadModel();
+            var dbContext = _dbContext;
+            var controller = new FileController(dbContext);
+
+            var result = await controller.UploadVideo(model);
+
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult, Is.Not.Null);
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+        [Test]
+        public async Task UploadPdf_InvalidModel_ReturnsBadRequest()
+        {
+            var model = new FileUploadModel();
+            var dbContext = _dbContext;
+            var controller = new FileController(dbContext);
+
+            var result = await controller.UploadPdf(model);
+
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult, Is.Not.Null);
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+        [Test]
+        public async Task GetSourceById_InvalidId_ReturnsNotFound()
+        {
+            var dbContext = _dbContext;
+            var controller = new FileController(dbContext);
+
+            var result = await controller.GetSourceById(9999);
+
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
         }
 
     }

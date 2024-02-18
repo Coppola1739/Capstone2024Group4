@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
@@ -105,5 +106,19 @@ namespace CapstoneTests
             Assert.That(newNote, Is.Not.Null);
             Assert.That(newNote.Content, Is.EqualTo(addNoteModel.Content));
         }
+
+        [Test]
+        public async Task AddNote_InvalidModel_ReturnsBadRequest()
+        {
+            var controller = new NotesController(_dbContext);
+            AddNoteModel invalidModel = null;
+
+            var result = await controller.AddNote(invalidModel);
+
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult, Is.Not.Null);
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
     }
 }

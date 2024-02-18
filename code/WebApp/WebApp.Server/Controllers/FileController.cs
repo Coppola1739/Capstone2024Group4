@@ -106,7 +106,6 @@ namespace WebApp.Server.Controllers
         [HttpGet("GetUsersSources")]
         public async Task<IActionResult> GetUsersSources()
         {
-            Debug.WriteLine("Im in file");
             try
             {
                 int userId = 1;

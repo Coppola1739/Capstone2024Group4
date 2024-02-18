@@ -1,4 +1,6 @@
-﻿namespace WebApp.Server.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace WebApp.Server.Models
 {
     public class Source
     {

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using WebApp.Server.Data;
+
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -40,4 +42,9 @@ if (app.Environment.IsDevelopment())
     app.MapFallbackToFile("/index.html");
 
     app.Run();
+}
+
+[ExcludeFromCodeCoverage]
+public partial class Program
+{
 }
