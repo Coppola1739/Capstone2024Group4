@@ -1,7 +1,10 @@
 <template>
     <div class="source-page">
         <div class="source-details" v-if="source">
-            <div class="pdf-viewer">
+            <div v-if="isVideoSource">
+                <video controls :src="videoUrl" width="100%" height="auto"></video>
+            </div>
+            <div v-else class="pdf-viewer">
                 <h1>{{ source.sourceName }}</h1>
                 <iframe :src="pdfUrl" type="application/pdf" width="100%" height="800px"></iframe>
             </div>
@@ -37,9 +40,11 @@
                 required: true,
             },
         },
+
         data() {
             return {
                 pdfUrl: '',
+                videoUrl: '',
                 source: null,
                 newNoteContent: '',
                 notes: [],
@@ -50,14 +55,29 @@
             const sourceId = Number(this.id);
             this.fetchSourceDetails(sourceId)
                 .then(() => {
-                    this.createPdfUrl();
-                    this.fetchNotes(sourceId);
+                    if (this.source.sourceType === 'video') {
+                        this.createVideoUrl();
+                        this.fetchNotes(sourceId);
+                    } else {
+                        this.createPdfUrl();
+                        this.fetchNotes(sourceId);
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching source details:', error);
                 });
 
             this.fetchNotes(sourceId);
+        },
+        watch: {
+            source: {
+                immediate: true,
+                handler(newValue) { 
+                    if (newValue) {
+                        this.isVideoSource = this.source && this.source.sourceType === 'video';
+                    }
+                }
+            }
         },
         methods: {
             async fetchSourceDetails(id) {
@@ -73,6 +93,7 @@
                     console.error('Error', error);
                 }
             },
+
             async fetchNotes(sourceId) {
                 try {
                     const response = await fetch(`/Notes/GetNotesBySourceId/${sourceId}`);
@@ -86,6 +107,21 @@
                     console.error('Error', error);
                 }
             },
+            async createVideoUrl() {
+                if (this.source && this.source.content) {
+                    if (typeof this.source.content === 'string') {
+                        // Decode the base64 string to get the original URL
+                        const decodedUrl = atob(this.source.content);
+                        this.videoUrl = decodedUrl;
+                        console.log(this.videoUrl)
+                    } else {
+                        console.error('Invalid content format');
+                    }
+                } else {
+                    console.error('Source or content is missing');
+                }
+            },
+
             async createPdfUrl() {
                 if (this.source && this.source.content) {
                     const pdfSource = atob(this.source.content);
@@ -133,7 +169,6 @@
     };
 </script>
 
-
 <style scoped>
     .source-page {
         display: flex;
@@ -178,4 +213,3 @@
         margin-bottom: 5%;
     }
 </style>
-

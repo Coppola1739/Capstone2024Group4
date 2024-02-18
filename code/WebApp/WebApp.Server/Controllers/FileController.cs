@@ -109,10 +109,8 @@ namespace WebApp.Server.Controllers
             Debug.WriteLine("Im in file");
             try
             {
-                // Get user id from authentication or request
                 int userId = 1;
 
-                // Retrieve sources belonging to the user
                 var userSources = await _context.Source
                     .Where(s => s.UserId == userId)
                     .ToListAsync();
