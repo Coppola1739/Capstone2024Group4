@@ -1,0 +1,16 @@
+﻿<Window x:Class="Group4DesktopApp.View.SourcePageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Group4DesktopApp.View"
+        mc:Ignorable="d"
+        Title="SourcePageWindow" Height="450" Width="800">
+    <Grid>
+        <WebBrowser x:Name="pdfViewer" Margin="32,48,302,47" Visibility="Visible">
+            <WebBrowser.Effect>
+                <DropShadowEffect/>
+            </WebBrowser.Effect>
+        </WebBrowser>
+    </Grid>
+</Window>

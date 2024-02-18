@@ -68,7 +68,7 @@ namespace Group4DesktopApp
             {
                 this.showScreen(this.pdfViewer);
                 this.pdfViewer.Navigate(dialog.FileName);
-                Debug.WriteLine(LoginDAL.GetAccountID("Jeffrey353", "school"));
+                Debug.WriteLine(AccountDAL.GetAccountID("Jeffrey353", "school"));
             }
         }
 

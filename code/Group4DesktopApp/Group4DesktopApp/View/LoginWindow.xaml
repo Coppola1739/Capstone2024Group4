@@ -1,0 +1,26 @@
+﻿<Window x:Class="Group4DesktopApp.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Group4DesktopApp.View"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="600" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Margin="0,96,0,0" Orientation="Vertical" VerticalAlignment="Top" Height="338">
+            <Label Content="Login" FontSize="36" HorizontalAlignment="Center"/>
+            <Label Content="Username:" Margin="0,20,0,0"/>
+            <TextBox x:Name="txtUsername" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding UsernameProperty, Mode=TwoWay}" TextChanged="txtUsername_TextChanged"/>
+            <Label Content="Password:" Margin="0,30,0,0"/>
+            <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay}" TextChanged="txtPassword_TextChanged"/>
+            <Label x:Name="lblError" Content="Username and Password required" Foreground="Red" FontWeight="Bold" FontSize="11" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+            <!--<PasswordBox x:Name="txtPassword" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay , NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <Button x:Name="btnLogin" Content="Login" Width="108" Height="26" Margin="0,20,0,0" Click="btnLogin_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock TextWrapping="Wrap" Text="Not a member?"/>
+                <TextBlock TextWrapping="Wrap" Text="Create an Account" Foreground="#FF0050FF" Margin="3,0,0,0" Cursor="Hand" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

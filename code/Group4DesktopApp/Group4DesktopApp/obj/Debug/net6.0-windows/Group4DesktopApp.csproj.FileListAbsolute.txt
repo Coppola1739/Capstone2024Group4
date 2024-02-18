@@ -168,3 +168,11 @@ C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\G
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.pdb
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.genruntimeconfig.cache
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\ref\Group4DesktopApp.dll
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\HomeWindow.g.cs
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\LoginWindow.g.cs
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\HomeWindow.baml
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\LoginWindow.baml
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SignupWindow.g.cs
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SignupWindow.baml
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SourcePageWindow.g.cs
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SourcePageWindow.baml
