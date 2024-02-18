@@ -1,4 +1,5 @@
 ﻿using Group4DesktopApp.Model;
+using Group4DesktopApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,16 @@ namespace Group4DesktopApp.View
     public partial class HomeWindow : Window
     {
         private User loggedInUser;
+        private HomeViewModel viewModel;
 
         public HomeWindow(User loggedInUser)
         {
             InitializeComponent();
+            this.viewModel = new HomeViewModel();
+            this.DataContext = this.viewModel;
             this.loggedInUser = loggedInUser;
             this.lblWelcome.Content = $"Hello, {loggedInUser.UserName}!";
+            this.viewModel.PopulateSourcesByID(loggedInUser.UserId);
         }
     }
 }

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "moUvnPJ7Xdk1QodIJ+Mj0XCP4s+ar9jB7Sgyn1QTLcYDe0BOc5gFcdi6e1+LNn8XJEWGC89Ibu26XT7HJyjohg==",
+  "dgSpecHash": "DPuPykCDp7cx1teKu4qchR1DUe/TSRSOs2mVPBJ+3L5HZBdxazNeT1rgBuXXPJMuOAfyneqmF4pD6vjBRSHUlA==",
   "success": true,
   "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\coverlet.msbuild\\6.0.0\\coverlet.msbuild.6.0.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.web.webview2\\1.0.2210.55\\microsoft.web.webview2.1.0.2210.55.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

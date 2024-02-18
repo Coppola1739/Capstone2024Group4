@@ -1,4 +1,5 @@
-﻿using Group4DesktopApp.Model;
+﻿using Group4DesktopApp.DAL;
+using Group4DesktopApp.Model;
 using Group4DesktopApp.ViewModel;
 using System;
 using System.Windows;
@@ -23,6 +24,7 @@ namespace Group4DesktopApp.View
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            SourceDAL.GetAllSourcesByUserId(1);
             if (this.inputValidation())
             {
                 User? user = this.viewModel.getUser();

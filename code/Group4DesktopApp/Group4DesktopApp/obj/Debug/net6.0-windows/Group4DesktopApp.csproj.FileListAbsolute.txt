@@ -176,3 +176,4 @@ C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\G
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SignupWindow.baml
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SourcePageWindow.g.cs
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SourcePageWindow.baml
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\Dapper.dll
