@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Server.Data;
 using WebApp.Server.Models;
+using System.Text;
 
 namespace WebApp.Server.Controllers
 {
@@ -22,6 +23,44 @@ namespace WebApp.Server.Controllers
         {
             _context = context;
         }
+
+        [HttpPost("uploadvideo")]
+        public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
+        {
+            Console.WriteLine(model.VideoLink);
+            try
+            {
+                if (model == null || string.IsNullOrEmpty(model.VideoLink))
+                {
+                    return BadRequest(new { Message = "Invalid video link" });
+                }
+
+                byte[] videoBytes = Encoding.UTF8.GetBytes(model.VideoLink);
+                int userId = 1;
+
+                var source = new Source
+                {
+                    UserId = userId,
+                    SourceName = model.SourceName,
+                    UploadDate = DateTime.UtcNow,
+                    Content = videoBytes,
+                    AuthorFirstName = model.AuthorFirstName,
+                    AuthorLastName = model.AuthorLastName,
+                    Title = model.Title,
+                    SourceType = "video"
+                };
+
+                _context.Source.Add(source);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Video link uploaded successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
 
         [HttpPost("uploadpdf")]
         public async Task<IActionResult> UploadPdf([FromForm] FileUploadModel model)
@@ -67,21 +106,12 @@ namespace WebApp.Server.Controllers
         [HttpGet("GetUsersSources")]
         public async Task<IActionResult> GetUsersSources()
         {
-            Debug.WriteLine("Im in file");
             try
             {
-                // Get user id from authentication or request
                 int userId = 1;
 
-                // Retrieve sources belonging to the user
                 var userSources = await _context.Source
                     .Where(s => s.UserId == userId)
-                    .Select(s => new
-                    {
-                        s.SourceId,
-                        s.SourceName,
-                        s.UploadDate
-                    })
                     .ToListAsync();
 
                 return Ok(new { Sources = userSources });
@@ -116,6 +146,17 @@ namespace WebApp.Server.Controllers
     public class FileUploadModel
     {
         public IFormFile PdfFile { get; set; }
+        public string SourceName { get; set; }
+        public string AuthorFirstName { get; set; }
+        public string AuthorLastName { get; set; }
+        public string Title { get; set; }
+        public string SourceType { get; set; }
+    }
+
+    public class VideoUploadModel
+    {
+        //public int UserId { get; set; }
+        public string VideoLink { get; set; }
         public string SourceName { get; set; }
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }

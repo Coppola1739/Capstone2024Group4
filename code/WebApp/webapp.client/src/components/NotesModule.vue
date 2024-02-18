@@ -1,10 +1,14 @@
 <template>
     <div class="note">
-        <p>{{ note.content }}</p>
-        <button @click="editNoteContent">Edit Note</button>
-        <div v-if="showEdit">
+        <div v-if="!showEdit">
+            <div class="note-content">
+                {{ isTruncated ? truncatedContent + '...' : note.content }}
+            </div>
+            <button @click="toggleEdit">View</button>
+        </div>
+        <div v-else>
             <textarea v-model="updatedContent"></textarea>
-            <button @click="saveNote">Save</button>
+            <button @click="saveNote">Done</button>
         </div>
     </div>
 </template>
@@ -25,12 +29,23 @@
             return {
                 showEdit: false,
                 updatedContent: '',
+                maxTruncatedLength: 10,
             };
         },
+        computed: {
+            truncatedContent() {
+                return this.note.content.slice(0, this.maxTruncatedLength);
+            },
+            isTruncated() {
+                return this.note.content.length > this.maxTruncatedLength;
+            }
+        },
         methods: {
-            editNoteContent() {
-                this.updatedContent = this.note.content;
-                this.showEdit = true;
+            toggleEdit() {
+                this.showEdit = !this.showEdit;
+                if (this.showEdit) {
+                    this.updatedContent = this.note.content; // Set note content in textarea when entering edit mode
+                }
             },
             async saveNote() {
                 try {
@@ -48,6 +63,7 @@
                         this.showEdit = false;
                     } else {
                         console.error('Failed to update note');
+                        this.showEdit = false;
                     }
                 } catch (error) {
                     console.error('Error', error);
@@ -58,27 +74,10 @@
 </script>
 
 <style scoped>
-    .source-page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .add-note-section {
-        margin-top: 20px;
-    }
-
-    textarea {
-        width: 100%;
-        height: 100px;
-        margin-bottom: 10px;
-    }
-
-    .notes-column {
-        margin-top: 20px;
-    }
-
-    .note {
-        margin-bottom: 10px;
+    .note-content {
+        max-height: 2%;
+        overflow: initial;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>

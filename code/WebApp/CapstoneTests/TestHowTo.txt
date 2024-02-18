@@ -3,7 +3,7 @@ How to set up test reports with fresh package:
 	In the test directory, run: dotnet tool update -g dotnet-reportgenerator-globaltool
 		This will allow you to use the reportgenerator cmd line arg
 	Once you build your project and tests, run:
-		dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+		dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile="**/*Migrations/*.cs"
 			This will run the tests and show you a terminal view of your coverage report
 	Then:
 		reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coverage-report" "-reporttypes:HTML"
