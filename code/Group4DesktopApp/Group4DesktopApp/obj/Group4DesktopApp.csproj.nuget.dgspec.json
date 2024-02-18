@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {}
+    "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {
+    "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
+        "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
         "projectName": "Group4DesktopApp",
-        "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
+        "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
         "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\obj\\",
+        "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,10 @@
             "ReportGenerator": {
               "target": "Package",
               "version": "[5.2.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
             },
             "coverlet.msbuild": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

@@ -1,4 +1,5 @@
-﻿using Group4DesktopApp.UserControls;
+﻿using Group4DesktopApp.DAL;
+using Group4DesktopApp.UserControls;
 using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Win32;
 using System;
@@ -67,6 +68,7 @@ namespace Group4DesktopApp
             {
                 this.showScreen(this.pdfViewer);
                 this.pdfViewer.Navigate(dialog.FileName);
+                Debug.WriteLine(LoginDAL.GetAccountID("Jeffrey353", "school"));
             }
         }
 
