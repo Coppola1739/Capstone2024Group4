@@ -1,19 +1,8 @@
 ﻿using Group4DesktopApp.Model;
 using Group4DesktopApp.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Group4DesktopApp.View
 {
@@ -33,6 +22,7 @@ namespace Group4DesktopApp.View
             this.DataContext = this.viewModel;
             this.loggedInUser = loggedInUser;
             this.source = source;
+            this.lblSourceTitle.Content = source.Title;
 
             this.viewModel.PopulateNotesByID(source.SourceId);
 
@@ -54,7 +44,14 @@ namespace Group4DesktopApp.View
 
         private void btnAddNote_Click(object sender, RoutedEventArgs e)
         {
-            this.viewModel.InsertNewNote(this.source.SourceId);
+            if(!string.IsNullOrWhiteSpace(this.txtNoteBox.Text)) {
+                this.viewModel.InsertNewNote(this.source.SourceId);
+                this.txtNoteBox.Text = string.Empty;
+            } else
+            {
+                MessageBoxResult errorBox = System.Windows.MessageBox.Show("Note must not be empty", "Note Add Failed", System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
     }
 }

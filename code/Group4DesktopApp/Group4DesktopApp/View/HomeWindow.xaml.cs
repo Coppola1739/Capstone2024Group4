@@ -90,6 +90,14 @@ namespace Group4DesktopApp.View
             {
                 byte[] content = File.ReadAllBytes(this.chosenFilePath);
                 this.viewModel.InsertNewSource(this.loggedInUser.UserId, content);
+
+                this.lblUploadedSource.Content = "No file chosen";
+                this.chosenFilePath = String.Empty;
+                this.txtSourceName.Text = String.Empty;
+                this.txtAuthFirstName.Text = String.Empty;
+                this.txtAuthLastName.Text = String.Empty;
+                this.txtTitle.Text = String.Empty;
+                this.stackMetaData.Visibility = Visibility.Collapsed;
             }
         }
 

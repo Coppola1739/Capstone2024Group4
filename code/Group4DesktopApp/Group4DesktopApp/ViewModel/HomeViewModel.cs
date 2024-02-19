@@ -102,13 +102,23 @@ namespace Group4DesktopApp.ViewModel
             }
         }
 
+        private void updateList(int userId)
+        {
+            var updatedList = SourceDAL.GetAllSourcesByUserId(userId);
+            var result = updatedList.Where(p => !this.sources.Any(p2 => p2.SourceId == p.SourceId));
+            foreach (var source in result)
+            {
+                this.sources.Add(source);
+            }
+        }
+
         public bool InsertNewSource(int userId, Byte[] content)
         {
             Source newSource = new Source(-1,userId,this.SourceNameProperty,DateTime.Now,content, this.SelectedSourceProperty, this.AuthorFirstNameProperty, this.AuthorLastNameProperty,this.TitleProperty);
             bool success = SourceDAL.AddNewSource(userId,newSource);
             if (success)
             {
-                Debug.WriteLine("okk");
+                this.updateList(userId);
             }
             return success;
         }
