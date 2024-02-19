@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\
 Group4DesktopApp
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\victo\Desktop\Important Documents\Textbooks and Stuff\Spring 2024\Capstone\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\App.xaml
-2614273109
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\App.xaml
+6-1511404078
 3-1549520597
-4714585722
-197-1137931247
-MainWindow.xaml;UserControls\VideoPlayer.xaml;
+212054839977
+199-2545710
+MainWindow.xaml;UserControls\VideoPlayer.xaml;View\HomeWindow.xaml;View\LoginWindow.xaml;View\SignupWindow.xaml;View\SourcePageWindow.xaml;
 
 False
 

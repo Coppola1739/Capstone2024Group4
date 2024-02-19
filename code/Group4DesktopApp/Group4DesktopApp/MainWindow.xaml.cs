@@ -1,4 +1,5 @@
-﻿using Group4DesktopApp.UserControls;
+﻿using Group4DesktopApp.DAL;
+using Group4DesktopApp.UserControls;
 using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Win32;
 using System;
@@ -19,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Group4DesktopApp
 {
@@ -66,7 +68,21 @@ namespace Group4DesktopApp
             if (result == true)
             {
                 this.showScreen(this.pdfViewer);
-                this.pdfViewer.Navigate(dialog.FileName);
+                //this.pdfViewer.Navigate(dialog.FileName);
+                //Debug.WriteLine(AccountDAL.GetAccountID("Jeffrey353", "school"));
+                var itms = SourceDAL.GetAllSourcesByUserId(1);
+                //Stream stream = new MemoryStream(itms[0].Content);
+                String code = System.Text.Encoding.Unicode.GetString(itms[0].Content);
+                string extension = "pdf"; // "pdf", etc
+
+                string filename = System.IO.Path.GetTempFileName() + "." + extension; // Makes something like "C:\Temp\blah.tmp.pdf"
+
+                File.WriteAllBytes(filename, itms[0].Content);
+
+                //this.pdfViewer.NavigateToString(code);
+                this.pdfViewer.Navigate(filename);
+                //this.pdfViewer.NavigateToStream
+                   
             }
         }
 

@@ -1,12 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "sjuXDfkClNVjfACcVOP/sMxoUvQoIKgp1k7VMLK4o6pBXloiLr1WBcT7hJzw6aMdOgJq5+IYvl8NhK7Q6MCWzQ==",
+  "dgSpecHash": "DPuPykCDp7cx1teKu4qchR1DUe/TSRSOs2mVPBJ+3L5HZBdxazNeT1rgBuXXPJMuOAfyneqmF4pD6vjBRSHUlA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\Spring 2024\\Capstone\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\coverlet.msbuild\\6.0.0\\coverlet.msbuild.6.0.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.web.webview2\\1.0.2210.55\\microsoft.web.webview2.1.0.2210.55.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\reportgenerator\\5.2.0\\reportgenerator.5.2.0.nupkg.sha512"
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\reportgenerator\\5.2.0\\reportgenerator.5.2.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\system.data.sqlclient\\4.8.6\\system.data.sqlclient.4.8.6.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
