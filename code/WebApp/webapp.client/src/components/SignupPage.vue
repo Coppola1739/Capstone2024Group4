@@ -34,34 +34,36 @@
             async validateFields() {
                 var invalidFields = false;
                 var password = this.$refs.passField.value;
+                var alertMessage = "";
 
                 if (!this.$refs.usrField.value || /\s/.test(this.$refs.usrField.value)) {
-                    alert("Username cannot be Empty or contain spaces")
+                    alertMessage += "Username cannot be empty or contain spaces.\n";
                     invalidFields = true;
                 }
                 if (!password || /\s/.test(password)) {
-                    alert("Password cannot be Empty or contain spaces")
+                    alertMessage += "Password cannot be empty or contain spaces.\n";
                     invalidFields = true;
                 }
                 if (password.length < 6) {
-                    alert("Password must be at least 6 characters long");
+                    alertMessage += "Password must be at least 6 characters long.\n";
                     invalidFields = true;
                 }
                 if (!/[A-Z]/.test(password)) {
-                    alert("Password must contain at least one uppercase letter");
+                    alertMessage += "Password must contain at least one uppercase letter.\n";
                     invalidFields = true;
                 }
                 if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-                    alert("Password must contain at least one symbol");
+                    alertMessage += "Password must contain at least one symbol.\n";
                     invalidFields = true;
                 }
                 if (this.$refs.passField.value !== this.$refs.confirmPassField.value) {
-                    alert("Passwords do not match");
+                    alertMessage += "Passwords do not match.\n";
                     this.passwordMismatch = true;
                     invalidFields = true;
                 }
 
                 if (invalidFields) {
+                    alert(alertMessage);
                     return;
                 }
 
@@ -96,6 +98,7 @@
                 }
             }
         }
+
     }
 </script>
 
