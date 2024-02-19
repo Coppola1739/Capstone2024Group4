@@ -33,5 +33,16 @@ namespace Group4DesktopApp.View
             this.lblWelcome.Content = $"Hello, {loggedInUser.UserName}!";
             this.viewModel.PopulateSourcesByID(loggedInUser.UserId);
         }
+
+        private void btnViewSource_Click(object sender, RoutedEventArgs e)
+        {
+            Source? selectedSource = this.SourcesList.SelectedItem as Source;
+            if(selectedSource != null )
+            {
+                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, selectedSource);
+                sourcePageWindow.Show();
+                this.Close();
+            }
+        }
     }
 }

@@ -3,14 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Group4DesktopApp.View"
+        xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SourcePageViewModel}"
         mc:Ignorable="d"
-        Title="SourcePageWindow" Height="450" Width="800">
+        Title="SourcePageWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen">
     <Grid>
-        <WebBrowser x:Name="pdfViewer" Margin="32,48,302,47" Visibility="Visible">
+        <WebBrowser x:Name="pdfViewer" Margin="32,0,564,13" Visibility="Visible" Height="689" VerticalAlignment="Bottom">
             <WebBrowser.Effect>
                 <DropShadowEffect/>
             </WebBrowser.Effect>
         </WebBrowser>
+        <ListBox x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty}" Margin="0,0,25,13" HorizontalAlignment="Right" Width="498" Height="689" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Menu Margin="0,0,0,723">
+            <Button x:Name="btnBackHome" Content="Back" Click="btnBackHome_Click"/>
+            <Label Content="AWS Test Screen" Width="564" Height="44" FontWeight="Bold" FontSize="20"/>
+        </Menu>
     </Grid>
 </Window>

@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="450" Width="800">
+        Title="HomeWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen" SizeToContent="Width">
     <Grid>
-        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="35,74,420,39" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+
+        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Width="345" Margin="61,94,784,131"/>
+        <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,681,906,78" Click="btnViewSource_Click"/>
+
         <Label x:Name="lblWelcome" Content="Welcome" HorizontalAlignment="Left" Margin="35,26,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" FontSize="16"/>
         <ComboBox HorizontalAlignment="Left" Margin="570,118,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="SourceType" HorizontalAlignment="Left" Margin="570,92,0,0" VerticalAlignment="Top"/>
