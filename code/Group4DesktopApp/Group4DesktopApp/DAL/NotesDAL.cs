@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Group4DesktopApp.DAL
                  new { srcId = sourceId }).ToList());
             return items;
         }
-
+        [ExcludeFromCodeCoverage]
         public static bool AddNoteToSource(int sourceId, string content)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);

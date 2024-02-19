@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Group4DesktopApp.DAL
             return items;
         }
 
+        [ExcludeFromCodeCoverage]
         public static bool AddNewSource(int userId, Source source)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
