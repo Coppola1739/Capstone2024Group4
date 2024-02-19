@@ -5,17 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen" SizeToContent="Width">
+        Title="HomeWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Width="345" Margin="61,94,784,131"/>
-        <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,681,906,78" Click="btnViewSource_Click"/>
+        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,0,0,84" Click="btnViewSource_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 
         <Label x:Name="lblWelcome" Content="Welcome" HorizontalAlignment="Left" Margin="35,26,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" FontSize="16"/>
-        <ComboBox HorizontalAlignment="Left" Margin="570,118,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="SourceType" HorizontalAlignment="Left" Margin="570,92,0,0" VerticalAlignment="Top"/>
-        <Button Content="Upload a Source" HorizontalAlignment="Left" Margin="575,154,0,0" VerticalAlignment="Top" Width="110" Height="26"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="910,129,0,0" VerticalAlignment="Top" Width="0"/>
+        <Grid Margin="0,0,31,84" HorizontalAlignment="Right" Width="630" Height="606" VerticalAlignment="Bottom">
+
+            <Grid x:Name="uploadGrid" HorizontalAlignment="Center" Margin="0,118,0,0" VerticalAlignment="Top" Height="496">
+
+                <Rectangle Height="496" VerticalAlignment="Center" HorizontalAlignment="Center" Width="630">
+                    <Rectangle.Effect>
+                        <DropShadowEffect/>
+                    </Rectangle.Effect>
+                </Rectangle>
+
+                <StackPanel x:Name="stackFileChoose" Margin="124,21,108,0" Orientation="Vertical" Visibility="Collapsed">
+                    <Button x:Name="btnFileChoose" Content="Choose File" Height="26" Width="110" Click="btnFileChoose_Click"/>
+                    <Label x:Name="lblUploadedSource" Content="No file chosen" HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="stackMetaData" Orientation="Vertical" Height="422" Visibility="Collapsed">
+                        <Label Content="Source Name:" Height="26" Width="398"/>
+                        <TextBox x:Name="txtSourceName" TextWrapping="Wrap"  Height="30" Width="394" FontSize="18" Text="{Binding SourceNameProperty, Mode=TwoWay}" TextChanged="txtSourceName_TextChanged"/>
+                        <Label x:Name="lblSrcNameError" Content="Source Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
+                        <Label Content="Author First Name:" Height="26" Width="392"/>
+                        <TextBox x:Name="txtAuthFirstName" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding AuthorFirstNameProperty, Mode=TwoWay}" TextChanged="txtAuthFirstName_TextChanged"/>
+                        <Label x:Name="lblAuthFirstError" Content="Author First Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
+                        <Label Content="Author Last Name:" Height="26" Width="390"/>
+                        <TextBox x:Name="txtAuthLastName" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding AuthorLastNameProperty, Mode=TwoWay}" TextChanged="txtAuthLastName_TextChanged"/>
+                        <Label x:Name="lblAuthLastError" Content="Author Last Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
+                        <Label Content="Title:" Height="26" Width="394"/>
+                        <TextBox x:Name="txtTitle" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding TitleProperty, Mode=TwoWay}" TextChanged="txtTitle_TextChanged"/>
+                        <Label x:Name="lblTitleError" Content="Title is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
+                        <Button x:Name="btnUpload" Content="Upload" Width="104" Height="25" Margin="0,20,0,0" Click="btnUpload_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Label Content="SourceType:" HorizontalContentAlignment="Center" Margin="0,37,0,0" FontSize="14" Height="31" VerticalAlignment="Top" HorizontalAlignment="Center" Width="110"/>
+            <ComboBox x:Name="cmbSourceType" Margin="0,72,0,0" ItemsSource="{Binding SourceTypeListProperty}" SelectedItem="{Binding SelectedSourceProperty, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Width="242" Height="27" VerticalAlignment="Top" SelectionChanged="cmbSourceType_SelectionChanged"/>
+            <Label Content="Source Upload" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" Width="630" Height="37" VerticalAlignment="Top"/>
+
+        </Grid>
 
     </Grid>
 </Window>

@@ -51,5 +51,10 @@ namespace Group4DesktopApp.View
             HomeWindow.Show();
             this.Close();
         }
+
+        private void btnAddNote_Click(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.InsertNewNote(this.source.SourceId);
+        }
     }
 }

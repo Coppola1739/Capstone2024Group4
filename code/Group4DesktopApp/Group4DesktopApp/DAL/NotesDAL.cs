@@ -3,6 +3,7 @@ using Group4DesktopApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,30 @@ namespace Group4DesktopApp.DAL
                 new(connection.Query<Notes>(query,
                  new { srcId = sourceId }).ToList());
             return items;
+        }
+
+        public static bool AddNoteToSource(int sourceId, string content)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+
+            var goodQuery = "insert into Notes (SourceId,Content) values (@srcId, @cont)";
+
+            using var command = new SqlCommand(goodQuery, connection);
+
+
+            command.Parameters.Add("@srcId", SqlDbType.Int);
+            command.Parameters["@srcId"].Value = sourceId;
+            command.Parameters.Add("@cont", SqlDbType.NVarChar);
+            command.Parameters["@cont"].Value = content;
+
+            int result = command.ExecuteNonQuery();
+
+            if (result < 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
