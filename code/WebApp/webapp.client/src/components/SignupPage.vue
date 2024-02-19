@@ -1,49 +1,3 @@
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
-
-    .signup-container {
-        width: 450px;
-        flex:auto;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .signup-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .signup-container input[type="text"],
-    .signup-container input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-    }
-
-    .signup-container input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 3px;
-        color: white;
-        cursor: pointer;
-    }
-
-        .signup-container input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-</style>
 <template>
     <router-view :userId=1></router-view>
     <div class="signup-container">
@@ -54,10 +8,13 @@
 
         <label for="password">Enter a Password:</label>
         <input type="password" name="password" placeholder="Password" ref="passField" required>
-        <input @click="ValidateFields" type="submit" value="Sign Up">
-        
-        <router-link to="/" custom
-                     v-slot="{ href, navigate, isActive }">
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" ref="confirmPassField" required>
+
+        <input @click="validateFields" type="submit" value="Sign Up">
+
+        <router-link to="/" custom v-slot="{ href, navigate, isActive }">
             <a style="display: block; text-align: center; margin-top: 20px" :href="href" @click="navigate">
                 Already have an account? Login
             </a>
@@ -69,29 +26,48 @@
 <script>
     export default {
         data() {
-
+            return {
+                passwordMismatch: false
+            };
         },
         methods: {
-            async ValidateFields() {
+            async validateFields() {
                 var invalidFields = false;
+                var password = this.$refs.passField.value;
 
                 if (!this.$refs.usrField.value || /\s/.test(this.$refs.usrField.value)) {
-                    alert("UserName cannot be Empty or contain spaces")
+                    alert("Username cannot be Empty or contain spaces")
                     invalidFields = true;
                 }
-                if (!this.$refs.passField.value || /\s/.test(this.$refs.passField.value)) {
+                if (!password || /\s/.test(password)) {
                     alert("Password cannot be Empty or contain spaces")
                     invalidFields = true;
                 }
+                if (password.length < 6) {
+                    alert("Password must be at least 6 characters long");
+                    invalidFields = true;
+                }
+                if (!/[A-Z]/.test(password)) {
+                    alert("Password must contain at least one uppercase letter");
+                    invalidFields = true;
+                }
+                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                    alert("Password must contain at least one symbol");
+                    invalidFields = true;
+                }
+                if (this.$refs.passField.value !== this.$refs.confirmPassField.value) {
+                    alert("Passwords do not match");
+                    this.passwordMismatch = true;
+                    invalidFields = true;
+                }
+
                 if (invalidFields) {
                     return;
                 }
 
-
                 const formData = new FormData();
                 formData.append('UserName', this.$refs.usrField.value);
-                formData.append('Password', this.$refs.passField.value);
-
+                formData.append('Password', password);
 
                 try {
                     const response = await fetch('User/createAccount', {
@@ -99,22 +75,73 @@
                         body: formData,
                     });
 
-                    if (response.ok) {
+                    if (response.status === 200) {
                         const result = await response.json();
                         alert('Account successfully created!');
                         this.$router.push({
                             name: `LoginPage`
-                        })
+                        });
+                    } else if (response.status === 409) {
+                        const result = await response.json();
+                        alert('Username already exists');
                     } else {
                         console.error('Account creation failed');
                         alert('Account creation failed');
                         console.log(response);
                     }
+
                 } catch (error) {
                     console.error('Error uploading file:', error);
                     alert('Error uploading file: ' + error.message);
                 }
             }
-    }
+        }
     }
 </script>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .signup-container {
+        width: 450px;
+        flex: auto;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .signup-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+        }
+
+            .signup-container input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+</style>

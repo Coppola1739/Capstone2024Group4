@@ -29,8 +29,12 @@ namespace WebApp.Server.Data
                 .IsRequired()
                 .HasMaxLength(255);
             modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username) // Ensure username is unique
+                .IsUnique();
+            modelBuilder.Entity<User>()
                 .Property(u => u.Password)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(255);
 
             // Source table
             modelBuilder.Entity<Source>()
