@@ -4880,11 +4880,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
+      "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
       "projectName": "DesktopAppCapstoneTest",
-      "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
+      "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
       "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\obj\\",
+      "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4905,8 +4905,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {
-              "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj"
+            "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj": {
+              "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\Group4DesktopApp\\Group4DesktopApp.csproj"
             }
           }
         }

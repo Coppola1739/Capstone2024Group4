@@ -1,20 +1,21 @@
 ﻿using Dapper;
 using Group4DesktopApp.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace Group4DesktopApp.DAL
 {
     public class SourceDAL
     {
+        /// <summary>
+        /// Gets all sources by user identifier.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public static ObservableCollection<Source> GetAllSourcesByUserId(int userId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -24,12 +25,18 @@ namespace Group4DesktopApp.DAL
                  new { uId = userId }).ToList());
             return items;
         }
-
-        [ExcludeFromCodeCoverage]
-        public static bool AddNewSource(int userId, Source source)
+        /// <summary>
+        /// Adds the new source.
+        /// </summary>
+        /// <param name="userId">The user identifier connected to the source</param>
+        /// <param name="source">The source data</param>
+        /// <param name="conn">The optional sqlConnection to use</param>
+        /// <returns></returns>
+        public static bool AddNewSource(int userId, Source source, [Optional] SqlConnection conn)
         {
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
+            var con2 = Connection.SqlConnection(conn);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
 
             var goodQuery = "insert into Source " +
                 "(UserId,SourceName,UploadDate,Content,SourceType,AuthorFirstName,AuthorLastName,Title) " +
@@ -64,11 +71,7 @@ namespace Group4DesktopApp.DAL
 
             int result = command.ExecuteNonQuery();
 
-            if (result < 0)
-            {
-                return false;
-            }
-            return true;
+            return result >= 0;
         }
     }
 }

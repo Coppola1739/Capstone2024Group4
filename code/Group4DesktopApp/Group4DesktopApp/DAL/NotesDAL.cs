@@ -14,6 +14,11 @@ namespace Group4DesktopApp.DAL
 {
     public class NotesDAL
     {
+        /// <summary>
+        /// Gets all notes by source identifier.
+        /// </summary>
+        /// <param name="sourceId">The source identifier.</param>
+        /// <returns></returns>
         public static ObservableCollection<Notes> GetAllNotesBySourceId(int sourceId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -23,7 +28,13 @@ namespace Group4DesktopApp.DAL
                  new { srcId = sourceId }).ToList());
             return items;
         }
-        [ExcludeFromCodeCoverage]
+
+        /// <summary>
+        /// Adds the note to source.
+        /// </summary>
+        /// <param name="sourceId">The source identifier.</param>
+        /// <param name="content">The content of the note.</param>
+        /// <returns></returns>
         public static bool AddNoteToSource(int sourceId, string content)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -41,11 +52,7 @@ namespace Group4DesktopApp.DAL
 
             int result = command.ExecuteNonQuery();
 
-            if (result < 0)
-            {
-                return false;
-            }
-            return true;
+            return result >= 0;
         }
     }
 }

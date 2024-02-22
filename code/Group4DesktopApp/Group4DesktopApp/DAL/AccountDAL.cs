@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
@@ -18,11 +19,15 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
+        /// <param name="conn">The optional sqlConnection that can be used</param>
         /// <returns>The account ID if found, null otherwise</returns>
-        public static int? GetAccountID(string username, string password)
+        public static int? GetAccountID(string username, string password, [Optional] SqlConnection conn)
         {
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
+
+            var con2 = Connection.SqlConnection(conn);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
+
 
             var goodQuery = "select UserId from Users where Username = @uname AND Password = @pword";
 
@@ -43,16 +48,8 @@ namespace Group4DesktopApp.DAL
                 var value = reader[userIdOrdinal].ToString();
                 if (value != null)
                 {
-                    int result;
-                    bool success = int.TryParse(value, out result);
-                    if (success)
-                    {
-                        accountID = result;
-                    }
-                    else
-                    {
-                        accountID = null;
-                    }
+                    accountID = int.Parse(value);
+
                 }
             }
 
@@ -69,10 +66,12 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
+        /// <param name="conn">The optional sqlConnection that can be used</param>
         /// <returns>The account ID if found, null otherwise</returns>
-        public static bool CreateAccount(string username, string password)
+        public static bool CreateAccount(string username, string password, [Optional] SqlConnection conn)
         {
-            if(isAccountExisting(username))
+
+            if (isAccountExisting(username, conn))
             {
                 return false;
             }
@@ -92,18 +91,16 @@ namespace Group4DesktopApp.DAL
 
             int result = command.ExecuteNonQuery();
 
-            if (result < 0)
-            {
-                return false;
-            }
-            return true;
+            return result >= 0;
 
         }
 
-        private static bool isAccountExisting(string username)
+        private static bool isAccountExisting(string username, [Optional] SqlConnection conn)
         {
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
+
+            var con2 = Connection.SqlConnection(conn);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
 
             var goodQuery = "SELECT COUNT(*) FROM Users where username = @uname";
 
