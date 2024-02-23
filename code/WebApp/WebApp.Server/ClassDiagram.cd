@@ -1,4 +1,95 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-	<Font Name="Segoe UI" Size="9" />
+  <Class Name="WebApp.Server.Models.Notes">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgCAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Notes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Models.NoteTags">
+    <Position X="3" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\NoteTags.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Models.Source">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAhAAQAAgAAAkAAAAAAAAhAAACAAAAACAAACAAAAAA=</HashCode>
+      <FileName>Models\Source.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Models.Tag">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\Tag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Models.User">
+    <Position X="6" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAgAAAAQAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Data.CapstoneDbContext">
+    <Position X="9.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgACAAAgAAAAAAAAAAAAAEEAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\CapstoneDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.FileController">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAABAAEgAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\FileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.FileUploadModel">
+    <Position X="11" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAQAAAAAAkAAAAAAAAAAAAAAAAAACAAACAAAAAA=</HashCode>
+      <FileName>Controllers\FileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.VideoUploadModel">
+    <Position X="11" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAUAAAAAAkAAAAAAAAAAAAAAAAAACAAACAAAAAA=</HashCode>
+      <FileName>Controllers\FileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.NotesController">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAQAAAAAAAIAAA=</HashCode>
+      <FileName>Controllers\NotesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.AddNoteModel">
+    <Position X="8" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\NotesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.UserController">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABABAAAAABAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Server.Controllers.UserModel">
+    <Position X="9.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
