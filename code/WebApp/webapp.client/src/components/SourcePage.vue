@@ -2,7 +2,7 @@
     <div class="source-page">
         <div class="source-details" v-if="source">
             <div v-if="isVideoSource">
-                <video controls :src="videoUrl" width="100%" height="auto"></video>
+                <iframe width="560" height="315" :src="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div v-else class="pdf-viewer">
                 <h1>{{ source.sourceName }}</h1>
@@ -29,7 +29,7 @@
 
 <script>
     import NotesModule from './NotesModule.vue';
-
+    
     export default {
         components: {
             NotesModule,
@@ -110,9 +110,8 @@
             async createVideoUrl() {
                 if (this.source && this.source.content) {
                     if (typeof this.source.content === 'string') {
-                        // Decode the base64 string to get the original URL
                         const decodedUrl = atob(this.source.content);
-                        this.videoUrl = decodedUrl;
+                        this.videoUrl = decodedUrl.replace("watch?v=", "embed/");
                         console.log(this.videoUrl)
                     } else {
                         console.error('Invalid content format');
