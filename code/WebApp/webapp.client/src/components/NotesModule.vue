@@ -5,6 +5,7 @@
                 {{ isTruncated ? truncatedContent + '...' : note.content }}
             </div>
             <button @click="toggleEdit">View</button>
+            <button @click="deleteNote">Delete</button>
         </div>
         <div v-else>
             <textarea v-model="updatedContent"></textarea>
@@ -20,10 +21,6 @@
                 type: Object,
                 required: true,
             },
-            noteId: {
-                type: Number,
-                required: true
-            }
         },
         data() {
             return {
@@ -44,7 +41,7 @@
             toggleEdit() {
                 this.showEdit = !this.showEdit;
                 if (this.showEdit) {
-                    this.updatedContent = this.note.content; // Set note content in textarea when entering edit mode
+                    this.updatedContent = this.note.content;
                 }
             },
             async saveNote() {
@@ -69,7 +66,23 @@
                     console.error('Error', error);
                 }
             },
-        },
+            async deleteNote() {
+                try {
+                    const response = await fetch(`/Notes/DeleteNote/${this.note.notesId}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        this.$emit('note-deleted');
+                        alert('Note deleted!');
+                    } else {
+                        console.error('Failed to delete note');
+                    }
+                } catch (error) {
+                    console.error('Error', error);
+                }
+            },
+        }
     };
 </script>
 

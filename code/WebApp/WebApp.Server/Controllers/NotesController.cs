@@ -58,6 +58,28 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }*/
+
+        [HttpDelete("DeleteNote/{noteId:int}")]
+        public async Task<IActionResult> DeleteNote(int noteId)
+        {
+            try
+            {
+                var note = await _context.Notes.FindAsync(noteId);
+                if (note == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Notes.Remove(note);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Note deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
         [HttpPost("AddNote")]
         public async Task<IActionResult> AddNote([FromForm] AddNoteModel model)
         {
