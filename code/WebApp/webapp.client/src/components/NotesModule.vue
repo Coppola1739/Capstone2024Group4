@@ -5,7 +5,7 @@
                 {{ isTruncated ? truncatedContent + '...' : note.content }}
             </div>
             <button @click="toggleEdit">View</button>
-            <button @click="deleteNote">Delete</button>
+            <button @click="confirmDelete">Delete</button>
         </div>
         <div v-else>
             <textarea v-model="updatedContent"></textarea>
@@ -46,18 +46,19 @@
             },
             async saveNote() {
                 try {
-                    const response = await fetch(`/Notes/UpdateNote/${this.note.noteId}`, {
+                    const response = await fetch(`/Notes/UpdateNote/${this.note.notesId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ content: this.updatedContent }),
+                        body: JSON.stringify(this.updatedContent),
                     });
 
                     if (response.ok) {
                         console.log('Note updated successfully');
                         this.note.content = this.updatedContent;
                         this.showEdit = false;
+                        this.$emit('note-updated');
                     } else {
                         console.error('Failed to update note');
                         this.showEdit = false;
@@ -73,13 +74,18 @@
                     });
 
                     if (response.ok) {
-                        this.$emit('note-deleted');
+                        this.$emit('note-updated');
                         alert('Note deleted!');
                     } else {
                         console.error('Failed to delete note');
                     }
                 } catch (error) {
                     console.error('Error', error);
+                }
+            },
+            confirmDelete() {
+                if (confirm('Are you sure you want to delete this note?')) {
+                    this.deleteNote();
                 }
             },
         }

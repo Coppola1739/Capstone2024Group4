@@ -35,7 +35,6 @@ namespace WebApp.Server.Controllers
             }
         }
 
-        /*
         [HttpPost("UpdateNote/{noteId:int}")]
         public async Task<IActionResult> UpdateNote(int noteId, [FromBody] string updatedContent)
         {
@@ -57,7 +56,7 @@ namespace WebApp.Server.Controllers
             {
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
-        }*/
+        }
 
         [HttpDelete("DeleteNote/{noteId:int}")]
         public async Task<IActionResult> DeleteNote(int noteId)

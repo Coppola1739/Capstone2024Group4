@@ -17,7 +17,7 @@
 
                 <div class="notes-column">
                     <h2>Notes</h2>
-                    <notes-module v-for="note in notes" :key="note.notesId" :note="note" :note-id="note.notesId" :show-all-notes="showAllNotes" @note-deleted="fetchNotes(id)"></notes-module>
+                    <notes-module v-for="note in notes" :key="note.notesId" :note="note" :note-id="note.notesId" :show-all-notes="showAllNotes" @note-updated="fetchNotes(id)"></notes-module>
                 </div>
             </div>
         </div>
