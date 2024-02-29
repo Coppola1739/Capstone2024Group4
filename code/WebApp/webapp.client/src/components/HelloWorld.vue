@@ -49,7 +49,9 @@
                                   :key="source.sourceId"
                                   :sourceId="source.sourceId"
                                   :sourceName="source.sourceName"
-                                  :uploadDate="source.uploadDate" />
+                                  :uploadDate="source.uploadDate" 
+                                  @source-deleted="handleSourceDeleted"
+                                  />
                 </div>
             </div>
         </div>
@@ -98,6 +100,9 @@
                 } finally {
                     this.loading = false;
                 }
+            },
+            async handleSourceDeleted(deletedSourceId) {
+                await this.fetchUserSources();
             },
             fetchData() {
                 this.post = null;
@@ -208,15 +213,18 @@
         margin-left: 20%
     }
 
-        .pdf-upload-section form {
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-        }
+    .pdf-upload-section form {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
 
     .source-modules-column {
         flex: content;
         margin-left: 20px;
+    }
+    .source-modules-column .delete-icon {
+            pointer-events: auto; 
     }
 
     th {

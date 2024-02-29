@@ -141,6 +141,31 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
+
+        [HttpDelete("DeleteSource/{id}")]
+        public async Task<IActionResult> DeleteSource(int id)
+        {
+            try
+            {
+                var source = await _context.Source.FindAsync(id);
+                if (source == null)
+                {
+                    return NotFound();
+                }
+                var notes = await _context.Notes.Where(n => n.SourceId == id).ToListAsync();
+                _context.Notes.RemoveRange(notes);
+
+                _context.Source.Remove(source);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Source and associated notes deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
     }
 
     public class FileUploadModel
