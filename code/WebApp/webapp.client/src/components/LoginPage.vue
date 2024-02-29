@@ -71,9 +71,7 @@
 
                         this.$router.push({
                             name: `HomePage`,
-                            query: {
-                                userId: data
-                            }
+                            query: { userId: data } // Pass userId as a param
                         })
                     } else {
                         alert('Invalid Credentials');

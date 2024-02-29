@@ -49,9 +49,8 @@
                                   :key="source.sourceId"
                                   :sourceId="source.sourceId"
                                   :sourceName="source.sourceName"
-                                  :uploadDate="source.uploadDate" 
-                                  @source-deleted="handleSourceDeleted"
-                                  />
+                                  :uploadDate="source.uploadDate"
+                                  @source-deleted="handleSourceDeleted" />
                 </div>
             </div>
         </div>
@@ -69,7 +68,9 @@
         data() {
             return {
                 loading: false,
+                userId: null,
                 userSources: [],
+
                 post: null,
                 showForm: false,
                 formData: {
@@ -87,8 +88,7 @@
             async fetchUserSources() {
                 this.loading = true;
                 try {
-                    const response = await fetch('File/GetUsersSources');
-                    console.log(response);
+                    const response = await fetch(`File/GetUsersSources?userId=${this.userId}`);
                     if (response.ok) {
                         const data = await response.json();
                         this.userSources = data.sources;
@@ -107,14 +107,6 @@
             fetchData() {
                 this.post = null;
                 this.loading = true;
-
-                fetch('User/getallusers')
-                    .then(r => r.json())
-                    .then(json => {
-                        this.post = json;
-                        this.loading = false;
-                        return;
-                    });
             },
             handleFileUpload() {
                 this.showForm = true;
@@ -139,6 +131,7 @@
                 } else if (this.selectedFileType === 'video') {
                     formData.append('videolink', this.videoLink);
                 }
+                formData.append('userId', this.userId);
                 formData.append('sourceName', this.formData.sourceName);
                 formData.append('authorFirstName', this.formData.authorFirstName);
                 formData.append('authorLastName', this.formData.authorLastName);
@@ -168,6 +161,7 @@
                     if (response.ok) {
                         const result = await response.json();
                         alert('Source uploaded successfully');
+                        window.location.reload();
                     } else {
                         alert('File upload failed' + response);
                     }
@@ -178,6 +172,7 @@
             },
         },
         created() {
+            this.userId = this.$route.query.userId;
             this.fetchData();
             this.fetchUserSources();
         },

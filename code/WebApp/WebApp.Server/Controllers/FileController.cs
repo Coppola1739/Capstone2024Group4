@@ -27,7 +27,6 @@ namespace WebApp.Server.Controllers
         [HttpPost("uploadvideo")]
         public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
         {
-            Console.WriteLine(model.VideoLink);
             try
             {
                 if (model == null || string.IsNullOrEmpty(model.VideoLink))
@@ -40,7 +39,7 @@ namespace WebApp.Server.Controllers
 
                 var source = new Source
                 {
-                    UserId = userId,
+                    UserId = model.UserId,
                     SourceName = model.SourceName,
                     UploadDate = DateTime.UtcNow,
                     Content = videoBytes,
@@ -81,7 +80,7 @@ namespace WebApp.Server.Controllers
 
                     var source = new Source
                     {
-                        UserId = userId,
+                        UserId = model.UserId,
                         SourceName = model.SourceName,
                         UploadDate = DateTime.UtcNow,
                         Content = pdfContent,
@@ -104,12 +103,10 @@ namespace WebApp.Server.Controllers
         }
 
         [HttpGet("GetUsersSources")]
-        public async Task<IActionResult> GetUsersSources()
+        public async Task<IActionResult> GetUsersSources([FromQuery] int userId)
         {
             try
             {
-                int userId = 1;
-
                 var userSources = await _context.Source
                     .Where(s => s.UserId == userId)
                     .ToListAsync();
@@ -170,6 +167,7 @@ namespace WebApp.Server.Controllers
 
     public class FileUploadModel
     {
+        public int UserId { get; set; }
         public IFormFile PdfFile { get; set; }
         public string SourceName { get; set; }
         public string AuthorFirstName { get; set; }
@@ -180,7 +178,7 @@ namespace WebApp.Server.Controllers
 
     public class VideoUploadModel
     {
-        //public int UserId { get; set; }
+        public int UserId { get; set; }
         public string VideoLink { get; set; }
         public string SourceName { get; set; }
         public string AuthorFirstName { get; set; }
