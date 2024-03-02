@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.Metadata;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Group4DesktopApp.Model
 {
@@ -18,6 +12,10 @@ namespace Group4DesktopApp.Model
         public DateTime UploadDate { get; set; }
         public Byte[] Content { get; set; }
         public string SourceType { get; set; }
+
+        public string SourceImage {
+            get { return SourceIconPaths.GetIconPath(SourceType); }
+        }
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }
         public string Title { get; set; }

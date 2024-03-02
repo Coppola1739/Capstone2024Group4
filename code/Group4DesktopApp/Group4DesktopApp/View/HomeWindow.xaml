@@ -6,9 +6,21 @@
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
         mc:Ignorable="d"
         Title="HomeWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate x:Key="SourcesTemplate">
+            <Grid Height="64" Width="229">
+                <Label Content="{Binding SourceName}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="100"/>
+                <Image HorizontalAlignment="Left" Height="49" Margin="6,4,0,0" VerticalAlignment="Top" Width="54" Source="{Binding SourceImage}"/>
+                <StackPanel Margin="69,29,-66,-29" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Date Created: "/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding UploadDate}" Foreground="#FF0050FF" Height="64" Width="226"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
 
-        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom"/>
+        <ListBox ItemTemplate="{DynamicResource SourcesTemplate}" x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom"/>
         <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,0,0,84" Click="btnViewSource_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 
         <Label x:Name="lblWelcome" Content="Welcome" HorizontalAlignment="Left" Margin="35,26,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" FontSize="16"/>

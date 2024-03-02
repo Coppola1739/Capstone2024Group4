@@ -50,6 +50,7 @@ namespace Group4DesktopApp.View
                 sourcePageWindow.Show();
                 this.Close();
             }
+            Debug.WriteLine(this.SourcesList.Items.GetItemAt(0).ToString());
         }
 
         private void cmbSourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
