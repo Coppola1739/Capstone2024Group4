@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SourcePageViewModel}"
+        xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" d:DataContext="{d:DesignInstance Type=viewmodel:SourcePageViewModel}"
         mc:Ignorable="d"
         Title="SourcePageWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -12,12 +12,19 @@
                 <DropShadowEffect/>
             </WebBrowser.Effect>
         </WebBrowser>
-        <ListBox x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,297" HorizontalAlignment="Right" Width="498" Height="405" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ListBox x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,297" HorizontalAlignment="Right" Width="498" Height="405" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lstNotes_SelectionChanged"/>
         <Menu Margin="0,0,0,723">
             <Button x:Name="btnBackHome" Content="Back" Click="btnBackHome_Click"/>
             <Label x:Name="lblSourceTitle" Content="" Width="564" Height="44" FontWeight="Bold" FontSize="20"/>
         </Menu>
-        <TextBox x:Name="txtNoteBox" Margin="0,0,25,68" TextWrapping="Wrap" Text="{Binding NoteInputProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Height="210" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="498"/>
-        <Button x:Name="btnAddNote" Content="Add Note" Margin="0,0,238,27" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="72" Click="btnAddNote_Click"/>
+        <TextBox x:Name="txtNoteBox" Margin="0,0,25,120" TextWrapping="Wrap" Text="{Binding NoteInputProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Height="158" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="498"/>
+        <Button x:Name="btnAddNote" Content="Add Note" Margin="0,0,238,83" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="72" Click="btnAddNote_Click"/>
+        <Grid x:Name="NoteModifyGrid" Height="54" VerticalAlignment="Bottom" Margin="0,0,154,49" HorizontalAlignment="Right" Width="240" Visibility="Collapsed">
+            <Button Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"/>
+            <Button Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68"/>
+            <Button Content="Share" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" Width="68"/>
+            <Button x:Name="btnCancelModify" Content="Cancel" HorizontalAlignment="Left" Margin="75,30,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="btnCancelModify_Click"/>
+        </Grid>
+        <Wpf:WebView2 x:Name="youtubePlayer" HorizontalAlignment="Left" Height="503" Margin="32,82,0,0" VerticalAlignment="Top" Width="594" Visibility="Collapsed"/>
     </Grid>
 </Window>

@@ -147,14 +147,11 @@ C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\G
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.csproj.AssemblyReference.cache
-C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\UserControls\VideoPlayer.g.cs
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_Content.g.cs
-C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_MarkupCompile.cache
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_MarkupCompile.lref
-C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\UserControls\VideoPlayer.baml
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.g.resources
 C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp.GeneratedMSBuildEditorConfig.editorconfig

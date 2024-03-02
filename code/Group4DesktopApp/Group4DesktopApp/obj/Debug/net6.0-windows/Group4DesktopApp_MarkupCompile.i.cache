@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\
 Group4DesktopApp
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\App.xaml
+C:\Users\victo\Desktop\Important Documents\CapProj2024\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\App.xaml
 51376517877
 3-1549520597
 22-1246313691
 199-2545710
 UserControls\VideoPlayer.xaml;View\HomeWindow.xaml;View\LoginWindow.xaml;View\SignupWindow.xaml;View\SourcePageWindow.xaml;
 
-False
+True
 

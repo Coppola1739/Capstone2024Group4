@@ -2,6 +2,7 @@
 using Group4DesktopApp.ViewModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 
 namespace Group4DesktopApp.View
@@ -52,6 +53,45 @@ namespace Group4DesktopApp.View
                 MessageBoxResult errorBox = System.Windows.MessageBox.Show("Note must not be empty", "Note Add Failed", System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
+        }
+
+        private void lstNotes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ListBox? lb = sender as ListBox;
+            if (e.OriginalSource == lb && lb.SelectedItem != null)
+            {
+                lb.ScrollIntoView(lb.SelectedItem);
+
+                if (lb.SelectedItem is Notes notes)
+                {
+                    this.txtNoteBox.Text = notes.Content;
+                    this.setModifyNoteButtonsVisibility(true);
+                }
+            }
+            else
+            {
+                this.setModifyNoteButtonsVisibility(false);
+                this.txtNoteBox.Text = string.Empty;
+            }
+        }
+        private void setModifyNoteButtonsVisibility(bool state)
+        {
+            if (state)
+            {
+                this.btnAddNote.Visibility = Visibility.Collapsed;
+                this.NoteModifyGrid.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.btnAddNote.Visibility = Visibility.Visible;
+                this.NoteModifyGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnCancelModify_Click(object sender, RoutedEventArgs e)
+        {
+            this.lstNotes.SelectedItem = null;
+            this.setModifyNoteButtonsVisibility(false);
         }
     }
 }
