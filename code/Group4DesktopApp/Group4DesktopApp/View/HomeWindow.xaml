@@ -20,7 +20,7 @@
     </Window.Resources>
     <Grid>
 
-        <ListBox ItemTemplate="{DynamicResource SourcesTemplate}" x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom"/>
+        <ListBox ItemTemplate="{DynamicResource SourcesTemplate}" x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom" SelectionChanged="SourcesList_SelectionChanged"/>
         <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,0,0,84" Click="btnViewSource_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 
         <Label x:Name="lblWelcome" Content="Welcome" HorizontalAlignment="Left" Margin="35,26,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" FontSize="16"/>
@@ -60,6 +60,11 @@
             <Label Content="Source Upload" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" Width="630" Height="37" VerticalAlignment="Top"/>
 
         </Grid>
+        <Button x:Name="btnDeleteSource" Content="Delete🗑" Width="67" Height="25" Margin="200,0,0,50" Click="btnDeleteSource_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Red" Foreground="White" BorderBrush="#FF750000" Visibility="Collapsed">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

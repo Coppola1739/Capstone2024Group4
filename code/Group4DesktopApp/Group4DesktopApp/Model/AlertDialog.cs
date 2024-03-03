@@ -77,5 +77,16 @@ namespace Group4DesktopApp.Model
             MessageBoxImage.Exclamation);
             return confirmBox;
         }
+
+        public static MessageBoxResult DeleteSourceConfirm()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("Are you sure you want to permanently DELETE this Source?\n" +
+            "WARNING: All notes under this source will also be removed ",
+            "Delete Source",
+            System.Windows.MessageBoxButton.YesNo,
+            MessageBoxImage.Exclamation);
+            return confirmBox;
+        }
     }
 }

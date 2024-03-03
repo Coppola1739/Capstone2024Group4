@@ -123,6 +123,16 @@ namespace Group4DesktopApp.ViewModel
             return success;
         }
 
+        public bool DeleteSource(Source source)
+        {
+            bool success = SourceDAL.DeleteSource(source);
+            if (success)
+            {
+                this.sources.Remove(source);
+            }
+            return success;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void PopulateSourcesByID(int userId)

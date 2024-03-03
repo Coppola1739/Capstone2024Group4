@@ -223,5 +223,33 @@ namespace Group4DesktopApp.View
         {
             this.lblTitleError.Visibility = Visibility.Collapsed;
         }
+
+        private void SourcesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox? lb = sender as ListBox;
+            if (e.OriginalSource == lb && lb.SelectedItem != null)
+            {
+                lb.ScrollIntoView(lb.SelectedItem);
+                this.btnDeleteSource.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.btnDeleteSource.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnDeleteSource_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedSource = this.SourcesList.SelectedItem as Source;
+            if (selectedSource != null)
+            {
+                MessageBoxResult confirmBox = AlertDialog.DeleteSourceConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.viewModel.DeleteSource(selectedSource);
+                    this.SourcesList.SelectedItem = null;
+                }
+            }
+        }
     }
 }
