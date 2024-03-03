@@ -58,8 +58,8 @@ namespace Group4DesktopApp.DAL
         /// <summary>
         /// Updates the content of the note to with the specified new content
         /// </summary>
-        /// <param name="sourceId">The source identifier.</param>
-        /// <param name="content">The content of the note.</param>
+        /// <param name="noteId">The source identifier.</param>
+        /// <param name="updatedContent">The content of the note.</param>
         /// <returns></returns>
         public static bool UpdateNoteContent(int noteId, string updatedContent)
         {
@@ -75,6 +75,29 @@ namespace Group4DesktopApp.DAL
             command.Parameters["@nId"].Value = noteId;
             command.Parameters.Add("@updCont", SqlDbType.NVarChar);
             command.Parameters["@updCont"].Value = updatedContent;
+
+            int result = command.ExecuteNonQuery();
+
+            return result >= 0;
+        }
+
+        /// <summary>
+        /// Deletes the note of the specified note ID.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
+        public static bool DeleteNote(int noteId)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+
+            var goodQuery = "delete from Notes where NotesId = @nId";
+
+            using var command = new SqlCommand(goodQuery, connection);
+
+
+            command.Parameters.Add("@nId", SqlDbType.Int);
+            command.Parameters["@nId"].Value = noteId;
 
             int result = command.ExecuteNonQuery();
 

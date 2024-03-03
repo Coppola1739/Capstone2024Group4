@@ -90,16 +90,14 @@ namespace Group4DesktopApp.ViewModel
             }
         }
 
-        public Notes? InsertNewNote(int sourceId)
+        public bool InsertNewNote(int sourceId)
         {
             bool success = NotesDAL.AddNoteToSource(sourceId, NoteInputProperty);
             if(success)
             {
-                //this.PopulateNotesByID(sourceId);
-                //Notes fake = new Notes(18,sourceId,"This is a dummy string to test my theory");
                 this.updateList(sourceId);
             }
-            return null;
+            return success;
         }
 
         public bool UpdateExistingNote(Notes? note, string newContent)
@@ -110,6 +108,17 @@ namespace Group4DesktopApp.ViewModel
             {
                 int noteIndex = this.notes.IndexOf(note);
                 this.notes[noteIndex].Content = newContent;
+            }
+            return success;
+        }
+
+        public bool DeleteNote(Notes? note)
+        {
+            if (note == null) return false;
+            bool success = NotesDAL.DeleteNote(note.NotesId);
+            if (success)
+            {
+                this.notes.Remove(note);
             }
             return success;
         }

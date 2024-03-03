@@ -59,8 +59,11 @@ namespace Group4DesktopApp.View
         {
             if (!string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
             {
-                this.viewModel.InsertNewNote(this.source.SourceId);
-                this.txtNoteBox.Text = string.Empty;
+                if(this.viewModel.InsertNewNote(this.source.SourceId))
+                {
+                    this.txtNoteBox.Text = string.Empty;
+                    MessageBoxResult successBox = AlertDialog.NoteAddSuccess();
+                }
             }
             else
             {
@@ -166,15 +169,20 @@ namespace Group4DesktopApp.View
             }
         }
 
+        private void resetNoteInputDisplay()
+        {
+            this.noteEditState = NoteState.ADDING;
+            this.lstNotes.SelectedItem = null;
+            this.setModifyNoteButtonsVisibility(false);
+            this.txtNoteBox.Text = string.Empty;
+        }
+
         private void btnCancelModify_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult confirmBox = AlertDialog.QuitModifyingNoteConfirm();
             if (confirmBox == MessageBoxResult.Yes)
             {
-                this.noteEditState = NoteState.ADDING;
-                this.lstNotes.SelectedItem = null;
-                this.setModifyNoteButtonsVisibility(false);
-                this.txtNoteBox.Text = string.Empty;
+                this.resetNoteInputDisplay();
             }
             else
             {
@@ -196,6 +204,20 @@ namespace Group4DesktopApp.View
                 if (confirmBox == MessageBoxResult.Yes)
                 {
                     this.viewModel.UpdateExistingNote(selectedNote, this.txtNoteBox.Text);
+                }
+            }
+        }
+
+        private void btnDeleteNote_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedNote = this.lstNotes.SelectedItem as Notes;
+            if (selectedNote != null)
+            {
+                MessageBoxResult confirmBox = AlertDialog.DeleteNoteConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.viewModel.DeleteNote(selectedNote);
+                    this.resetNoteInputDisplay();
                 }
             }
         }

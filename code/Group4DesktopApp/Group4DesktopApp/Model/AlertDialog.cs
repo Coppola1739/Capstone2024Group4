@@ -9,6 +9,15 @@ namespace Group4DesktopApp.Model
 {
     public static class AlertDialog
     {
+        public static MessageBoxResult NoteAddSuccess()
+        {
+            MessageBoxResult confirmBox =
+                System.Windows.MessageBox.Show("Note added successfully!",
+                "Note Added",
+                System.Windows.MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return confirmBox;
+        }
         public static MessageBoxResult EditNewNoteWithoutSavingConfirm()
         {
             MessageBoxResult confirmBox = 
@@ -52,10 +61,20 @@ namespace Group4DesktopApp.Model
         public static MessageBoxResult UpdateNoteConfirm()
         {
             MessageBoxResult confirmBox =
-            System.Windows.MessageBox.Show("Are you sure you want to update this note? Action cannot be undone.",
+            System.Windows.MessageBox.Show("Are you sure you want to UPDATE this note? Action cannot be undone.",
             "Confirm Note Update",
             System.Windows.MessageBoxButton.YesNo,
             MessageBoxImage.Question);
+            return confirmBox;
+        }
+
+        public static MessageBoxResult DeleteNoteConfirm()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("Are you sure you want to permanently DELETE this note? Action cannot be undone.",
+            "Delete Note",
+            System.Windows.MessageBoxButton.YesNo,
+            MessageBoxImage.Exclamation);
             return confirmBox;
         }
     }
