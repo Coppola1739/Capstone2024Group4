@@ -19,7 +19,7 @@
                 <DropShadowEffect/>
             </WebBrowser.Effect>
         </WebBrowser>
-        <ListBox ItemTemplate="{DynamicResource NotesListTemplate}" x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,297" HorizontalAlignment="Right" Width="498" Height="405" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lstNotes_SelectionChanged"/>
+        <ListBox ItemTemplate="{DynamicResource NotesListTemplate}" x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNoteProperty, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,297" HorizontalAlignment="Right" Width="498" Height="405" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lstNotes_SelectionChanged"/>
         <Menu Margin="0,0,0,723">
             <Button x:Name="btnBackHome" Content="Back" Click="btnBackHome_Click"/>
             <Label x:Name="lblSourceTitle" Content="" Width="564" Height="44" FontWeight="Bold" FontSize="20"/>
@@ -27,7 +27,7 @@
         <TextBox x:Name="txtNoteBox" Margin="0,0,25,120" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" AcceptsTab="True"  Text="{Binding NoteInputProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Height="158" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="498"/>
         <Button x:Name="btnAddNote" Content="Add Note" Margin="0,0,238,83" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="72" Click="btnAddNote_Click"/>
         <Grid x:Name="NoteModifyGrid" Height="54" VerticalAlignment="Bottom" Margin="0,0,154,49" HorizontalAlignment="Right" Width="240" Visibility="Collapsed">
-            <Button Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"/>
+            <Button x:Name="btnUpdateNote" Command="{Binding UpdateButtonCommand}" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Click="btnUpdateNote_Click"/>
             <Button Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68"/>
             <Button Content="Share" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" Width="68" IsEnabled="False"/>
             <Button x:Name="btnCancelModify" Content="Cancel" HorizontalAlignment="Left" Margin="75,30,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="btnCancelModify_Click"/>

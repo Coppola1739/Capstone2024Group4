@@ -181,6 +181,24 @@ namespace Group4DesktopApp.View
                 this.lstNotes.SelectedItem = this.previousSelectedNote;
             }
         }
+
+        private void btnUpdateNote_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
+            {
+                MessageBoxResult errorBox = AlertDialog.UpdateNoteWithEmptyTextErrorBox();
+                return;
+            }
+            var selectedNote = this.lstNotes.SelectedItem as Notes;
+            if (selectedNote != null)
+            {
+                MessageBoxResult confirmBox = AlertDialog.UpdateNoteConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.viewModel.UpdateExistingNote(selectedNote, this.txtNoteBox.Text);
+                }
+            }
+        }
     }
 
 }

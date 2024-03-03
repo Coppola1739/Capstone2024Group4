@@ -54,5 +54,31 @@ namespace Group4DesktopApp.DAL
 
             return result >= 0;
         }
+
+        /// <summary>
+        /// Updates the content of the note to with the specified new content
+        /// </summary>
+        /// <param name="sourceId">The source identifier.</param>
+        /// <param name="content">The content of the note.</param>
+        /// <returns></returns>
+        public static bool UpdateNoteContent(int noteId, string updatedContent)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+
+            var goodQuery = "update Notes set Content = @updCont where NotesId = @nId";
+
+            using var command = new SqlCommand(goodQuery, connection);
+
+
+            command.Parameters.Add("@nId", SqlDbType.Int);
+            command.Parameters["@nId"].Value = noteId;
+            command.Parameters.Add("@updCont", SqlDbType.NVarChar);
+            command.Parameters["@updCont"].Value = updatedContent;
+
+            int result = command.ExecuteNonQuery();
+
+            return result >= 0;
+        }
     }
 }

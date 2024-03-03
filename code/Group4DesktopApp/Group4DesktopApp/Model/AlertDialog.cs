@@ -38,5 +38,25 @@ namespace Group4DesktopApp.Model
             MessageBoxImage.Error);
             return confirmBox;
         }
+
+        public static MessageBoxResult UpdateNoteWithEmptyTextErrorBox()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("Edited note must not be empty ",
+            "Note Update Failed",
+            System.Windows.MessageBoxButton.OK,
+            MessageBoxImage.Error);
+            return confirmBox;
+        }
+
+        public static MessageBoxResult UpdateNoteConfirm()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("Are you sure you want to update this note? Action cannot be undone.",
+            "Confirm Note Update",
+            System.Windows.MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+            return confirmBox;
+        }
     }
 }
