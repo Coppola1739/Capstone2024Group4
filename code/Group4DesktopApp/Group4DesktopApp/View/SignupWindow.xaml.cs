@@ -1,20 +1,12 @@
 ﻿using Group4DesktopApp.Model;
+using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Group4DesktopApp.View
 {
@@ -24,7 +16,7 @@ namespace Group4DesktopApp.View
     public partial class SignupWindow : Window
     {
         Regex VALIDUSERNAMEREGEX = new Regex("^[a-zA-Z0-9 ]*$");
-        const int MIN_INPUT_CHARS = 3;
+        const int MIN_INPUT_CHARS = 6;
         private SignupViewModel viewModel = new SignupViewModel();
 
         public SignupWindow()
@@ -63,7 +55,11 @@ namespace Group4DesktopApp.View
             {
                 isInvalid = true;
             }
-            if(!isInvalid)
+            if (!isPassCopyValid(this.txtPassword.Text,this.txtCopyPassword.Text))
+            {
+                isInvalid = true;
+            }
+            if (!isInvalid)
             {
                 return true;
             }
@@ -73,24 +69,31 @@ namespace Group4DesktopApp.View
 
         private bool isUserValid(string username)
         {
+            string errors = string.Empty;
+            bool isInvalid = false;
             if (String.IsNullOrWhiteSpace(username))
             {
-                this.showUserInputErrorMessage("Username is required");
-                return false;
+                isInvalid = true;
+                errors += "Username is required\n";
             }
             if (username.Any(Char.IsWhiteSpace))
             {
-                this.showUserInputErrorMessage("Username cannot contain whitespace");
-                return false;
+                isInvalid = true;
+                errors += "Username cannot contain whitespace\n";
             }
             if (username.Length < MIN_INPUT_CHARS)
             {
-                this.showUserInputErrorMessage($"Username must have {MIN_INPUT_CHARS} or more characters");
-                return false;
+                isInvalid = true;
+                errors += $"Username must have {MIN_INPUT_CHARS} or more characters\n";
             }
             if (!VALIDUSERNAMEREGEX.IsMatch(username))
             {
-                this.showUserInputErrorMessage("Username cannot contain specical characters");
+                isInvalid = true;
+                errors += "Username cannot contain specical characters";
+            }
+            if (isInvalid)
+            {
+                this.showInputFieldErrorMessage(errors, this.lblUserError);
                 return false;
             }
             return true;
@@ -98,34 +101,69 @@ namespace Group4DesktopApp.View
 
         private bool isPassValid(string pass)
         {
+            string errors = string.Empty;
+            bool isInvalid = false;
+
             if (String.IsNullOrWhiteSpace(pass))
             {
-                this.showPassInputErrorMessage("Password is required");
-                return false;
+                isInvalid = true;
+                errors += "Password is required\n";
             }
             if (pass.Any(Char.IsWhiteSpace))
             {
-                this.showPassInputErrorMessage("Password cannot contain whitespace");
-                return false;
+                isInvalid = true;
+                errors += "Password cannot contain whitespace\n";
             }
             if (pass.Length < MIN_INPUT_CHARS)
             {
-                this.showPassInputErrorMessage($"Password must have {MIN_INPUT_CHARS} or more characters");
+                isInvalid = true;
+                errors += $"Password must have {MIN_INPUT_CHARS} or more characters\n";
+            }
+            if (!pass.Any(char.IsUpper))
+            {
+                isInvalid = true;
+                errors += "Password must have at least one uppercase letter\n";
+            }
+            if (!pass.Any(CharChecker.IsSpecialCharacter))
+            {
+                isInvalid = true;
+                errors += "Password must have at least one symbol ex(#,%,@ etc.)";
+            }
+            if (isInvalid)
+            {
+                this.showInputFieldErrorMessage(errors, this.lblPassError);
                 return false;
             }
             return true;
         }
 
-        private void showUserInputErrorMessage(string message)
+        private bool isPassCopyValid(string original, string copy)
         {
-            this.lblUserError.Content = message;
-            this.lblUserError.Visibility = Visibility.Visible;
+            string errors = string.Empty;
+            bool isInvalid = false;
+
+            if (String.IsNullOrWhiteSpace(copy))
+            {
+                isInvalid = true;
+                errors += "Password Copy is required\n";
+            }
+            if (!original.Equals(copy))
+            {
+                isInvalid = true;
+                errors += "Passwords do not match\n";
+            }
+            if (isInvalid)
+            {
+                this.showInputFieldErrorMessage(errors, this.lblPassCopyError);
+                return false;
+            }
+            return true;
         }
 
-        private void showPassInputErrorMessage(string message)
+        private void showInputFieldErrorMessage(string message, Label errorLabel)
         {
-            this.lblPassError.Content = message;
-            this.lblPassError.Visibility = Visibility.Visible;
+            errorLabel.Content = message;
+            errorLabel.Visibility = Visibility.Visible;
         }
 
         private void showErrorMessage(string message)
@@ -136,14 +174,32 @@ namespace Group4DesktopApp.View
 
         private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.lblUserError.Visibility= Visibility.Hidden;
-            this.lblError.Visibility = Visibility.Hidden;
+            bool isValid = this.isUserValid(this.txtUsername.Text);
+            if(isValid)
+            {
+                this.lblUserError.Visibility= Visibility.Hidden;
+                this.lblError.Visibility = Visibility.Hidden;
+            }
         }
 
         private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.lblPassError.Visibility = Visibility.Hidden;
-            this.lblError.Visibility = Visibility.Hidden;
+            bool isValid = this.isPassValid(this.txtPassword.Text);
+            if (isValid)
+            {
+                this.lblPassError.Visibility = Visibility.Hidden;
+                this.lblError.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void txtCopyPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool isValid = this.isPassCopyValid(this.txtPassword.Text, this.txtCopyPassword.Text);
+            if (isValid)
+            {
+                this.lblPassCopyError.Visibility = Visibility.Hidden;
+                this.lblError.Visibility = Visibility.Hidden;
+            }
         }
 
         private void txtLoginLink_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
