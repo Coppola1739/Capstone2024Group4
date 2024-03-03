@@ -12,9 +12,19 @@ namespace Group4DesktopApp.View
     /// </summary>
     public partial class SourcePageWindow : Window
     {
+
+        private enum NoteState
+        {
+            ADDING,
+            MODIFYING,
+            NONE
+        }
+
         private SourcePageViewModel viewModel;
         private User loggedInUser;
         private Source source;
+        private NoteState noteEditState = NoteState.NONE;
+        private Notes? previousSelectedNote;
 
         public SourcePageWindow(User loggedInUser, Source source)
         {
@@ -24,6 +34,8 @@ namespace Group4DesktopApp.View
             this.loggedInUser = loggedInUser;
             this.source = source;
             this.lblSourceTitle.Content = source.Title;
+            this.noteEditState = NoteState.ADDING;
+            this.previousSelectedNote = null;
 
             this.viewModel.PopulateNotesByID(source.SourceId);
 
@@ -45,14 +57,16 @@ namespace Group4DesktopApp.View
 
         private void btnAddNote_Click(object sender, RoutedEventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(this.txtNoteBox.Text)) {
+            if (!string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
+            {
                 this.viewModel.InsertNewNote(this.source.SourceId);
                 this.txtNoteBox.Text = string.Empty;
-            } else
-            {
-                MessageBoxResult errorBox = System.Windows.MessageBox.Show("Note must not be empty", "Note Add Failed", System.Windows.MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
+            else
+            {
+                MessageBoxResult errorBox = AlertDialog.AddNoteErrorBox();
+            }
+
         }
 
         private void lstNotes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -64,16 +78,80 @@ namespace Group4DesktopApp.View
 
                 if (lb.SelectedItem is Notes notes)
                 {
-                    this.txtNoteBox.Text = notes.Content;
-                    this.setModifyNoteButtonsVisibility(true);
+                    var selectedItem = lb.SelectedItem;
+                    switch (this.noteEditState)
+                    {
+                        case NoteState.ADDING:
+                            this.handleAddState(lb, notes);
+                            break;
+                        case NoteState.MODIFYING:
+                            this.handleModifyState(lb,notes);
+                            break;
+
+                        default:
+                            return;
+                    }
                 }
             }
-            else
+        }
+
+        private void handleModifyState(ListBox lb, Notes notes)
+        {
+            if (this.previousSelectedNote != null && 
+                this.previousSelectedNote != lb.SelectedItem && 
+                !this.txtNoteBox.Text.Equals(this.previousSelectedNote.Content))
             {
-                this.setModifyNoteButtonsVisibility(false);
-                this.txtNoteBox.Text = string.Empty;
+                MessageBoxResult confirmBox = AlertDialog.EditNewNoteWithoutSavingConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.previousSelectedNote = notes;
+                    this.txtNoteBox.Text = notes.Content;
+                    this.setModifyNoteButtonsVisibility(true);
+                    this.noteEditState = NoteState.MODIFYING;
+                }
+                else
+                {
+                    lb.SelectedItem = this.previousSelectedNote;
+                }
+            }
+            else if (this.previousSelectedNote != null && 
+                this.previousSelectedNote != lb.SelectedItem && 
+                this.txtNoteBox.Text.Equals(this.previousSelectedNote.Content))
+            {
+                this.previousSelectedNote = notes;
+                this.txtNoteBox.Text = notes.Content;
+                this.setModifyNoteButtonsVisibility(true);
+                this.noteEditState = NoteState.MODIFYING;
             }
         }
+
+        private void handleAddState(ListBox lb, Notes notes)
+        {
+                if (!string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
+                {
+                MessageBoxResult confirmBox = AlertDialog.EditNewNoteWithoutSavingConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                    {
+                        this.previousSelectedNote = notes;
+                        this.txtNoteBox.Text = notes.Content;
+                        this.setModifyNoteButtonsVisibility(true);
+                        this.noteEditState = NoteState.MODIFYING;
+                    }
+                    else
+                    {
+                        lb.SelectedItem = null;
+                        this.setModifyNoteButtonsVisibility(false);
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
+                {
+                    this.previousSelectedNote = notes;
+                    this.txtNoteBox.Text = notes.Content;
+                    this.setModifyNoteButtonsVisibility(true);
+                    this.noteEditState = NoteState.MODIFYING;
+                }
+        }
+
         private void setModifyNoteButtonsVisibility(bool state)
         {
             if (state)
@@ -90,8 +168,19 @@ namespace Group4DesktopApp.View
 
         private void btnCancelModify_Click(object sender, RoutedEventArgs e)
         {
-            this.lstNotes.SelectedItem = null;
-            this.setModifyNoteButtonsVisibility(false);
+            MessageBoxResult confirmBox = AlertDialog.QuitModifyingNoteConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
+                this.noteEditState = NoteState.ADDING;
+                this.lstNotes.SelectedItem = null;
+                this.setModifyNoteButtonsVisibility(false);
+                this.txtNoteBox.Text = string.Empty;
+            }
+            else
+            {
+                this.lstNotes.SelectedItem = this.previousSelectedNote;
+            }
         }
     }
+
 }
