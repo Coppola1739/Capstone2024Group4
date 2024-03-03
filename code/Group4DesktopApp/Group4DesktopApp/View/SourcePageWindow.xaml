@@ -32,6 +32,6 @@
             <Button Content="Share" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" Width="68" IsEnabled="False"/>
             <Button x:Name="btnCancelModify" Content="Cancel" HorizontalAlignment="Left" Margin="75,30,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="btnCancelModify_Click"/>
         </Grid>
-        <Wpf:WebView2 x:Name="youtubePlayer" HorizontalAlignment="Left" Height="503" Margin="32,82,0,0" VerticalAlignment="Top" Width="594" Visibility="Collapsed"/>
+        <Wpf:WebView2 x:Name="youtubePlayer" Margin="32,82,564,120" SizeChanged="youtubePlayer_SizeChanged" Visibility="Collapsed"/>
     </Grid>
 </Window>
