@@ -27,7 +27,6 @@ namespace WebApp.Server.Controllers
         [HttpPost("uploadvideo")]
         public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
         {
-            Console.WriteLine(model.VideoLink);
             try
             {
                 if (model == null || string.IsNullOrEmpty(model.VideoLink))
@@ -36,11 +35,10 @@ namespace WebApp.Server.Controllers
                 }
 
                 byte[] videoBytes = Encoding.UTF8.GetBytes(model.VideoLink);
-                int userId = 1;
 
                 var source = new Source
                 {
-                    UserId = userId,
+                    UserId = model.UserId,
                     SourceName = model.SourceName,
                     UploadDate = DateTime.UtcNow,
                     Content = videoBytes,
@@ -72,8 +70,6 @@ namespace WebApp.Server.Controllers
                     return BadRequest(new { Message = "Invalid file" });
                 }
 
-                int userId = 1;
-
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
                     await model.PdfFile.CopyToAsync(memoryStream);
@@ -81,7 +77,7 @@ namespace WebApp.Server.Controllers
 
                     var source = new Source
                     {
-                        UserId = userId,
+                        UserId = model.UserId,
                         SourceName = model.SourceName,
                         UploadDate = DateTime.UtcNow,
                         Content = pdfContent,
@@ -104,12 +100,10 @@ namespace WebApp.Server.Controllers
         }
 
         [HttpGet("GetUsersSources")]
-        public async Task<IActionResult> GetUsersSources()
+        public async Task<IActionResult> GetUsersSources([FromQuery] int userId)
         {
             try
             {
-                int userId = 1;
-
                 var userSources = await _context.Source
                     .Where(s => s.UserId == userId)
                     .ToListAsync();
@@ -141,10 +135,36 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
+
+        [HttpDelete("DeleteSource/{id}")]
+        public async Task<IActionResult> DeleteSource(int id)
+        {
+            try
+            {
+                var source = await _context.Source.FindAsync(id);
+                if (source == null)
+                {
+                    return NotFound();
+                }
+                var notes = await _context.Notes.Where(n => n.SourceId == id).ToListAsync();
+                _context.Notes.RemoveRange(notes);
+
+                _context.Source.Remove(source);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Source and associated notes deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
     }
 
     public class FileUploadModel
     {
+        public int UserId { get; set; }
         public IFormFile PdfFile { get; set; }
         public string SourceName { get; set; }
         public string AuthorFirstName { get; set; }
@@ -155,7 +175,7 @@ namespace WebApp.Server.Controllers
 
     public class VideoUploadModel
     {
-        //public int UserId { get; set; }
+        public int UserId { get; set; }
         public string VideoLink { get; set; }
         public string SourceName { get; set; }
         public string AuthorFirstName { get; set; }

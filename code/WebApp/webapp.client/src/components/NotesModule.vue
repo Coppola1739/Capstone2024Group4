@@ -5,6 +5,7 @@
                 {{ isTruncated ? truncatedContent + '...' : note.content }}
             </div>
             <button @click="toggleEdit">View</button>
+            <button @click="confirmDelete">Delete</button>
         </div>
         <div v-else>
             <textarea v-model="updatedContent"></textarea>
@@ -20,10 +21,6 @@
                 type: Object,
                 required: true,
             },
-            noteId: {
-                type: Number,
-                required: true
-            }
         },
         data() {
             return {
@@ -44,23 +41,31 @@
             toggleEdit() {
                 this.showEdit = !this.showEdit;
                 if (this.showEdit) {
-                    this.updatedContent = this.note.content; // Set note content in textarea when entering edit mode
+                    this.updatedContent = this.note.content;
                 }
+            },
+            isUpdatedContentEmpty() {
+                return this.updatedContent.trim() === '';
             },
             async saveNote() {
                 try {
-                    const response = await fetch(`/Notes/UpdateNote/${this.note.noteId}`, {
+                    if (this.isUpdatedContentEmpty()) {
+                        alert("Note cannot be empty!");
+                        return;
+                    }
+                    const response = await fetch(`/Notes/UpdateNote/${this.note.notesId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ content: this.updatedContent }),
+                        body: JSON.stringify(this.updatedContent),
                     });
 
                     if (response.ok) {
                         console.log('Note updated successfully');
                         this.note.content = this.updatedContent;
                         this.showEdit = false;
+                        this.$emit('note-updated');
                     } else {
                         console.error('Failed to update note');
                         this.showEdit = false;
@@ -69,7 +74,28 @@
                     console.error('Error', error);
                 }
             },
-        },
+            async deleteNote() {
+                try {
+                    const response = await fetch(`/Notes/DeleteNote/${this.note.notesId}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        this.$emit('note-updated');
+                        alert('Note deleted!');
+                    } else {
+                        console.error('Failed to delete note');
+                    }
+                } catch (error) {
+                    console.error('Error', error);
+                }
+            },
+            confirmDelete() {
+                if (confirm('Are you sure you want to delete this note?')) {
+                    this.deleteNote();
+                }
+            },
+        }
     };
 </script>
 

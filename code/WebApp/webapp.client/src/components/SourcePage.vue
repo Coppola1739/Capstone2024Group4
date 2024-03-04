@@ -17,7 +17,7 @@
 
                 <div class="notes-column">
                     <h2>Notes</h2>
-                    <notes-module v-for="note in notes" :key="note.noteId" :note="note" :note-id="note.noteId" :show-all-notes="showAllNotes" @note-updated="updateNote"></notes-module>
+                    <notes-module v-for="note in notes" :key="note.notesId" :note="note" :note-id="note.notesId" :show-all-notes="showAllNotes" @note-updated="fetchNotes(id)"></notes-module>
                 </div>
             </div>
         </div>
@@ -177,14 +177,14 @@
     }
 
     .pdf-viewer {
-        width: 100%; /* Adjust the width for desktop */
+        width: 100%;
         height: 100%;
     }
 
     .source-details {
         display: flex;
         flex-direction: row;
-        justify-content: space-between; /* Adjust spacing for desktop */
+        justify-content: space-between;
     }
 
     .notes-column {
