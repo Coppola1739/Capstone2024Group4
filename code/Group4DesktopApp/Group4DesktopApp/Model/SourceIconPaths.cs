@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Group4DesktopApp.Model
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
         private static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-
+        [ExcludeFromCodeCoverage]
         public static string GetIconPath(string sourceType)
         {
             string path = string.Empty;

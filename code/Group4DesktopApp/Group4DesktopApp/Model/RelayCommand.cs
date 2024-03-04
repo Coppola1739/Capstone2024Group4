@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows.Input;
 
 namespace Group4DesktopApp.Model
 {
+    [ExcludeFromCodeCoverage]
     public class RelayCommand : ICommand
     {
         private Action<object> execute;
@@ -26,7 +28,9 @@ namespace Group4DesktopApp.Model
 
         public bool CanExecute(object? parameter)
         {
+#pragma warning disable CS8604 // Possible null reference argument.
             return canExecute == null || canExecute(parameter);
+#pragma warning restore CS8604 // Possible null reference argument.
 
         }
 
