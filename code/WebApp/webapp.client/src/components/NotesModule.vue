@@ -44,8 +44,15 @@
                     this.updatedContent = this.note.content;
                 }
             },
+            isUpdatedContentEmpty() {
+                return this.updatedContent.trim() === '';
+            },
             async saveNote() {
                 try {
+                    if (this.isUpdatedContentEmpty()) {
+                        alert("Note cannot be empty!");
+                        return;
+                    }
                     const response = await fetch(`/Notes/UpdateNote/${this.note.notesId}`, {
                         method: 'POST',
                         headers: {

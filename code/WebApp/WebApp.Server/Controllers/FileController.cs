@@ -35,7 +35,6 @@ namespace WebApp.Server.Controllers
                 }
 
                 byte[] videoBytes = Encoding.UTF8.GetBytes(model.VideoLink);
-                int userId = 1;
 
                 var source = new Source
                 {
@@ -70,8 +69,6 @@ namespace WebApp.Server.Controllers
                 {
                     return BadRequest(new { Message = "Invalid file" });
                 }
-
-                int userId = 1;
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
