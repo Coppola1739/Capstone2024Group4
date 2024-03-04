@@ -88,5 +88,25 @@ namespace Group4DesktopApp.Model
             MessageBoxImage.Exclamation);
             return confirmBox;
         }
+
+        public static MessageBoxResult InvalidYoutubeLinkErrorBox()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("The Youtube URL provided is not valid. Please try again.",
+            "Youtube Link Error",
+            System.Windows.MessageBoxButton.OK,
+            MessageBoxImage.Error);
+            return confirmBox;
+        }
+
+        public static MessageBoxResult LogoutConfirm()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("Are you sure you Logout of this account?",
+            "Logout",
+            System.Windows.MessageBoxButton.YesNo,
+            MessageBoxImage.Exclamation);
+            return confirmBox;
+        }
     }
 }
