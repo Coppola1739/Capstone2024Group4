@@ -1,5 +1,6 @@
 ﻿using Group4DesktopApp.DAL;
 using Group4DesktopApp.Model;
+using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -44,21 +45,32 @@ namespace Group4DesktopApp.View
         private void btnViewSource_Click(object sender, RoutedEventArgs e)
         {
             Source? selectedSource = this.SourcesList.SelectedItem as Source;
-            if(selectedSource != null )
+            if (selectedSource != null)
             {
                 SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, selectedSource);
                 sourcePageWindow.Show();
                 this.Close();
             }
+            Debug.WriteLine(this.SourcesList.Items.GetItemAt(0).ToString());
         }
 
         private void cmbSourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cmbSourceType.SelectedItem.Equals(SourceType.Enum.PDF.ToString()))
+            this.uploadGrid.Visibility = Visibility.Visible;
+
+            if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.PDF.ToString()))
             {
                 this.selectedType = SourceType.Enum.PDF.ToString();
-                this.uploadGrid.Visibility = Visibility.Visible;
+                this.clearUploadFields();
                 this.stackFileChoose.Visibility = Visibility.Visible;
+                
+            }
+            else if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.YOUTUBE_LINK.ToString()))
+            {
+                this.selectedType = SourceType.Enum.YOUTUBE_LINK.ToString();
+                this.clearUploadFields();
+                this.uploadGrid.Visibility = Visibility.Visible;
+                this.youtubeGrid.Visibility = Visibility.Visible;
             }
             else
             {
@@ -66,9 +78,21 @@ namespace Group4DesktopApp.View
             }
         }
 
+        private void clearUploadFields()
+        {
+            this.stackFileChoose.Visibility = Visibility.Collapsed;
+            this.youtubeGrid.Visibility = Visibility.Collapsed;
+            this.btnCancel.Visibility = Visibility.Collapsed;
+            this.stackMetaData.Visibility = Visibility.Collapsed;
+            this.txtYoutubeUrl.IsEnabled = true;
+
+            this.lblUploadedSource.Content = "No file chosen";
+            this.clearMetaDataFields();
+        }
+
         private void btnFileChoose_Click(object sender, RoutedEventArgs e)
         {
-            if(this.selectedType == SourceType.Enum.PDF.ToString())
+            if (this.selectedType == SourceType.Enum.PDF.ToString())
             {
                 var dialog = new Microsoft.Win32.OpenFileDialog();
                 dialog.DefaultExt = ".pdf";
@@ -84,20 +108,40 @@ namespace Group4DesktopApp.View
             }
         }
 
+        private void clearMetaDataFields()
+        {
+            this.chosenFilePath = String.Empty;
+            this.txtSourceName.Text = String.Empty;
+            this.txtAuthFirstName.Text = String.Empty;
+            this.txtAuthLastName.Text = String.Empty;
+            this.txtTitle.Text = String.Empty;
+            this.lblSrcNameError.Visibility = Visibility.Collapsed;
+            this.lblAuthFirstError.Visibility = Visibility.Collapsed;
+            this.lblAuthLastError.Visibility = Visibility.Collapsed;
+            this.lblTitleError.Visibility = Visibility.Collapsed;
+        }
+
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             if (this.inputValidation())
             {
-                byte[] content = File.ReadAllBytes(this.chosenFilePath);
-                this.viewModel.InsertNewSource(this.loggedInUser.UserId, content);
+                if(this.selectedType == SourceType.Enum.PDF.ToString())
+                {
+                    byte[] content = File.ReadAllBytes(this.chosenFilePath);
+                    this.viewModel.InsertNewSource(this.loggedInUser.UserId, "PDF", content);
 
-                this.lblUploadedSource.Content = "No file chosen";
-                this.chosenFilePath = String.Empty;
-                this.txtSourceName.Text = String.Empty;
-                this.txtAuthFirstName.Text = String.Empty;
-                this.txtAuthLastName.Text = String.Empty;
-                this.txtTitle.Text = String.Empty;
-                this.stackMetaData.Visibility = Visibility.Collapsed;
+                    this.lblUploadedSource.Content = "No file chosen";
+                    this.clearMetaDataFields();
+                    this.stackMetaData.Visibility = Visibility.Collapsed;
+                } else if(this.selectedType == SourceType.Enum.YOUTUBE_LINK.ToString())
+                {
+                    byte[] youtubeURLcontent = System.Text.Encoding.Default.GetBytes(this.txtYoutubeUrl.Text);
+                    this.viewModel.InsertNewSource(this.loggedInUser.UserId, "video", youtubeURLcontent);
+                    this.clearUploadFields();
+                    this.stackMetaData.Visibility = Visibility.Collapsed;
+                    this.youtubeGrid.Visibility = Visibility.Visible;
+                }
+               
             }
         }
 
@@ -133,16 +177,16 @@ namespace Group4DesktopApp.View
         {
             if (String.IsNullOrWhiteSpace(sourceName))
             {
-                this.showInputFieldErrorMessage("Source Name is required",this.lblSrcNameError);
+                this.showInputFieldErrorMessage("Source Name is required", this.lblSrcNameError);
                 return false;
             }
-          
+
             if (sourceName.Length < 3)
             {
                 this.showInputFieldErrorMessage($"Source Name must have {3} or more characters", this.lblSrcNameError);
                 return false;
             }
-            
+
             return true;
         }
 
@@ -221,6 +265,66 @@ namespace Group4DesktopApp.View
         private void txtTitle_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.lblTitleError.Visibility = Visibility.Collapsed;
+        }
+
+        private void SourcesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox? lb = sender as ListBox;
+            if (e.OriginalSource == lb && lb.SelectedItem != null)
+            {
+                lb.ScrollIntoView(lb.SelectedItem);
+                this.btnDeleteSource.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.btnDeleteSource.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnDeleteSource_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedSource = this.SourcesList.SelectedItem as Source;
+            if (selectedSource != null)
+            {
+                MessageBoxResult confirmBox = AlertDialog.DeleteSourceConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.viewModel.DeleteSource(selectedSource);
+                    this.SourcesList.SelectedItem = null;
+                }
+            }
+        }
+
+        private void btnYoutubeUpload_Click(object sender, RoutedEventArgs e)
+        {
+            if(LinkParser.IsYoutubeLink(this.txtYoutubeUrl.Text)) {
+                this.txtYoutubeUrl.IsEnabled = false;
+                this.stackMetaData.Visibility = Visibility.Visible;
+                this.btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBoxResult confirmBox = AlertDialog.InvalidYoutubeLinkErrorBox();
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.txtYoutubeUrl.IsEnabled = true;
+            this.stackMetaData.Visibility = Visibility.Collapsed;
+            this.btnCancel.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+                MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
+            }
         }
     }
 }

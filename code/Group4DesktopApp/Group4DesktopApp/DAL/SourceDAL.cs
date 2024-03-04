@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -72,6 +73,35 @@ namespace Group4DesktopApp.DAL
             int result = command.ExecuteNonQuery();
 
             return result >= 0;
+        }
+
+        public static bool DeleteSource(Source source)
+        {
+            int sourceId = source.SourceId;
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+            using SqlTransaction myTrans = connection.BeginTransaction();
+            using var myCommand = connection.CreateCommand();
+            myCommand.Transaction = myTrans;
+            try
+            {
+                myCommand.CommandText = "delete from Notes where SourceId = @srcId";
+                myCommand.Parameters.Add("@srcId", SqlDbType.Int);
+                myCommand.Parameters["@srcId"].Value = sourceId;
+                myCommand.ExecuteNonQuery();
+
+                myCommand.CommandText = "delete from Source where SourceId = @srcId";
+                myCommand.ExecuteNonQuery();
+
+                myTrans.Commit();
+                return true;
+
+            } catch(SqlException ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                myTrans.Rollback();
+                return false;
+            }
         }
     }
 }

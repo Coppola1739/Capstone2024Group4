@@ -6,15 +6,32 @@
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
         mc:Ignorable="d"
         Title="HomeWindow" Height="800" Width="1190" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate x:Key="SourcesTemplate">
+            <Grid Height="64" Width="229">
+                <Label Content="{Binding SourceName}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="226" Margin="65,0,0,0"/>
+                <Image HorizontalAlignment="Left" Height="49" Margin="6,4,0,0" VerticalAlignment="Top" Width="54" Source="{Binding SourceImage}"/>
+                <StackPanel Margin="69,29,-66,-29" Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="Date Created: "/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding UploadDate}" Foreground="#FF0050FF" Height="64" Width="226"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
 
-        <ListBox x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,0,0,131" HorizontalAlignment="Left" Width="345" Height="559" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnViewSource" Content="View Source" Width="101" Height="25" Margin="183,0,0,84" Click="btnViewSource_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <ListBox ItemTemplate="{DynamicResource SourcesTemplate}" x:Name="SourcesList" ItemsSource="{Binding SourceDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="61,94,784,131" SelectionChanged="SourcesList_SelectionChanged"/>
+        <Button x:Name="btnViewSource" Content="View Source" Margin="183,0,906,84" Click="btnViewSource_Click" Height="25" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnDeleteSource" Content="Delete🗑" Margin="183,0,906,50" Click="btnDeleteSource_Click" Height="25" VerticalAlignment="Bottom" Background="Red" Foreground="White" BorderBrush="#FF750000" Visibility="Collapsed">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Label x:Name="lblWelcome" Content="Welcome" Margin="35,55,50,0" FontWeight="Bold" FontSize="16" Height="31" VerticalAlignment="Top"/>
+        <Grid Margin="0,94,31,84" HorizontalAlignment="Right" Width="630">
 
-        <Label x:Name="lblWelcome" Content="Welcome" HorizontalAlignment="Left" Margin="35,26,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" FontSize="16"/>
-        <Grid Margin="0,0,31,84" HorizontalAlignment="Right" Width="630" Height="606" VerticalAlignment="Bottom">
-
-            <Grid x:Name="uploadGrid" HorizontalAlignment="Center" Margin="0,118,0,0" VerticalAlignment="Top" Height="496">
+            <!--Upload Container Grid-->
+            <Grid x:Name="uploadGrid" HorizontalAlignment="Center" Margin="0,118,0,0" VerticalAlignment="Top" Height="496" Visibility="Collapsed">
 
                 <Rectangle Height="496" VerticalAlignment="Center" HorizontalAlignment="Center" Width="630">
                     <Rectangle.Effect>
@@ -22,25 +39,42 @@
                     </Rectangle.Effect>
                 </Rectangle>
 
-                <StackPanel x:Name="stackFileChoose" Margin="124,21,108,0" Orientation="Vertical" Visibility="Collapsed">
-                    <Button x:Name="btnFileChoose" Content="Choose File" Height="26" Width="110" Click="btnFileChoose_Click"/>
-                    <Label x:Name="lblUploadedSource" Content="No file chosen" HorizontalAlignment="Center"/>
-                    <StackPanel x:Name="stackMetaData" Orientation="Vertical" Height="422" Visibility="Collapsed">
+                <!--File Upload Button Stack Container-->
+                <StackPanel x:Name="stackFileChoose" Margin="260,21,260,0" Orientation="Vertical" Visibility="Collapsed">
+                    <Button x:Name="btnFileChoose" Content="Choose File" Height="26" Width="110" Click="btnFileChoose_Click" Panel.ZIndex="3"/>
+                    <Label x:Name="lblUploadedSource" Content="No file chosen" Height="444" HorizontalContentAlignment="Center" Panel.ZIndex="3"/>
+
+                </StackPanel>
+
+                <Grid x:Name="youtubeGrid" Height="52" Margin="38,21,10,423" Visibility="Collapsed">
+                    <Label Content="Youtube Link:" Margin="0,0,0,26"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,26,0,0">
+                        <TextBox x:Name="txtYoutubeUrl" Width="503" Height="19"/>
+                        <Button x:Name="btnYoutubeUpload" Content="Upload" Width="62" Margin="15,0,0,0" Click="btnYoutubeUpload_Click" Height="22"/>
+                    </StackPanel>
+
+                </Grid>
+                <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="283,78,0,0" VerticalAlignment="Top" Width="72" Visibility="Collapsed" Click="btnCancel_Click"/>
+
+                <StackPanel x:Name="MetaDataContainer" Margin="124,21,108,0" Orientation="Vertical">
+                    <StackPanel x:Name="stackMetaData" Orientation="Vertical" Height="422" Margin="0,70,0,0" Visibility="Collapsed">
                         <Label Content="Source Name:" Height="26" Width="398"/>
-                        <TextBox x:Name="txtSourceName" TextWrapping="Wrap"  Height="30" Width="394" FontSize="18" Text="{Binding SourceNameProperty, Mode=TwoWay}" TextChanged="txtSourceName_TextChanged"/>
+                        <TextBox x:Name="txtSourceName"  Height="30" Width="394" Text="{Binding SourceNameProperty, Mode=TwoWay}" TextChanged="txtSourceName_TextChanged" FontSize="14"/>
                         <Label x:Name="lblSrcNameError" Content="Source Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
                         <Label Content="Author First Name:" Height="26" Width="392"/>
-                        <TextBox x:Name="txtAuthFirstName" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding AuthorFirstNameProperty, Mode=TwoWay}" TextChanged="txtAuthFirstName_TextChanged"/>
+                        <TextBox x:Name="txtAuthFirstName" Height="30" Width="394" Text="{Binding AuthorFirstNameProperty, Mode=TwoWay}" TextChanged="txtAuthFirstName_TextChanged" FontSize="14"/>
                         <Label x:Name="lblAuthFirstError" Content="Author First Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
                         <Label Content="Author Last Name:" Height="26" Width="390"/>
-                        <TextBox x:Name="txtAuthLastName" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding AuthorLastNameProperty, Mode=TwoWay}" TextChanged="txtAuthLastName_TextChanged"/>
+                        <TextBox x:Name="txtAuthLastName" Height="30" Width="394" Text="{Binding AuthorLastNameProperty, Mode=TwoWay}" TextChanged="txtAuthLastName_TextChanged" FontSize="14"/>
                         <Label x:Name="lblAuthLastError" Content="Author Last Name is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
                         <Label Content="Title:" Height="26" Width="394"/>
-                        <TextBox x:Name="txtTitle" TextWrapping="Wrap" Height="30" Width="394" FontSize="16" Text="{Binding TitleProperty, Mode=TwoWay}" TextChanged="txtTitle_TextChanged"/>
+                        <TextBox x:Name="txtTitle" Height="30" Width="394" Text="{Binding TitleProperty, Mode=TwoWay}" TextChanged="txtTitle_TextChanged" FontSize="14"/>
                         <Label x:Name="lblTitleError" Content="Title is required" Foreground="Red" FontWeight="Bold" Visibility="Collapsed"/>
                         <Button x:Name="btnUpload" Content="Upload" Width="104" Height="25" Margin="0,20,0,0" Click="btnUpload_Click"/>
                     </StackPanel>
                 </StackPanel>
+
             </Grid>
 
             <Label Content="SourceType:" HorizontalContentAlignment="Center" Margin="0,37,0,0" FontSize="14" Height="31" VerticalAlignment="Top" HorizontalAlignment="Center" Width="110"/>
@@ -48,6 +82,9 @@
             <Label Content="Source Upload" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" Width="630" Height="37" VerticalAlignment="Top"/>
 
         </Grid>
+        <Menu Height="52" VerticalAlignment="Top">
+            <Button x:Name="btnLogout" Content="Logout" Margin="0,15,0,0" Click="btnLogout_Click"/>
+        </Menu>
 
     </Grid>
 </Window>

@@ -112,13 +112,23 @@ namespace Group4DesktopApp.ViewModel
             }
         }
 
-        public bool InsertNewSource(int userId, Byte[] content)
+        public bool InsertNewSource(int userId, string sourceType, Byte[] content)
         {
-            Source newSource = new Source(-1,userId,this.SourceNameProperty,DateTime.Now,content, this.SelectedSourceProperty, this.AuthorFirstNameProperty, this.AuthorLastNameProperty,this.TitleProperty);
+            Source newSource = new Source(-1,userId,this.SourceNameProperty,DateTime.Now,content, sourceType, this.AuthorFirstNameProperty, this.AuthorLastNameProperty,this.TitleProperty);
             bool success = SourceDAL.AddNewSource(userId,newSource);
             if (success)
             {
                 this.updateList(userId);
+            }
+            return success;
+        }
+
+        public bool DeleteSource(Source source)
+        {
+            bool success = SourceDAL.DeleteSource(source);
+            if (success)
+            {
+                this.sources.Remove(source);
             }
             return success;
         }
