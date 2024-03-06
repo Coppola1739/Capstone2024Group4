@@ -57,6 +57,26 @@ namespace CapstoneTests
             Assert.That(okResult, Is.Not.Null);
             Assert.That("{ Message = Video link uploaded successfully }", Is.EqualTo(okResult.Value.ToString()));
         }
+        [Test]
+        public async Task UploadVideo_ValidModel_ReturnsInternalServerError()
+        {
+            var model = new VideoUploadModel
+            {
+                VideoLink = "testlink.com",
+                SourceName = "Test",
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                Title = "Test",
+                SourceType = "video"
+            };
+            var dbContext = _dbContext;
+            var controller = new FileController(dbContext);
+            _dbContext.Source = null;
+            var result = await controller.UploadVideo(model);
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+        }
 
         [Test]
         public async Task UploadPdf_ValidModel_ReturnsOkResult()
@@ -124,16 +144,11 @@ namespace CapstoneTests
             var controller = new FileController(dbContext);
 
             
-            var result = await controller.GetUsersSources();
+            var result = await controller.GetUsersSources(1);
 
 
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
-            //var sourcesObject = okResult.Value as dynamic;
-            //var sources = sourcesObject.Sources as List<Source>;
-
-            //Assert.That(sources, Is.Not.Null);
-            //Assert.That(sources.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -202,6 +217,101 @@ namespace CapstoneTests
 
             Assert.That(result, Is.InstanceOf<NotFoundResult>());
         }
+
+        [Test]
+        public async Task GetSourceById_InValidId_ReturnsInternalServerError()
+        {
+            var dbContext = _dbContext;
+            var controller = new FileController(dbContext);
+
+            _dbContext.Source = null;
+            var result = await controller.GetSourceById(9999);
+
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+        }
+
+
+        [Test]
+        public async Task DeleteSource_ValidId_ReturnsOkResult()
+        {
+            var sourceId = 1;
+            var source = new Source
+            {
+                SourceId = sourceId,
+                UserId = 1,
+                SourceName = "Test",
+                UploadDate = DateTime.UtcNow,
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                SourceType = "pdf",
+                Title = "Test",
+                Content = Encoding.UTF8.GetBytes("Test")
+            };
+
+            _dbContext.Source.Add(source);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new FileController(_dbContext);
+
+            var result = await controller.DeleteSource(sourceId);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+
+            var deletedSource = await _dbContext.Source.FindAsync(sourceId);
+            Assert.That(deletedSource, Is.Null);
+        }
+
+        [Test]
+        public async Task DeleteSource_InvalidId_ReturnsNotFound()
+        {
+            var invalidSourceId = 9999;
+            var controller = new FileController(_dbContext);
+
+            var result = await controller.DeleteSource(invalidSourceId);
+
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+
+            var existingSource = await _dbContext.Source.FindAsync(invalidSourceId);
+            Assert.That(existingSource, Is.Null);
+        }
+
+
+        [Test]
+        public async Task DeleteSource_DbContextIsNull_ReturnsInternalServerError()
+        {
+            var sourceId = 1;
+            var source = new Source
+            {
+                SourceId = sourceId,
+                UserId = 1,
+                SourceName = "Test",
+                UploadDate = DateTime.UtcNow,
+                AuthorFirstName = "Test",
+                AuthorLastName = "Test",
+                SourceType = "pdf",
+                Title = "Test",
+                Content = Encoding.UTF8.GetBytes("Test")
+            };
+
+            _dbContext.Source.Add(source);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new FileController(_dbContext);
+
+            _dbContext.Source = null;
+
+            var result = await controller.DeleteSource(sourceId);
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+        }
+
 
     }
 }
