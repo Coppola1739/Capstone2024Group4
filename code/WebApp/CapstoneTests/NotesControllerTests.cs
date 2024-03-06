@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,23 @@ namespace CapstoneTests
 
             var retrievedNotes = okResult.Value as List<Notes>;
             Assert.That(retrievedNotes, Is.Not.Null);
-            Assert.That(retrievedNotes.Count, Is.EqualTo(2)); // Assuming two notes were seeded
+            Assert.That(retrievedNotes.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task GetNotesBySourceId_ExistingSourceId_ReturnsInternalServerError()
+        {
+            await SeedDatabaseAsync();
+
+            var controller = new NotesController(_dbContext);
+            var sourceId = 1;
+
+            _dbContext.Notes = null;
+            var result = await controller.GetNotesBySourceId(sourceId);
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
         }
 
         /*
@@ -108,6 +125,23 @@ namespace CapstoneTests
         }
 
         [Test]
+        public async Task AddNote_ValidModel_ReturnsInternalServerError()
+        {
+            var controller = new NotesController(_dbContext);
+            var addNoteModel = new AddNoteModel { SourceId = 1, Content = "New note content" };
+            _dbContext.Notes = null;
+            var result = await controller.AddNote(addNoteModel);
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+        }
+
+
+
+
+
+        [Test]
         public async Task AddNote_InvalidModel_ReturnsBadRequest()
         {
             var controller = new NotesController(_dbContext);
@@ -118,6 +152,108 @@ namespace CapstoneTests
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult, Is.Not.Null);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+
+        [Test]
+        public async Task UpdateNote_ExistingNoteId_ReturnsOkResult()
+        {
+            // Arrange
+            var noteId = 1;
+            var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Original content" };
+            _dbContext.Notes.Add(existingNote);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new NotesController(_dbContext);
+            var updatedContent = "Updated content";
+
+            // Act
+            var result = await controller.UpdateNote(noteId, updatedContent);
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value.ToString(), Is.EqualTo("{ Message = Note updated successfully }"));
+
+            var updatedNote = await _dbContext.Notes.FindAsync(noteId);
+            Assert.That(updatedNote, Is.Not.Null);
+            Assert.That(updatedContent, Is.EqualTo(updatedNote.Content));
+        }
+
+        [Test]
+        public async Task DeleteNote_ExistingNoteId_ReturnsOkResult()
+        {
+            // Arrange
+            var noteId = 1;
+            var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Note content" };
+            _dbContext.Notes.Add(existingNote);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new NotesController(_dbContext);
+
+            // Act
+            var result = await controller.DeleteNote(noteId);
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value.ToString(), Is.EqualTo("{ Message = Note deleted successfully }"));
+
+            var deletedNote = await _dbContext.Notes.FindAsync(noteId);
+            Assert.That(deletedNote, Is.Null);
+        }
+
+        [Test]
+        public async Task DeleteNote_NonExistingNoteId_ReturnsNotFound()
+        {
+            var nonExistingNoteId = 9999;
+            var controller = new NotesController(_dbContext);
+
+            var result = await controller.DeleteNote(nonExistingNoteId);
+            
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+
+        [Test]
+        public async Task UpdateNote_ExceptionThrown_ReturnsInternalServerError()
+        {
+            var noteId = 1;
+            var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Original content" };
+            _dbContext.Notes.Add(existingNote);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new NotesController(_dbContext);
+
+            var updatedContent = "Updated content";
+
+            _dbContext.Notes = null;
+
+            var result = await controller.UpdateNote(noteId, updatedContent);
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+        }
+
+        [Test]
+        public async Task DeleteNote_ExceptionThrown_ReturnsInternalServerError()
+        {
+            var noteId = 1;
+            var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Note content" };
+            _dbContext.Notes.Add(existingNote);
+            await _dbContext.SaveChangesAsync();
+
+            var controller = new NotesController(_dbContext);
+
+            _dbContext.Notes = null;
+
+            var result = await controller.DeleteNote(noteId);
+
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var statusCodeResult = (ObjectResult)result;
+            Assert.That(statusCodeResult.StatusCode, Is.EqualTo(500));
+
         }
 
     }
