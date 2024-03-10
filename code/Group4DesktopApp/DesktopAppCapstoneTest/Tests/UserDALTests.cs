@@ -25,7 +25,7 @@ namespace DesktopAppCapstoneTest.Tests
                 try
                 {
                     //Ensures there is at least one user in the database
-                    bool value = AccountDAL.CreateAccount("Test", "ok", connection);
+                    bool value = AccountDAL.CreateAccount("TestAccount", "TestPassword@", connection);
                     User? retrievedUser = null;
                     if (value == true)
                     {

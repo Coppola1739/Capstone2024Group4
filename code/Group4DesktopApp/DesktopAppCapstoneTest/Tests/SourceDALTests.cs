@@ -25,8 +25,8 @@ namespace DesktopAppCapstoneTest.Tests
                 try
                 {
                     //Ensures there is at least one user in the database
-                    bool value = AccountDAL.CreateAccount("Test", "ok",connection);
-                    int? id = AccountDAL.GetAccountID("Test", "ok");
+                    bool value = AccountDAL.CreateAccount("TestAccount", "TestPassword@",connection);
+                    int? id = AccountDAL.GetAccountID("TestAccount", "TestPassword@");
                     Source newSource = new Source();
                     Source newSource2 = new Source();
                     int accountId = id ?? -1;
@@ -60,8 +60,8 @@ namespace DesktopAppCapstoneTest.Tests
                 try
                 {
                     //Ensures there is at least one user in the database
-                    bool value = AccountDAL.CreateAccount("Test", "ok", connection);
-                    int? id = AccountDAL.GetAccountID("Test", "ok");
+                    bool value = AccountDAL.CreateAccount("TestAccount", "TestPassword@", connection);
+                    int? id = AccountDAL.GetAccountID("TestAccount", "TestPassword@");
                     Source newSource = new Source();
                     Source newSource2 = new Source();
 

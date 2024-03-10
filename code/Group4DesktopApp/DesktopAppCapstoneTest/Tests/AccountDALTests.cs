@@ -6,8 +6,9 @@ namespace DesktopAppCapstoneTest.Tests
 {
     public class AccountDALTests
     {
+
         [Test]
-        public void ok()
+        public void CreateAccountDALisValid()
         {
             bool success = false;
             using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
@@ -19,8 +20,8 @@ namespace DesktopAppCapstoneTest.Tests
                 myCommand.Transaction = myTrans;
                 try
                 {
-                    int? value = AccountDAL.GetAccountID("Jeffrey353", "school", connection);
-                    if (value != null)
+                    bool value = AccountDAL.CreateAccount("TestShouldBeDeleted", "TestPassword@", connection);
+                    if (value == true)
                     {
                         success = true;
                     }
@@ -34,13 +35,46 @@ namespace DesktopAppCapstoneTest.Tests
                     myTrans.Rollback();
                     success = false;
                     connection.Close();
-                    Assert.Fail(ex.Message);
+                    Assert.IsTrue(success);
                 }
             }
         }
 
-            [Test]
-            public void accountIDNotFound()
+        [Test]
+        public void CreateAccountUserNameAlreadyExists()
+        {
+            using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using var connection = new SqlConnection(Connection.ConnectionString);
+                connection.Open();
+                using SqlTransaction myTrans = connection.BeginTransaction();
+                using var myCommand = connection.CreateCommand();
+                myCommand.Transaction = myTrans;
+                try
+                {
+                    bool firstEntry = AccountDAL.CreateAccount("TestShouldBeDeleted", "TestPassword@", connection);
+                    bool noDuplicateAccount = true;
+                    if (firstEntry == true)
+                    {
+                        noDuplicateAccount = AccountDAL.CreateAccount("TestShouldBeDeleted", "TestPassword2@");
+                        Assert.IsFalse(noDuplicateAccount);
+                    }
+                    myTrans.Rollback();
+                    connection.Close();
+                    Assert.IsFalse(noDuplicateAccount);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    myTrans.Rollback();
+                    connection.Close();
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [Test]
+            public void TestAccountIDNotFound()
             {
                 bool noResult = false;
                 using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
@@ -73,7 +107,7 @@ namespace DesktopAppCapstoneTest.Tests
             }
 
         [Test]
-        public void CreateAccountDALisValid()
+        public void TestGetAccountIDByCredentials()
         {
             bool success = false;
             using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
@@ -85,8 +119,9 @@ namespace DesktopAppCapstoneTest.Tests
                 myCommand.Transaction = myTrans;
                 try
                 {
-                    bool value = AccountDAL.CreateAccount("TestShouldBeDeleted", "pass",connection);
-                    if (value == true)
+                    bool firstEntry = AccountDAL.CreateAccount("DummyAcc", "TestPassword@", connection);
+                    int? value = AccountDAL.GetAccountID("DummyAcc", "TestPassword@");
+                    if (value != null)
                     {
                         success = true;
                     }
@@ -97,45 +132,16 @@ namespace DesktopAppCapstoneTest.Tests
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
-                    myTrans.Rollback();
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        myTrans.Rollback();
+                        connection.Close();
+                    }
                     success = false;
-                    connection.Close();
-                    Assert.IsTrue(success);
+                    Assert.Fail(ex.Message);
                 }
             }
         }
 
-        [Test]
-        public void CreateAccountUserNameAlreadyExists()
-        {
-            using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
-            {
-                using var connection = new SqlConnection(Connection.ConnectionString);
-                connection.Open();
-                using SqlTransaction myTrans = connection.BeginTransaction();
-                using var myCommand = connection.CreateCommand();
-                myCommand.Transaction = myTrans;
-                try
-                {
-                    bool firstEntry = AccountDAL.CreateAccount("TestShouldBeDeleted", "pass", connection);
-                    bool noDuplicateAccount = true;
-                    if (firstEntry == true)
-                    {
-                        noDuplicateAccount = AccountDAL.CreateAccount("TestShouldBeDeleted", "shouldReturnFalse");
-                        Assert.IsFalse(noDuplicateAccount);
-                    }
-                    myTrans.Rollback();
-                    connection.Close();
-                    Assert.IsFalse(noDuplicateAccount);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    myTrans.Rollback();
-                    connection.Close();
-                    Assert.Fail();
-                }
-            }
-        }
     }
 }
