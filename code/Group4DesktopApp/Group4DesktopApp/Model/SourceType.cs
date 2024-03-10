@@ -11,8 +11,7 @@ namespace Group4DesktopApp.Model
         public enum Enum
         {
             PDF,
-            VIDEO,
-            YOUTUBE_LINK
+            VIDEO
         }
     }
 }

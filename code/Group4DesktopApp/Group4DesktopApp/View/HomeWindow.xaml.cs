@@ -65,9 +65,9 @@ namespace Group4DesktopApp.View
                 this.stackFileChoose.Visibility = Visibility.Visible;
                 
             }
-            else if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.YOUTUBE_LINK.ToString()))
+            else if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.VIDEO.ToString()))
             {
-                this.selectedType = SourceType.Enum.YOUTUBE_LINK.ToString();
+                this.selectedType = SourceType.Enum.VIDEO.ToString();
                 this.clearUploadFields();
                 this.uploadGrid.Visibility = Visibility.Visible;
                 this.youtubeGrid.Visibility = Visibility.Visible;
@@ -133,7 +133,7 @@ namespace Group4DesktopApp.View
                     this.lblUploadedSource.Content = "No file chosen";
                     this.clearMetaDataFields();
                     this.stackMetaData.Visibility = Visibility.Collapsed;
-                } else if(this.selectedType == SourceType.Enum.YOUTUBE_LINK.ToString())
+                } else if(this.selectedType == SourceType.Enum.VIDEO.ToString())
                 {
                     byte[] youtubeURLcontent = System.Text.Encoding.Default.GetBytes(this.txtYoutubeUrl.Text);
                     this.viewModel.InsertNewSource(this.loggedInUser.UserId, "video", youtubeURLcontent);

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Group4DesktopApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+279b72ae1ea66bff60bd8acab36c129208767898")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36e9fd6aaf045b1e6fb45fa754a772e7835a3409")]
 [assembly: System.Reflection.AssemblyProductAttribute("Group4DesktopApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Group4DesktopApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
