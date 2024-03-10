@@ -1,6 +1,9 @@
 ﻿using Group4DesktopApp.Model;
+using Group4DesktopApp.Resources;
 using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
+using Microsoft.Web.WebView2.Core;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -56,14 +59,20 @@ namespace Group4DesktopApp.View
             switch (sourceType)
             {
                 case "PDF":
-                    string extension = "pdf";
+                    string? tmpPDFDirectoryPath = SourceResources.ResourceDirectories.GetValueOrDefault("PDFDocuments");
+                    if (tmpPDFDirectoryPath != null)
+                    {
+                        var tmpPDFDirectory = Directory.CreateDirectory(tmpPDFDirectoryPath);
+                        string extension = "pdf";
 
-                    string filename = System.IO.Path.GetTempFileName() + "." + extension;
+                        string filename = System.IO.Path.Combine(tmpPDFDirectory.FullName, System.IO.Path.GetRandomFileName() + "." + extension);
 
-                    File.WriteAllBytes(filename, source.Content);
-                    this.pdfViewer.Visibility = Visibility.Visible;
+                        File.WriteAllBytes(filename, source.Content);
+                        this.pdfViewer.Visibility = Visibility.Visible;
 
-                    this.pdfViewer.Navigate(filename);
+                        this.pdfViewer.Navigate(filename);
+
+                    }
                     break;
 
                 case "VIDEO":
@@ -86,7 +95,9 @@ namespace Group4DesktopApp.View
 
         private async void loadYoutubeHTMLContent(string youtubeID)
         {
-            await this.youtubePlayer.EnsureCoreWebView2Async(null);
+            var webEnv = await CoreWebView2Environment.CreateAsync(null, System.IO.Path.GetTempPath());
+            await this.youtubePlayer.EnsureCoreWebView2Async(webEnv);
+
             string htmlContent = @"
             <html>
             <head>

@@ -1,4 +1,4 @@
-﻿using Group4DesktopApp.Model;
+﻿using Group4DesktopApp.Resources;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

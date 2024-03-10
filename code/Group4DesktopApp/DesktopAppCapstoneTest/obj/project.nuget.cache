@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UOUSnkXZZKcU0M6MmxXExAT4aV5BdVbi0NhkmzW8GerklG1cGo+Gd5KkVr7cjfmjNOL0HcOERvJfiwae+VVh2Q==",
+  "dgSpecHash": "VzffWo4BjXZACoZz/ghT5PSd+mUlVAVzjDtCMCFDdN6MCL/HT2BQpdJZ/HJOb+11kY9aIq15BsKpYrSeHqI5qA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\CapProj2024\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",

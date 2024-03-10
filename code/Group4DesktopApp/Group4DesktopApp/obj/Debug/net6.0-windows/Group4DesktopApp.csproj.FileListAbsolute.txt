@@ -200,7 +200,6 @@ C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4De
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\View\SourcePageWindow.g.cs
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_Content.g.cs
-C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_MarkupCompile.cache
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\Group4DesktopApp_MarkupCompile.lref
 C:\Users\victo\Desktop\Important Documents\proj\Capstone2024Group4\code\Group4DesktopApp\Group4DesktopApp\obj\Debug\net6.0-windows\UserControls\VideoPlayer.baml

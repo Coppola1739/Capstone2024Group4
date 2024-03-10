@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Group4DesktopApp.Resources;
 
 namespace Group4DesktopApp.Model
 {
