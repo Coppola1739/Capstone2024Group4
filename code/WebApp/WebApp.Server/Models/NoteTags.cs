@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
-/// 
+/// API Models
 /// </summary>
 namespace WebApp.Server.Models
 {
     /// <summary>
-    /// 
+    /// NoteTags Model
     /// </summary>
     [ExcludeFromCodeCoverage]
     public class NoteTags

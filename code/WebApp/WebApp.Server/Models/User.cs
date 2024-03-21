@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
+/// <summary>
+/// API Models
+/// </summary>
 namespace WebApp.Server.Models
 {
     /// <summary>
-    /// 
+    /// User class
     /// </summary>
     [ExcludeFromCodeCoverage]
     public class User

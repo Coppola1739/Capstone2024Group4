@@ -6,12 +6,12 @@ using WebApp.Server.Data;
 using WebApp.Server.Models;
 
 /// <summary>
-/// 
+/// API Controllers
 /// </summary>
 namespace WebApp.Server.Controllers
 {
     /// <summary>
-    /// 
+    /// Notes API Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
@@ -23,17 +23,17 @@ namespace WebApp.Server.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="NotesController"/> class.
         /// </summary>
-        /// <param name="context">The context.</param>
+        /// <param name="context">The DB context.</param>
         public NotesController(CapstoneDbContext context)
         {
             _context = context;
         }
 
         /// <summary>
-        /// Gets the notes by source identifier.
+        /// Gets the notes by source id.
         /// </summary>
-        /// <param name="sourceId">The source identifier.</param>
-        /// <returns></returns>
+        /// <param name="sourceId">The source id.</param>
+        /// <returns>A list of notes if exist. Empty list if they dont</returns>
         [HttpGet("GetNotesBySourceId/{sourceId:int}")]
         public async Task<IActionResult> GetNotesBySourceId(int sourceId)
         {
@@ -52,11 +52,11 @@ namespace WebApp.Server.Controllers
         }
 
         /// <summary>
-        /// Updates the note.
+        /// Updates the note
         /// </summary>
-        /// <param name="noteId">The note identifier.</param>
-        /// <param name="updatedContent">Content of the updated.</param>
-        /// <returns></returns>
+        /// <param name="noteId">The note Id.</param>
+        /// <param name="updatedContent">Content of the updated note.</param>
+        /// <returns>Ok if note updated, NotFound if note doesnt exist, Bad if network/context issues</returns>
         [HttpPost("UpdateNote/{noteId:int}")]
         public async Task<IActionResult> UpdateNote(int noteId, [FromBody] string updatedContent)
         {
@@ -83,8 +83,8 @@ namespace WebApp.Server.Controllers
         /// <summary>
         /// Deletes the note.
         /// </summary>
-        /// <param name="noteId">The note identifier.</param>
-        /// <returns></returns>
+        /// <param name="noteId">The note Id.</param>
+        /// <returns>Ok if note deleted, NotFound if note doesnt exist, Bad if network/Context errors</returns>
         [HttpDelete("DeleteNote/{noteId:int}")]
         public async Task<IActionResult> DeleteNote(int noteId)
         {
@@ -110,8 +110,8 @@ namespace WebApp.Server.Controllers
         /// <summary>
         /// Adds the note.
         /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <param name="model">The AddNoteModel.</param>
+        /// <returns>BadRequest if model is null, Ok if note added, Bad if network/Context errors</returns>
         [HttpPost("AddNote")]
         public async Task<IActionResult> AddNote([FromForm] AddNoteModel model)
         {
@@ -143,7 +143,7 @@ namespace WebApp.Server.Controllers
     }
 
     /// <summary>
-    /// 
+    /// AddNoteModel
     /// </summary>
     public class AddNoteModel
     {

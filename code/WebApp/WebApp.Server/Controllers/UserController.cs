@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Server.Data;
 using WebApp.Server.Models;
-
+/// <summary>
+/// API Controllers
+/// </summary>
 namespace WebApp.Server.Controllers
 {
     /// <summary>
-    /// 
+    /// User API Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
@@ -17,9 +19,9 @@ namespace WebApp.Server.Controllers
         private readonly CapstoneDbContext _context = context;
 
         /// <summary>
-        /// Gets this instance.
+        /// Gets all users
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of all users</returns>
         [HttpGet ("getallusers")]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
@@ -34,11 +36,11 @@ namespace WebApp.Server.Controllers
         }
 
         /// <summary>
-        /// Gets the user identifier by login.
+        /// Gets the user id by login information
         /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="pass">The pass.</param>
-        /// <returns></returns>
+        /// <param name="user">The username.</param>
+        /// <param name="pass">The password.</param>
+        /// <returns>NotFound if user doesnt exist, list of users that match, Bad if context/network errors</returns>
         [HttpGet("getUserIdByLogin")]
         public async Task<IActionResult> getUserIdByLogin(string? user, string? pass)
         {
@@ -69,10 +71,10 @@ namespace WebApp.Server.Controllers
         }
 
         /// <summary>
-        /// Creates the account.
+        /// Creates the account of the user
         /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <param name="model">The UserModel</param>
+        /// <returns>BadRequest if invalid credentials, Conflict if username already exists, Ok if created, Bad if network/context errors</returns>
         [HttpPost("createAccount")]
         public async Task<IActionResult> CreateAccount([FromForm] UserModel model)
         {
@@ -109,7 +111,7 @@ namespace WebApp.Server.Controllers
     }
 
     /// <summary>
-    /// 
+    /// UserModel class
     /// </summary>
     public class UserModel
     {

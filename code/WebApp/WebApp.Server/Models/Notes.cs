@@ -1,10 +1,10 @@
 ﻿/// <summary>
-/// 
+/// API Models
 /// </summary>
 namespace WebApp.Server.Models
 {
     /// <summary>
-    /// 
+    /// Notes Class
     /// </summary>
     public class Notes
     {

@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using WebApp.Server.Models;
 
 /// <summary>
-/// 
+/// API Data
 /// </summary>
 namespace WebApp.Server.Data
 {
     /// <summary>
-    /// 
+    /// Database Context. Programatically creates and maintains the database
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class CapstoneDbContext : DbContext

@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
+/// <summary>
+/// API Models
+/// </summary>
 namespace WebApp.Server.Models
 {
     /// <summary>
-    /// 
+    /// Tag Class
     /// </summary>
     [ExcludeFromCodeCoverage]
     public class Tag
