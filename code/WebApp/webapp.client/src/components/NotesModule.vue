@@ -11,11 +11,18 @@
             <textarea v-model="updatedContent"></textarea>
             <button @click="saveNote">Done</button>
         </div>
+        <div class="tags">
+            <TagModuleVue :noteId="note.notesId" />
+        </div>
     </div>
 </template>
 
 <script>
+    import TagModuleVue from './TagModule.vue';
     export default {
+        components: {
+            TagModuleVue
+        },
         props: {
             note: {
                 type: Object,

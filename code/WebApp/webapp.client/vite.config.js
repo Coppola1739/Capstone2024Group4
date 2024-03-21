@@ -57,6 +57,10 @@ export default defineConfig({
             '^/Notes': {
                 target: 'http://localhost:5056/',
                 secure: false
+            },
+            '^/Tag': {
+                target: 'http://localhost:5056/',
+                secure: false
             }
         },
         port: 5173,
