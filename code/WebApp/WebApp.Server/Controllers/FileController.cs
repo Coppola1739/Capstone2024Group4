@@ -11,19 +11,35 @@ using WebApp.Server.Data;
 using WebApp.Server.Models;
 using System.Text;
 
+/// <summary>
+/// 
+/// </summary>
 namespace WebApp.Server.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
         private readonly CapstoneDbContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public FileController(CapstoneDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Uploads the video.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         [HttpPost("uploadvideo")]
         public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
         {
@@ -60,6 +76,11 @@ namespace WebApp.Server.Controllers
         }
 
 
+        /// <summary>
+        /// Uploads the PDF.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         [HttpPost("uploadpdf")]
         public async Task<IActionResult> UploadPdf([FromForm] FileUploadModel model)
         {
@@ -99,6 +120,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the users sources.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         [HttpGet("GetUsersSources")]
         public async Task<IActionResult> GetUsersSources([FromQuery] int userId)
         {
@@ -116,6 +142,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the source by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("GetSourceById")]
         public async Task<IActionResult> GetSourceById(int id)
         {
@@ -136,6 +167,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the source.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpDelete("DeleteSource/{id}")]
         public async Task<IActionResult> DeleteSource(int id)
         {
@@ -162,6 +198,9 @@ namespace WebApp.Server.Controllers
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class FileUploadModel
     {
         public int UserId { get; set; }
@@ -173,6 +212,9 @@ namespace WebApp.Server.Controllers
         public string SourceType { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class VideoUploadModel
     {
         public int UserId { get; set; }
