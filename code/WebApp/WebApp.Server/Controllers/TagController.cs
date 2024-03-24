@@ -18,7 +18,11 @@ namespace WebApp.Server.Controllers
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Gets the tag by notes id
+        /// </summary>
+        /// <param name="notesId">the notes id</param>
+        /// <returns>a list of tags that belong to a note, 500 if network/db error</returns>
         [HttpGet("GetTagByNotesID/{notesId:int}")]
         public async Task<IActionResult> GetTagByNotesID(int notesId)
         {
@@ -36,7 +40,11 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
-
+        /// <summary>
+        /// Adds the tag to the note and also adds the tag to the db if it doesnt already exist
+        /// </summary>
+        /// <param name="model">The NoteTags model</param>
+        /// <returns>Ok if tag was added, BadRequest if NoteTags was null, empty or tag already exists for note</returns>
         [HttpPost("AddTag")]
         public async Task<IActionResult> AddTag([FromBody] NoteTags model)
         {
@@ -82,8 +90,12 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
-
-        [HttpDelete("RemoveTag")]
+        /// <summary>
+        /// Removes the tag based on the tag name and the id of the note
+        /// </summary>
+        /// <param name="tagName">The AddNoteModel.</param>
+        /// <param name="notesId">The noteId.</param>
+        /// <returns>BadRequest if tagname is null or empty, NotFound if the note doesnt exist, OK if tag is removed</returns>
         public async Task<IActionResult> RemoveTag([FromBody] string tagName, int notesId)
         {
             try
@@ -109,6 +121,5 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
-
     }
 }

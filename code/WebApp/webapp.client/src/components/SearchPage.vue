@@ -12,7 +12,6 @@
 
 <script>
     import NoteModuleVue from './SearchNotesModule.vue';
-    //TODO: Make new notemodule for search results to display. When clicked on, it will take you to source
 
     export default {
         components: {
@@ -38,7 +37,6 @@
                 }
             },
             async fetchNotes() {
-                // Fetch notes when needed, like after a note is updated or deleted
                 await this.searchNotes();
             }
         }

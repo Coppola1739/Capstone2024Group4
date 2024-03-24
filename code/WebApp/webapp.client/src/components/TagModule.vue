@@ -49,11 +49,11 @@
             },
             toggleAddingNewTag() {
                 this.addingNewTag = !this.addingNewTag;
-                this.newTagInput = ''; // Clear input when toggling
+                this.newTagInput = '';
             },
             cancelAddTag() {
                 this.addingNewTag = false;
-                this.newTagInput = ''; // Clear input
+                this.newTagInput = '';
             },
             async addNewTag() {
                 if (this.newTagInput.trim() !== '') {
@@ -71,7 +71,7 @@
 
                         if (response.ok) {
                             this.getExistingTags();
-                            this.newTagInput = ''; // Clear input
+                            this.newTagInput = ''; 
                             this.addingNewTag = false;
                         } else {
                             console.error('Failed to add tag');
