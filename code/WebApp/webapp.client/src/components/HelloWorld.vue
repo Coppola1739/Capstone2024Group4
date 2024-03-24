@@ -1,6 +1,7 @@
 <template>
     <div class="box">
         <h1>Capstone Project</h1>
+        <router-link to="/searchpage" class="search-button">Search</router-link>
         <div class="source-content">
             <div class="upload-box">
                 <div class="pdf-upload-section">
@@ -185,7 +186,20 @@
         display: flex;
         flex-direction: column;
     }
-
+    .search-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+        .search-button:hover {
+            background-color: #0056b3;
+        }
     .source-content {
         display: flex;
         flex-direction: row-reverse;

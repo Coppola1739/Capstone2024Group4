@@ -140,7 +140,65 @@ namespace WebApp.Server.Controllers
         }
 
 
+        /// <summary>
+        /// Gets the notes by tag.
+        /// </summary>
+        /// <param name="tagName">Name of the tag.</param>
+        /// <returns></returns>
+        [HttpGet("GetNotesByTag/{tagName}")]
+        public async Task<IActionResult> GetNotesByTag(string tagName)
+        {
+            try
+            {
+                tagName = tagName.ToLower();
+
+                var noteIds = await _context.NoteTags
+                    .Where(nt => nt.TagName.ToLower() == tagName)
+                    .Select(nt => nt.NotesId)
+                    .ToListAsync();
+
+                var notes = await _context.Notes
+                    .Where(n => noteIds.Contains(n.NotesId))
+                    .ToListAsync();
+
+                return Ok(notes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Gets the source by note ID.
+        /// </summary>
+        /// <param name="noteId">The note ID.</param>
+        /// <returns>The source associated with the note.</returns>
+        [HttpGet("GetSourceByNoteId/{noteId:int}")]
+        public async Task<IActionResult> GetSourceByNoteId(int noteId)
+        {
+            try
+            {
+                var source = await _context.Source
+                    .Where(s => s.SourceId == _context.Notes.FirstOrDefault(n => n.NotesId == noteId).SourceId)
+                    .FirstOrDefaultAsync();
+
+                if (source == null)
+                {
+                    return NotFound(new { Message = "Source not found for the provided note ID" });
+                }
+
+                return Ok(source);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
     }
+
+}
+
 
     /// <summary>
     /// AddNoteModel
@@ -150,4 +208,3 @@ namespace WebApp.Server.Controllers
         public int SourceId { get; set; }
         public string Content { get; set; }
     }
-}
