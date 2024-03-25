@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Group4DesktopApp.View
 {
@@ -325,6 +326,70 @@ namespace Group4DesktopApp.View
                 loginWindow.Show();
                 this.Close();
             }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
+            var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
+            var foundNotes = notes.Where(obj => list.Any(aObj =>
+                aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                aObj.NotesId == obj.NotesId));
+
+            foreach ( var note in foundNotes )
+            {
+                this.lstSearchResult.Items.Add(note);
+            }
+        }
+
+        private void btnGo_Click(object sender, RoutedEventArgs e)
+        {
+            var goButton = sender as Control;
+            if (goButton == null)
+            {
+                return;
+            }
+
+            Notes? selectedNote = goButton.DataContext as Notes;
+            if (selectedNote != null)
+            {
+                Source source = SourceDAL.GetSourcesById(selectedNote.SourceId);
+
+                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, source);
+                sourcePageWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(this.txtSearchBar.Text))
+            {
+                this.lstSearchResult.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.lstSearchResult.Visibility = Visibility.Visible;
+                this.lstSearchResult.Items.Clear();
+                var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
+                var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
+                var foundNotes = notes.Where(obj => list.Any(aObj =>
+                    aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                    aObj.NotesId == obj.NotesId));
+
+                if (foundNotes.Any())
+                {
+                    foreach (var note in foundNotes)
+                    {
+                        this.lstSearchResult.Items.Add(note);
+                    }
+                }
+            }
+        }
+
+        private void btnClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.txtSearchBar.Text = string.Empty;
         }
     }
 }

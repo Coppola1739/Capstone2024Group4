@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace Group4DesktopApp.DAL
 {
@@ -26,6 +27,17 @@ namespace Group4DesktopApp.DAL
             ObservableCollection<Notes> items =
                 new(connection.Query<Notes>(query,
                  new { srcId = sourceId }).ToList());
+            return items;
+        }
+
+        public static ObservableCollection<Notes> GetAllNotesByUserId(int userId)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            var query = "SELECT DISTINCT N.NotesId, N.SourceId, N.Content " +
+                "FROM Notes N JOIN Source S ON N.SourceId = S.SourceId JOIN Users U ON S.UserId = @uId";
+            ObservableCollection<Notes> items =
+                new(connection.Query<Notes>(query,
+                 new { uId = userId }).ToList());
             return items;
         }
 

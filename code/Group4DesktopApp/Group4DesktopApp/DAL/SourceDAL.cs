@@ -26,6 +26,16 @@ namespace Group4DesktopApp.DAL
                  new { uId = userId }).ToList());
             return items;
         }
+
+        public static Source GetSourcesById(int sourceId)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            var query = "Select * FROM Source WHERE SourceId = @srcId";
+            ObservableCollection<Source> items =
+                new(connection.Query<Source>(query,
+                 new { srcId = sourceId }).ToList());
+            return items.First();
+        }
         /// <summary>
         /// Adds the new source.
         /// </summary>

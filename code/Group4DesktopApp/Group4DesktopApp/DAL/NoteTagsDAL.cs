@@ -30,6 +30,22 @@ namespace Group4DesktopApp.DAL
         }
 
         /// <summary>
+        /// Gets a collection of all Tags linked top the specified userId
+        /// </summary>
+        /// <param name="noteId"></param>
+        /// <returns>a collection of all Tags under a note by the specified noteId</returns>
+        public static ObservableCollection<NoteTags> GetAllTagsByUserId(int userId)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            var query = "SELECT DISTINCT NT.TagName, NT.NotesId, S.UserId " +
+                "FROM NoteTags NT JOIN Notes N ON NT.NotesId = N.NotesId JOIN Source S ON N.SourceId = S.SourceId JOIN Users U ON S.UserId = @uId";
+            ObservableCollection<NoteTags> items =
+                new(connection.Query<NoteTags>(query,
+                 new { uId = userId }).ToList());
+            return items;
+        }
+
+        /// <summary>
         /// Adds the specified tag name to the specified noteId
         /// </summary>
         /// <param name="tagName"></param>
