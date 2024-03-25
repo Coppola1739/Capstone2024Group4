@@ -173,6 +173,21 @@ namespace Group4DesktopApp.ViewModel
             return success;
         }
 
+        public bool DeleteTagFromNote(string tagName)
+        {
+           NoteTags? tag = this.tags.FirstOrDefault(x => x.TagName == tagName);
+            if (SelectedNoteProperty != null && tag != null)
+            {
+                bool success = NoteTagsDAL.DeleteTagFromNote(tag);
+                if (success)
+                {
+                    this.tags.Remove(tag);
+                }
+                return success;
+            }
+            return false;
+        }
+
         private void defaultRelayExecute()
         {
             return;

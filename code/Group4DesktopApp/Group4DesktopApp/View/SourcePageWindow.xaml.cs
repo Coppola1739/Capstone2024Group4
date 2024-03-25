@@ -384,11 +384,7 @@ namespace Group4DesktopApp.View
             {
                 return;
             }
-            //NoteTags tObject = this.lstTags.Where(tag => tag.TagName == tagObject.Content).FirstOrDefault();
-
-            //Debug.WriteLine(tagObject.);
-            //this.lstTags.Items.Remove(tagObject);
-            //this.lstTags.Items.Refresh();
+            this.viewModel.DeleteTagFromNote((string)tagObject.Content);
         }
 
         private void btnTags_Click(object sender, RoutedEventArgs e)

@@ -58,6 +58,26 @@ namespace Group4DesktopApp.DAL
             return result >= 0;
         }
 
+        public static bool DeleteTagFromNote(NoteTags tag)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+
+            var goodQuery = "delete from NoteTags where TagName = @tName AND NotesId = @nId";
+
+            using var command = new SqlCommand(goodQuery, connection);
+
+
+            command.Parameters.Add("@tName", SqlDbType.NVarChar);
+            command.Parameters["@tName"].Value = tag.TagName;
+            command.Parameters.Add("@nId", SqlDbType.Int);
+            command.Parameters["@nId"].Value = tag.NotesId;
+
+            int result = command.ExecuteNonQuery();
+
+            return result >= 0;
+        }
+
         public static bool isTagExistingUnderNote(string tagName, int noteId)
         {
 
