@@ -165,7 +165,7 @@ namespace Group4DesktopApp.ViewModel
         public bool DeleteNote(Notes? note)
         {
             if (note == null) return false;
-            bool success = NotesDAL.DeleteNote(note.NotesId);
+            bool success = NotesDAL.DeleteNoteById(note.NotesId);
             if (success)
             {
                 this.notes.Remove(note);

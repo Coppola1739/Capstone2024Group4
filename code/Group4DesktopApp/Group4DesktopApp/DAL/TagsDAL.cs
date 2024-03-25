@@ -13,12 +13,17 @@ using System.Threading.Tasks;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Tags Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class TagsDAL
     {
         /// <summary>
         /// Returns a collection of every tag existing in the database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A collection of every tag existing in the database</returns>
         public static ObservableCollection<Tags> GetAllTags()
         {
             using var connection = new SqlConnection(Connection.ConnectionString);

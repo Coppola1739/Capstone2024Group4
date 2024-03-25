@@ -10,13 +10,18 @@ using System.Runtime.InteropServices;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Source Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class SourceDAL
     {
         /// <summary>
-        /// Gets all sources by user identifier.
+        /// Gets all sources linked by the specified userId.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
+        /// <param name="userId">The user Id.</param>
+        /// <returns>All sources linked by the specified userId</returns>
         public static ObservableCollection<Source> GetAllSourcesByUserId(int userId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -26,8 +31,12 @@ namespace Group4DesktopApp.DAL
                  new { uId = userId }).ToList());
             return items;
         }
-
-        public static Source GetSourcesById(int sourceId)
+        /// <summary>
+        /// Gets the sources by the source Id
+        /// </summary>
+        /// <param name="sourceId">The source identifier.</param>
+        /// <returns>The source</returns>
+        public static Source GetSourceById(int sourceId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
             var query = "Select * FROM Source WHERE SourceId = @srcId";
@@ -37,12 +46,12 @@ namespace Group4DesktopApp.DAL
             return items.First();
         }
         /// <summary>
-        /// Adds the new source.
+        /// Adds the new source, with the specified user Id, to the database.
         /// </summary>
         /// <param name="userId">The user identifier connected to the source</param>
         /// <param name="source">The source data</param>
         /// <param name="conn">The optional sqlConnection to use</param>
-        /// <returns></returns>
+        /// <returns>True if the new source is added, False otherwise</returns>
         public static bool AddNewSource(int userId, Source source, [Optional] SqlConnection conn)
         {
             var con2 = Connection.SqlConnection(conn);
@@ -84,7 +93,11 @@ namespace Group4DesktopApp.DAL
 
             return result >= 0;
         }
-
+        /// <summary>
+        /// Deletes the source.
+        /// </summary>
+        /// <param name="source">The source object.</param>
+        /// <returns>True if deleted successfully, False otherwise</returns>
         public static bool DeleteSource(Source source)
         {
             int sourceId = source.SourceId;

@@ -132,7 +132,7 @@ namespace DesktopAppCapstoneTest.Tests
                     IList<Notes> notes = NotesDAL.GetAllNotesBySourceId(sourceId);
                     string originalContent = notes[0].Content;
 
-                    bool isNoteDeleted = NotesDAL.DeleteNote(notes[0].NotesId);
+                    bool isNoteDeleted = NotesDAL.DeleteNoteById(notes[0].NotesId);
 
                     myTrans.Rollback();
                     connection.Close();

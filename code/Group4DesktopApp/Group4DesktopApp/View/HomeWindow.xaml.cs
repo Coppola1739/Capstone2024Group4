@@ -348,7 +348,7 @@ namespace Group4DesktopApp.View
             Notes? selectedNote = goButton.DataContext as Notes;
             if (selectedNote != null)
             {
-                Source source = SourceDAL.GetSourcesById(selectedNote.SourceId);
+                Source source = SourceDAL.GetSourceById(selectedNote.SourceId);
 
                 SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, source);
                 sourcePageWindow.Show();

@@ -12,6 +12,11 @@ using System.Threading.Tasks;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Note Tag Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class NoteTagsDAL
     {
         /// <summary>
@@ -30,7 +35,7 @@ namespace Group4DesktopApp.DAL
         }
 
         /// <summary>
-        /// Gets a collection of all Tags linked top the specified userId
+        /// Gets a collection of all Tags linked to the specified userId
         /// </summary>
         /// <param name="noteId"></param>
         /// <returns>a collection of all Tags under a note by the specified noteId</returns>
@@ -56,7 +61,7 @@ namespace Group4DesktopApp.DAL
             using var connection = new SqlConnection(Connection.ConnectionString);
             connection.Open();
 
-            //Only creates a new tag ONLY if tag name is not existing
+            //Creates a new tag ONLY if tag name is not existing
             TagsDAL.AddNewTag(tagName);
 
             var goodQuery = "insert into NoteTags (TagName,NotesId) values (@tName, @nId)";
@@ -73,7 +78,11 @@ namespace Group4DesktopApp.DAL
 
             return result >= 0;
         }
-
+        /// <summary>
+        /// Deletes the tag from note.
+        /// </summary>
+        /// <param name="tag">The notetag.</param>
+        /// <returns>True if deleted successfully, False otherwise</returns>
         public static bool DeleteTagFromNote(NoteTags tag)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -93,7 +102,14 @@ namespace Group4DesktopApp.DAL
 
             return result >= 0;
         }
-
+        /// <summary>
+        /// Determines whether a tag name exists under the specified noteId.
+        /// </summary>
+        /// <param name="tagName">Name of the tag.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if tag exists under note; otherwise, <c>false</c>.
+        /// </returns>
         public static bool isTagExistingUnderNote(string tagName, int noteId)
         {
 

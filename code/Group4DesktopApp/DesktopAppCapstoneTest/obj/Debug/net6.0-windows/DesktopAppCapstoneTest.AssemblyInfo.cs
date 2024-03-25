@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DesktopAppCapstoneTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1de47d655269227f8c0384461487f76660310e23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03231ec44c17a32dd0482532721320a0e3af8a38")]
 [assembly: System.Reflection.AssemblyProductAttribute("DesktopAppCapstoneTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DesktopAppCapstoneTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

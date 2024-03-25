@@ -4,6 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Connection class
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class Connection
     {

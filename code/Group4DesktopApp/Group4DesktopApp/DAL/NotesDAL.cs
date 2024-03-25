@@ -13,6 +13,11 @@ using System.Windows.Controls.Primitives;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Notes Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class NotesDAL
     {
         /// <summary>
@@ -30,6 +35,11 @@ namespace Group4DesktopApp.DAL
             return items;
         }
 
+        /// <summary>
+        /// Gets all notes by the specified user Id.
+        /// </summary>
+        /// <param name="userId">The user Id.</param>
+        /// <returns>All the notes linked to the specified userId</returns>
         public static ObservableCollection<Notes> GetAllNotesByUserId(int userId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -42,7 +52,7 @@ namespace Group4DesktopApp.DAL
         }
 
         /// <summary>
-        /// Adds the note to source.
+        /// Adds the note to the specified source Id.
         /// </summary>
         /// <param name="sourceId">The source identifier.</param>
         /// <param name="content">The content of the note.</param>
@@ -70,7 +80,7 @@ namespace Group4DesktopApp.DAL
         /// <summary>
         /// Updates the content of the note to with the specified new content
         /// </summary>
-        /// <param name="noteId">The source identifier.</param>
+        /// <param name="noteId">The note identifier.</param>
         /// <param name="updatedContent">The content of the note.</param>
         /// <returns></returns>
         public static bool UpdateNoteContent(int noteId, string updatedContent)
@@ -98,7 +108,7 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="noteId">The note identifier.</param>
         /// <returns></returns>
-        public static bool DeleteNote(int noteId)
+        public static bool DeleteNoteById(int noteId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
             connection.Open();
