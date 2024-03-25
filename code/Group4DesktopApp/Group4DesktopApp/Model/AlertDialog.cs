@@ -11,15 +11,6 @@ namespace Group4DesktopApp.Model
     [ExcludeFromCodeCoverage]
     public static class AlertDialog
     {
-        public static MessageBoxResult NoteAddSuccess()
-        {
-            MessageBoxResult confirmBox =
-                System.Windows.MessageBox.Show("Note added successfully!",
-                "Note Added",
-                System.Windows.MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            return confirmBox;
-        }
         public static MessageBoxResult EditNewNoteWithoutSavingConfirm()
         {
             MessageBoxResult confirmBox = 
@@ -55,6 +46,16 @@ namespace Group4DesktopApp.Model
             MessageBoxResult confirmBox =
             System.Windows.MessageBox.Show("Edited note must not be empty ",
             "Note Update Failed",
+            System.Windows.MessageBoxButton.OK,
+            MessageBoxImage.Error);
+            return confirmBox;
+        }
+
+        public static MessageBoxResult TagEmptyErrorBox()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("A tag cannot be empty or blank",
+            "Tag Add Error",
             System.Windows.MessageBoxButton.OK,
             MessageBoxImage.Error);
             return confirmBox;

@@ -183,7 +183,6 @@ namespace Group4DesktopApp.View
                 if (this.viewModel.InsertNewNote(this.source.SourceId))
                 {
                     this.txtNoteBox.Text = string.Empty;
-                    MessageBoxResult successBox = AlertDialog.NoteAddSuccess();
                 }
             }
             else
@@ -355,7 +354,7 @@ namespace Group4DesktopApp.View
         {
             if (string.IsNullOrWhiteSpace(this.txtNewTag.Text))
             {
-                MessageBoxResult errorBox = AlertDialog.UpdateNoteWithEmptyTextErrorBox();
+                MessageBoxResult errorBox = AlertDialog.TagEmptyErrorBox();
                 return;
             }
             var selectedNote = this.viewModel.SelectedNoteProperty;

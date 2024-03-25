@@ -3,6 +3,7 @@ using Group4DesktopApp.Model;
 using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -30,6 +31,7 @@ namespace Group4DesktopApp.View
         private HomeViewModel viewModel;
         private string selectedType;
         private string chosenFilePath;
+        private List<string> searchedTags;
 
         public HomeWindow(User loggedInUser)
         {
@@ -41,6 +43,7 @@ namespace Group4DesktopApp.View
             this.viewModel.PopulateSourcesByID(loggedInUser.UserId);
             this.selectedType = string.Empty;
             this.chosenFilePath = string.Empty;
+            this.searchedTags = new List<string>();
         }
 
         private void btnViewSource_Click(object sender, RoutedEventArgs e)
@@ -330,16 +333,8 @@ namespace Group4DesktopApp.View
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
-            var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
-            var foundNotes = notes.Where(obj => list.Any(aObj =>
-                aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
-                aObj.NotesId == obj.NotesId));
-
-            foreach ( var note in foundNotes )
-            {
-                this.lstSearchResult.Items.Add(note);
-            }
+            this.lstSearchedTags.Items.Add(new Tags(this.txtSearchBar.Text));
+            this.searchedTags.Add(this.txtSearchBar.Text);
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
@@ -363,26 +358,49 @@ namespace Group4DesktopApp.View
 
         private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(this.txtSearchBar.Text))
+            this.handleSearching();
+        }
+
+        private void handleSearching()
+        {
+            if (string.IsNullOrWhiteSpace(this.txtSearchBar.Text) && this.lstSearchedTags.Items.Count <= 0)
             {
                 this.lstSearchResult.Visibility = Visibility.Collapsed;
+                this.lstSearchedTags.Visibility = Visibility.Collapsed;
             }
             else
             {
-                this.lstSearchResult.Visibility = Visibility.Visible;
-                this.lstSearchResult.Items.Clear();
-                var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
-                var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
-                var foundNotes = notes.Where(obj => list.Any(aObj =>
-                    aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
-                    aObj.NotesId == obj.NotesId));
 
-                if (foundNotes.Any())
+                this.updateSearchResult();
+            }
+        }
+
+        private void updateSearchResult()
+        {
+            this.lstSearchResult.Visibility = Visibility.Visible;
+            this.lstSearchedTags.Visibility = Visibility.Visible;
+            this.lstSearchResult.Items.Clear();
+            var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
+            var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
+
+            var foundNotes = notes.Where(obj => list.Any(aObj =>
+                aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                aObj.NotesId == obj.NotesId) && !string.IsNullOrWhiteSpace(this.txtSearchBar.Text));
+
+            foreach (var note in this.searchedTags)
+            {
+                var foundNotes2 = notes.Where(obj => list.Any(aObj =>
+                aObj.TagName.IndexOf(note, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                aObj.NotesId == obj.NotesId));
+                foundNotes = foundNotes.Union(foundNotes2);
+            }
+
+
+            if (foundNotes.Any())
+            {
+                foreach (var note in foundNotes)
                 {
-                    foreach (var note in foundNotes)
-                    {
-                        this.lstSearchResult.Items.Add(note);
-                    }
+                    this.lstSearchResult.Items.Add(note);
                 }
             }
         }
@@ -390,6 +408,23 @@ namespace Group4DesktopApp.View
         private void btnClearSearch_Click(object sender, RoutedEventArgs e)
         {
             this.txtSearchBar.Text = string.Empty;
+        }
+
+        private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
+        {
+            var removeButton = sender as Control;
+            if (removeButton == null)
+            {
+                return;
+            }
+
+            Tags? selectedTag = removeButton.DataContext as Tags;
+            if (selectedTag != null)
+            {
+                this.lstSearchedTags.Items.Remove(selectedTag);
+                this.searchedTags.Remove(selectedTag.TagName);
+                this.handleSearching();
+            }
         }
     }
 }

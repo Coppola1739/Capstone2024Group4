@@ -35,6 +35,14 @@
                 </Button>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="SearchTagsTemplate">
+            <Grid Height="21" Width="NaN">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnRemoveTag" Content="X" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="18" BorderBrush="{x:Null}" Height="18" Click="btnRemoveTag_Click" Panel.ZIndex="3"/>
+                    <Button Content="{Binding TagName}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
 
@@ -114,7 +122,14 @@
             <TextBox x:Name="txtSearchBar" Margin="25,8,10,8" TextWrapping="Wrap" TextChanged="txtSearchBar_TextChanged"/>
 
         </Grid>
-        <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,106,19,23" HorizontalAlignment="Right" Width="642" Visibility="Collapsed"/>
+        <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,136,19,44" HorizontalAlignment="Right" Width="642" Visibility="Collapsed"/>
+        <ListBox x:Name="lstSearchedTags" ItemTemplate="{DynamicResource SearchTagsTemplate}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,99,19,0" HorizontalAlignment="Right" Width="642" Height="39" VerticalAlignment="Top" Visibility="Collapsed">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
     </Grid>
 </Window>
