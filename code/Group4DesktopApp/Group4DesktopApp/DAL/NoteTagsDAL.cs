@@ -57,5 +57,27 @@ namespace Group4DesktopApp.DAL
 
             return result >= 0;
         }
+
+        public static bool isTagExistingUnderNote(string tagName, int noteId)
+        {
+
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            connection.Open();
+
+            var goodQuery = "SELECT COUNT(*) FROM NoteTags where TagName = @tName AND NotesId = @nId";
+
+
+            using var command = new SqlCommand(goodQuery, connection);
+
+
+            command.Parameters.Add("@tName", SqlDbType.NVarChar);
+            command.Parameters["@tName"].Value = tagName;
+            command.Parameters.Add("@nId", SqlDbType.Int);
+            command.Parameters["@nId"].Value = noteId;
+
+            var count = Convert.ToInt32(command.ExecuteScalar());
+
+            return count >= 1;
+        }
     }
 }

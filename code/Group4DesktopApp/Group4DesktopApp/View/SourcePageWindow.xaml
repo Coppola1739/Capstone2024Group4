@@ -12,6 +12,16 @@
                 <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding Content}" VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="TagListBoxTemplate">
+            <Grid Width="NaN">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnRemoveTag" Content="X" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="18" BorderBrush="{x:Null}" Height="18" Click="btnRemoveTag_Click" Panel.ZIndex="3"/>
+                    <Button x:Name="btnTag" Content="{Binding TagName}" Margin="0,0,0,0" VerticalAlignment="Center" Height="NaN" Width="NaN"/>
+                </StackPanel>
+
+
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <WebBrowser x:Name="pdfViewer" Margin="32,0,564,13" Visibility="Visible" Height="689" VerticalAlignment="Bottom">
@@ -19,19 +29,36 @@
                 <DropShadowEffect/>
             </WebBrowser.Effect>
         </WebBrowser>
-        <ListBox ItemTemplate="{DynamicResource NotesListTemplate}" x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNoteProperty, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,297" HorizontalAlignment="Right" Width="498" Height="405" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lstNotes_SelectionChanged"/>
+        <ListBox ItemTemplate="{DynamicResource NotesListTemplate}" x:Name="lstNotes" ItemsSource="{Binding NotesDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNoteProperty, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,25,453" HorizontalAlignment="Right" Width="498" Height="249" VerticalAlignment="Bottom" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="lstNotes_SelectionChanged"/>
         <Menu Margin="0,0,0,723">
             <Button x:Name="btnBackHome" Content="Back" Click="btnBackHome_Click"/>
             <Label x:Name="lblSourceTitle" Content="" Width="564" Height="44" FontWeight="Bold" FontSize="20"/>
         </Menu>
-        <TextBox x:Name="txtNoteBox" Margin="0,0,25,120" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" AcceptsTab="True"  Text="{Binding NoteInputProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Height="158" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="498"/>
-        <Button x:Name="btnAddNote" Content="Add Note" Margin="0,0,238,83" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="72" Click="btnAddNote_Click"/>
-        <Grid x:Name="NoteModifyGrid" Height="54" VerticalAlignment="Bottom" Margin="0,0,154,49" HorizontalAlignment="Right" Width="240" Visibility="Collapsed">
+        <TextBox x:Name="txtNoteBox" Margin="0,0,25,260" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" AcceptsTab="True"  Text="{Binding NoteInputProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Height="158" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="498"/>
+        <Button x:Name="btnAddNote" Content="Add Note" Margin="0,0,238,223" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="72" Click="btnAddNote_Click"/>
+        
+        
+        <Grid x:Name="NoteModifyGrid" Height="54" VerticalAlignment="Bottom" Margin="0,0,129,189" HorizontalAlignment="Right" Width="290" Visibility="Collapsed">
             <Button x:Name="btnUpdateNote" Command="{Binding UpdateButtonCommand}" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Click="btnUpdateNote_Click"/>
-            <Button x:Name="btnDeleteNote" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68" Click="btnDeleteNote_Click"/>
-            <Button Content="Share" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" Width="68" IsEnabled="False"/>
-            <Button x:Name="btnCancelModify" Content="Cancel" HorizontalAlignment="Left" Margin="75,30,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="btnCancelModify_Click"/>
+            <Button x:Name="btnDeleteNote" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Click="btnDeleteNote_Click"/>
+            <Button x:Name="btnCancelModify" Content="Cancel" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="btnCancelModify_Click"/>
+            <Button Content="Share" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" IsEnabled="False" Margin="203,0,0,0"/>
         </Grid>
+        
         <Wpf:WebView2 x:Name="youtubePlayer" Margin="32,82,564,120" SizeChanged="youtubePlayer_SizeChanged" Visibility="Collapsed"/>
+       
+        
+        <Grid x:Name="TagGrid" HorizontalAlignment="Right" Height="195" VerticalAlignment="Bottom" Margin="0,0,10,23" Visibility="Collapsed">
+            <ListBox ItemTemplate="{DynamicResource TagListBoxTemplate}" x:Name="lstTags" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,25,0" HorizontalAlignment="Right" Width="498" Height="129" VerticalAlignment="Bottom" ItemsSource="{Binding TagDataProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Label Content="Tags:" Margin="0,0,454,166" FontSize="14" FontWeight="Bold" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="69"/>
+            <TextBox x:Name="txtNewTag" Margin="0,0,92,143" TextWrapping="Wrap" HorizontalAlignment="Right" Width="431" Height="18" VerticalAlignment="Bottom"/>
+            <Button x:Name="btnAddTag" Content="Add Tag" Margin="0,0,25,142" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="54" Click="btnAddTag_Click"/>
+        </Grid>
     </Grid>
 </Window>

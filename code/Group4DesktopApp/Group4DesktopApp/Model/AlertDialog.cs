@@ -60,6 +60,16 @@ namespace Group4DesktopApp.Model
             return confirmBox;
         }
 
+        public static MessageBoxResult TagUnderNoteAlreadyExists()
+        {
+            MessageBoxResult confirmBox =
+            System.Windows.MessageBox.Show("A tag with this name already exists in this note.",
+            "Tag Add Error",
+            System.Windows.MessageBoxButton.OK,
+            MessageBoxImage.Error);
+            return confirmBox;
+        }
+
         public static MessageBoxResult UpdateNoteConfirm()
         {
             MessageBoxResult confirmBox =

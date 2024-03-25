@@ -14,6 +14,7 @@ namespace Group4DesktopApp.ViewModel
     public class SourcePageViewModel
     {
         private ObservableCollection<Notes> notes;
+        private ObservableCollection<NoteTags> tags;
         private string noteInputText;
         private Notes? selectedNote;
 
@@ -24,6 +25,7 @@ namespace Group4DesktopApp.ViewModel
         public SourcePageViewModel()
         {
             this.notes = new ObservableCollection<Notes>();
+            this.tags = new ObservableCollection<NoteTags>();
             this.noteInputText = string.Empty;
             this.selectedNote = null;
         }
@@ -47,6 +49,17 @@ namespace Group4DesktopApp.ViewModel
             {
                 notes = value;
                 NotifyPropertyChanged(nameof(NotesDataProperty));
+
+            }
+        }
+
+        public ObservableCollection<NoteTags> TagDataProperty
+        {
+            get { return tags; }
+            set
+            {
+                tags = value;
+                NotifyPropertyChanged(nameof(TagDataProperty));
 
             }
         }
@@ -80,6 +93,16 @@ namespace Group4DesktopApp.ViewModel
             this.notes = NotesDAL.GetAllNotesBySourceId(sourceId);
         }
 
+        public void PopulateTagsBySelectedNote()
+        {
+            if(SelectedNoteProperty != null)
+            {
+                this.tags.Clear();
+                var noteTags = NoteTagsDAL.GetAllTagsByNoteId(SelectedNoteProperty.NotesId);
+                noteTags.ToList().ForEach(this.tags.Add);
+            }
+        }
+
         private void updateList(int sourceId)
         {
             var updatedList = NotesDAL.GetAllNotesBySourceId(sourceId);
@@ -87,6 +110,19 @@ namespace Group4DesktopApp.ViewModel
             foreach (var note in result)
             {
                 this.notes.Add(note);
+            }
+        }
+
+        private void updateTags()
+        {
+            if (SelectedNoteProperty != null)
+            {
+                var updatedList = NoteTagsDAL.GetAllTagsByNoteId(SelectedNoteProperty.NotesId);
+                var result = updatedList.Where(p => !this.tags.Any(p2 => p2.TagName == p.TagName));
+                foreach (var tag in result)
+                {
+                    this.tags.Add(tag);
+                }
             }
         }
 
@@ -98,6 +134,20 @@ namespace Group4DesktopApp.ViewModel
                 this.updateList(sourceId);
             }
             return success;
+        }
+
+        public bool InsertNewTag(string tagName)
+        {
+            if(SelectedNoteProperty != null)
+            {
+                bool success = NoteTagsDAL.AddTagToNote(tagName, SelectedNoteProperty.NotesId);
+                if (success)
+                    {
+                        this.updateTags();
+                    }
+                return success;
+            }
+            return false;
         }
 
         public bool UpdateExistingNote(Notes? note, string newContent)

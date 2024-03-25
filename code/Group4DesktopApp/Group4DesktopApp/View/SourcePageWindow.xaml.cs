@@ -1,4 +1,5 @@
-﻿using Group4DesktopApp.Model;
+﻿using Group4DesktopApp.DAL;
+using Group4DesktopApp.Model;
 using Group4DesktopApp.Resources;
 using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
@@ -90,7 +91,7 @@ namespace Group4DesktopApp.View
                     Debug.WriteLine("Could not handle source type");
                     break;
             }
-           
+
         }
 
         private async void loadYoutubeHTMLContent(string youtubeID)
@@ -281,11 +282,14 @@ namespace Group4DesktopApp.View
             {
                 this.btnAddNote.Visibility = Visibility.Collapsed;
                 this.NoteModifyGrid.Visibility = Visibility.Visible;
+                this.TagGrid.Visibility = Visibility.Visible;
+                this.viewModel.PopulateTagsBySelectedNote();
             }
             else
             {
                 this.btnAddNote.Visibility = Visibility.Visible;
                 this.NoteModifyGrid.Visibility = Visibility.Collapsed;
+                this.TagGrid.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -345,6 +349,51 @@ namespace Group4DesktopApp.View
         private void youtubePlayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.youtubePlayer.ExecuteScriptAsync($"adjustPlayerSize({this.youtubePlayer.ActualWidth - YOUTUBE_PLAYER_WIDTH_OFFSET},{this.youtubePlayer.ActualHeight - YOUTUBE_PLAYER_HEIGHT_OFFSET})");
+        }
+
+        private void btnAddTag_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtNewTag.Text))
+            {
+                MessageBoxResult errorBox = AlertDialog.UpdateNoteWithEmptyTextErrorBox();
+                return;
+            }
+            var selectedNote = this.viewModel.SelectedNoteProperty;
+            if (selectedNote != null && NoteTagsDAL.isTagExistingUnderNote(this.txtNewTag.Text, selectedNote.NotesId))
+            {
+                MessageBoxResult errorBox = AlertDialog.TagUnderNoteAlreadyExists();
+                return;
+            }
+            this.viewModel.InsertNewTag(this.txtNewTag.Text);
+        }
+
+        private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedTag = sender as Control;
+            if (selectedTag == null)
+            {
+                return;
+            }
+            var parent = selectedTag.Parent as StackPanel;
+            if (parent == null)
+            {
+                return;
+            }
+            var tagObject = parent.FindName("btnTag") as Button;
+            if (tagObject == null)
+            {
+                return;
+            }
+            //NoteTags tObject = this.lstTags.Where(tag => tag.TagName == tagObject.Content).FirstOrDefault();
+
+            //Debug.WriteLine(tagObject.);
+            //this.lstTags.Items.Remove(tagObject);
+            //this.lstTags.Items.Refresh();
+        }
+
+        private void btnTags_Click(object sender, RoutedEventArgs e)
+        {
+            this.TagGrid.Visibility = Visibility.Visible;
         }
     }
 
