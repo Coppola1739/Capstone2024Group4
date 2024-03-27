@@ -7,7 +7,6 @@ namespace WebApp.Server.Models
     /// <summary>
     /// Tag Class
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public class Tag
     {
 

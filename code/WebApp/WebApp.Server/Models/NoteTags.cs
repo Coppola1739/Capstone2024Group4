@@ -8,7 +8,6 @@ namespace WebApp.Server.Models
     /// <summary>
     /// NoteTags Model
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public class NoteTags
     {
 
