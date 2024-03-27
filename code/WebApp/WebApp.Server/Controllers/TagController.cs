@@ -96,6 +96,7 @@ namespace WebApp.Server.Controllers
         /// <param name="tagName">The AddNoteModel.</param>
         /// <param name="notesId">The noteId.</param>
         /// <returns>BadRequest if tagname is null or empty, NotFound if the note doesnt exist, OK if tag is removed</returns>
+        [HttpDelete("RemoveTag")]
         public async Task<IActionResult> RemoveTag([FromBody] string tagName, int notesId)
         {
             try

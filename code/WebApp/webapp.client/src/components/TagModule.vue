@@ -3,8 +3,9 @@
         <p></p>
         <ul class="existing-tags">
             <li v-for="(tag, index) in tags" :key="index" class="tag">
-                {{ tag }}
                 <button @click="deleteExistingTag(tag)">-</button>
+
+                {{ tag }}
             </li>
             <li v-if="addingNewTag" class="tag">
                 <input type="text" v-model="newTagInput" placeholder="New Tag">
@@ -83,17 +84,14 @@
             },
             async deleteExistingTag(tag) {
                 try {
-                    const response = await fetch(`/Tag/RemoveTag`, {
+                    const response = await fetch(`/Tag/RemoveTag?notesId=${this.noteId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            notesId: this.noteId,
-                            tagName: tag
-                        })
+                        body: JSON.stringify(tag)
                     });
-
+                    console.log(response)
                     if (response.ok) {
                         this.getExistingTags();
                     } else {
@@ -108,4 +106,8 @@
 </script>
 
 <style>
+    .existing-tags {
+        list-style-type: none;
+        padding-left: 0; 
+    }
 </style>
