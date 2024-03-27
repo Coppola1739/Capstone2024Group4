@@ -7,6 +7,7 @@ import SourcePage from './components/SourcePage.vue';
 import HomePage from './components/HelloWorld.vue';
 import LoginPage from './components/LoginPage.vue';
 import SignupPage from './components/SignupPage.vue';
+import SearchPage from './components/SearchPage.vue';
 
 const routes = [
     {
@@ -29,6 +30,11 @@ const routes = [
         path: '/signup',
         name: 'SignupPage',
         component: SignupPage
+    },
+    {
+        path: '/searchpage',
+        name: 'SearchPage',
+        component: SearchPage
     }
 ];
 

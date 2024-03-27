@@ -11,19 +11,36 @@ using WebApp.Server.Data;
 using WebApp.Server.Models;
 using System.Text;
 
+/// <summary>
+/// API Controllers
+/// </summary>
 namespace WebApp.Server.Controllers
 {
+    /// <summary>
+    /// File/Source Controller
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
         private readonly CapstoneDbContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public FileController(CapstoneDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Uploads a given model. Cannot be null and the videolink cannot be empty. Throws 500 error code 
+        /// if there is a dbcontext error
+        /// </summary>
+        /// <param name="model">The VideoUploadModel.</param>
+        /// <returns>Ok if video uploaded, Bad if not</returns>
         [HttpPost("uploadvideo")]
         public async Task<IActionResult> UploadVideo([FromForm] VideoUploadModel model)
         {
@@ -60,6 +77,12 @@ namespace WebApp.Server.Controllers
         }
 
 
+        /// <summary>
+        /// Uploads the PDF. Cannot be null and the videolink cannot be empty. Throws 500 error code 
+        /// if there is a dbcontext error
+        /// </summary>
+        /// <param name="model">The FileUploadModel.</param>
+        /// <returns>Ok if PDF uploaded, Bad if not</returns>
         [HttpPost("uploadpdf")]
         public async Task<IActionResult> UploadPdf([FromForm] FileUploadModel model)
         {
@@ -99,6 +122,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the users sources from a given userId
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <returns>A list of sources</returns>
         [HttpGet("GetUsersSources")]
         public async Task<IActionResult> GetUsersSources([FromQuery] int userId)
         {
@@ -116,6 +144,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the source by source id
+        /// </summary>
+        /// <param name="id">The source id.</param>
+        /// <returns>NotFound if a source doesnt exist, the source if it does</returns>
         [HttpGet("GetSourceById")]
         public async Task<IActionResult> GetSourceById(int id)
         {
@@ -136,6 +169,11 @@ namespace WebApp.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the source by sourceId
+        /// </summary>
+        /// <param name="id">The source id.</param>
+        /// <returns>Ok if deleted, Bad if network/context errors, NotFound if source doesnt exist</returns>
         [HttpDelete("DeleteSource/{id}")]
         public async Task<IActionResult> DeleteSource(int id)
         {
@@ -162,6 +200,9 @@ namespace WebApp.Server.Controllers
 
     }
 
+    /// <summary>
+    /// FileUploadModel class to upload a file
+    /// </summary>
     public class FileUploadModel
     {
         public int UserId { get; set; }
@@ -173,6 +214,9 @@ namespace WebApp.Server.Controllers
         public string SourceType { get; set; }
     }
 
+    /// <summary>
+    /// VideoUploadModel class to upload a video
+    /// </summary>
     public class VideoUploadModel
     {
         public int UserId { get; set; }
