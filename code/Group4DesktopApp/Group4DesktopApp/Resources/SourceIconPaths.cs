@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace Group4DesktopApp.Resources
 {
+    /// <summary>
+    /// Hold the Paths for the source Icons.
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public static class SourceIconPaths
     {
         private static string workingDirectory = Environment.CurrentDirectory;
@@ -15,6 +20,12 @@ namespace Group4DesktopApp.Resources
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
         private static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+        /// <summary>
+        /// Gets the Source Icon path for the specified source Type.
+        /// </summary>
+        /// <param name="sourceType">Type of the source.</param>
+        /// <returns>the Source Icon path for the specified source Type</returns>
         [ExcludeFromCodeCoverage]
         public static string GetIconPath(string sourceType)
         {

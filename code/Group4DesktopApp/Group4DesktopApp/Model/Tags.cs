@@ -36,7 +36,8 @@ namespace Group4DesktopApp.Model
             this.tagName = string.Empty;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tags"/> class.
+        /// Initializes a new instance of the <see cref="Tags"/> class,
+        /// with the specified tag name.
         /// </summary>
         /// <param name="tagName">Name of the tag.</param>
         public Tags(string tagName)

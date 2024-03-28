@@ -37,6 +37,11 @@ namespace Group4DesktopApp.View
         private NoteState noteEditState = NoteState.NONE;
         private Notes? previousSelectedNote;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SourcePageWindow"/> class.
+        /// </summary>
+        /// <param name="loggedInUser">The logged in user.</param>
+        /// <param name="source">The source.</param>
         public SourcePageWindow(User loggedInUser, Source source)
         {
             InitializeComponent();
@@ -326,7 +331,7 @@ namespace Group4DesktopApp.View
                 MessageBoxResult confirmBox = AlertDialog.UpdateNoteConfirm();
                 if (confirmBox == MessageBoxResult.Yes)
                 {
-                    this.viewModel.UpdateExistingNote(selectedNote, this.txtNoteBox.Text);
+                    this.viewModel.UpdateNoteContent(selectedNote, this.txtNoteBox.Text);
                 }
             }
         }

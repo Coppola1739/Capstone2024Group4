@@ -14,7 +14,9 @@ namespace Group4DesktopApp.View
     public partial class LoginWindow : Window
     {
         private LoginViewModel viewModel;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginWindow"/> class.
+        /// </summary>
         public LoginWindow()
         {
             InitializeComponent();

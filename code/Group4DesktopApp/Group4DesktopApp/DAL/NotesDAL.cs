@@ -21,10 +21,10 @@ namespace Group4DesktopApp.DAL
     public class NotesDAL
     {
         /// <summary>
-        /// Gets all notes by source identifier.
+        /// Gets all notes under the specified source identifier.
         /// </summary>
         /// <param name="sourceId">The source identifier.</param>
-        /// <returns></returns>
+        /// <returns>All notes under the specified source ID</returns>
         public static ObservableCollection<Notes> GetAllNotesBySourceId(int sourceId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -56,7 +56,7 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="sourceId">The source identifier.</param>
         /// <param name="content">The content of the note.</param>
-        /// <returns></returns>
+        /// <returns>True if note was successfully added to the database, false otherwise.</returns>
         public static bool AddNoteToSource(int sourceId, string content)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -82,7 +82,7 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="noteId">The note identifier.</param>
         /// <param name="updatedContent">The content of the note.</param>
-        /// <returns></returns>
+        /// <returns>True if note was successfully updated, false otherwise.</returns>
         public static bool UpdateNoteContent(int noteId, string updatedContent)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -107,7 +107,7 @@ namespace Group4DesktopApp.DAL
         /// Deletes the note of the specified note ID.
         /// </summary>
         /// <param name="noteId">The note identifier.</param>
-        /// <returns></returns>
+        /// <returns>True if note was successfully deleted, false otherwise.</returns>
         public static bool DeleteNoteById(int noteId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);

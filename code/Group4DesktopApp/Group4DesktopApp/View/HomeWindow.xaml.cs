@@ -33,6 +33,10 @@ namespace Group4DesktopApp.View
         private string chosenFilePath;
         private List<string> searchedTags;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeWindow"/> class.
+        /// </summary>
+        /// <param name="loggedInUser">The logged in user.</param>
         public HomeWindow(User loggedInUser)
         {
             InitializeComponent();

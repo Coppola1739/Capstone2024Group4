@@ -32,7 +32,8 @@ namespace Group4DesktopApp.Model
         public string UserName => this.username;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
+        /// Initializes a new instance of the <see cref="User"/> class,
+        /// with the specified id and username.
         /// </summary>
         /// <param name="id">The user ID.</param>
         /// <param name="username">The username.</param>
