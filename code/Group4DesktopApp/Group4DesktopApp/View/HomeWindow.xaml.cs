@@ -3,6 +3,7 @@ using Group4DesktopApp.Model;
 using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Group4DesktopApp.View
 {
@@ -29,7 +31,12 @@ namespace Group4DesktopApp.View
         private HomeViewModel viewModel;
         private string selectedType;
         private string chosenFilePath;
+        private List<string> searchedTags;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeWindow"/> class.
+        /// </summary>
+        /// <param name="loggedInUser">The logged in user.</param>
         public HomeWindow(User loggedInUser)
         {
             InitializeComponent();
@@ -40,6 +47,7 @@ namespace Group4DesktopApp.View
             this.viewModel.PopulateSourcesByID(loggedInUser.UserId);
             this.selectedType = string.Empty;
             this.chosenFilePath = string.Empty;
+            this.searchedTags = new List<string>();
         }
 
         private void btnViewSource_Click(object sender, RoutedEventArgs e)
@@ -63,7 +71,7 @@ namespace Group4DesktopApp.View
                 this.selectedType = SourceType.Enum.PDF.ToString();
                 this.clearUploadFields();
                 this.stackFileChoose.Visibility = Visibility.Visible;
-                
+
             }
             else if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.VIDEO.ToString()))
             {
@@ -125,7 +133,7 @@ namespace Group4DesktopApp.View
         {
             if (this.inputValidation())
             {
-                if(this.selectedType == SourceType.Enum.PDF.ToString())
+                if (this.selectedType == SourceType.Enum.PDF.ToString())
                 {
                     byte[] content = File.ReadAllBytes(this.chosenFilePath);
                     this.viewModel.InsertNewSource(this.loggedInUser.UserId, "PDF", content);
@@ -133,7 +141,8 @@ namespace Group4DesktopApp.View
                     this.lblUploadedSource.Content = "No file chosen";
                     this.clearMetaDataFields();
                     this.stackMetaData.Visibility = Visibility.Collapsed;
-                } else if(this.selectedType == SourceType.Enum.VIDEO.ToString())
+                }
+                else if (this.selectedType == SourceType.Enum.VIDEO.ToString())
                 {
                     byte[] youtubeURLcontent = System.Text.Encoding.Default.GetBytes(this.txtYoutubeUrl.Text);
                     this.viewModel.InsertNewSource(this.loggedInUser.UserId, "video", youtubeURLcontent);
@@ -141,7 +150,7 @@ namespace Group4DesktopApp.View
                     this.stackMetaData.Visibility = Visibility.Collapsed;
                     this.youtubeGrid.Visibility = Visibility.Visible;
                 }
-               
+
             }
         }
 
@@ -297,7 +306,8 @@ namespace Group4DesktopApp.View
 
         private void btnYoutubeUpload_Click(object sender, RoutedEventArgs e)
         {
-            if(LinkParser.IsYoutubeLink(this.txtYoutubeUrl.Text)) {
+            if (LinkParser.IsYoutubeLink(this.txtYoutubeUrl.Text))
+            {
                 this.txtYoutubeUrl.IsEnabled = false;
                 this.stackMetaData.Visibility = Visibility.Visible;
                 this.btnCancel.Visibility = Visibility.Visible;
@@ -317,13 +327,112 @@ namespace Group4DesktopApp.View
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-                MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
-                if (confirmBox == MessageBoxResult.Yes)
-                {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
 
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.Show();
                 this.Close();
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(this.txtSearchBar.Text))
+            {
+                this.lstSearchedTags.Items.Add(new Tags(this.txtSearchBar.Text));
+                this.searchedTags.Add(this.txtSearchBar.Text);
+            }
+        }
+
+        private void btnGo_Click(object sender, RoutedEventArgs e)
+        {
+            var goButton = sender as Control;
+            if (goButton == null)
+            {
+                return;
+            }
+
+            Notes? selectedNote = goButton.DataContext as Notes;
+            if (selectedNote != null)
+            {
+                Source source = SourceDAL.GetSourceById(selectedNote.SourceId);
+
+                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, source);
+                sourcePageWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.handleSearching();
+        }
+
+        private void handleSearching()
+        {
+            if (string.IsNullOrWhiteSpace(this.txtSearchBar.Text) && this.lstSearchedTags.Items.Count <= 0)
+            {
+                this.lstSearchResult.Visibility = Visibility.Collapsed;
+                this.lstSearchedTags.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+
+                this.updateSearchResult();
+            }
+        }
+
+        private void updateSearchResult()
+        {
+            this.lstSearchResult.Visibility = Visibility.Visible;
+            this.lstSearchedTags.Visibility = Visibility.Visible;
+            this.lstSearchResult.Items.Clear();
+            var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
+            var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
+
+            var foundNotes = notes.Where(obj => list.Any(aObj =>
+                aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                aObj.NotesId == obj.NotesId) && !string.IsNullOrWhiteSpace(this.txtSearchBar.Text));
+
+            foreach (var note in this.searchedTags)
+            {
+                var foundNotes2 = notes.Where(obj => list.Any(aObj =>
+                aObj.TagName.IndexOf(note, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                aObj.NotesId == obj.NotesId));
+                foundNotes = foundNotes.Union(foundNotes2);
+            }
+
+
+            if (foundNotes.Any())
+            {
+                foreach (var note in foundNotes)
+                {
+                    this.lstSearchResult.Items.Add(note);
+                }
+            }
+        }
+
+        private void btnClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.txtSearchBar.Text = string.Empty;
+        }
+
+        private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
+        {
+            var removeButton = sender as Control;
+            if (removeButton == null)
+            {
+                return;
+            }
+
+            Tags? selectedTag = removeButton.DataContext as Tags;
+            if (selectedTag != null)
+            {
+                this.lstSearchedTags.Items.Remove(selectedTag);
+                this.searchedTags.Remove(selectedTag.TagName);
+                this.handleSearching();
             }
         }
     }

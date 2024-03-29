@@ -10,8 +10,16 @@ using System.Transactions;
 
 namespace DesktopAppCapstoneTest.Tests
 {
+    /// <summary>
+    /// Test Class for all the User DAL Methods
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class UserDALTests
     {
+        /// <summary>
+        /// Test if the User DAL method properly handles getting a user by ID.
+        /// </summary>
         [Test]
         public void TestGetUserByID()
         {

@@ -9,16 +9,22 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Notes Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class NotesDAL
     {
         /// <summary>
-        /// Gets all notes by source identifier.
+        /// Gets all notes under the specified source identifier.
         /// </summary>
         /// <param name="sourceId">The source identifier.</param>
-        /// <returns></returns>
+        /// <returns>All notes under the specified source ID</returns>
         public static ObservableCollection<Notes> GetAllNotesBySourceId(int sourceId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -30,11 +36,27 @@ namespace Group4DesktopApp.DAL
         }
 
         /// <summary>
-        /// Adds the note to source.
+        /// Gets all notes by the specified user Id.
+        /// </summary>
+        /// <param name="userId">The user Id.</param>
+        /// <returns>All the notes linked to the specified userId</returns>
+        public static ObservableCollection<Notes> GetAllNotesByUserId(int userId)
+        {
+            using var connection = new SqlConnection(Connection.ConnectionString);
+            var query = "SELECT DISTINCT N.NotesId, N.SourceId, N.Content " +
+                "FROM Notes N JOIN Source S ON N.SourceId = S.SourceId JOIN Users U ON S.UserId = @uId";
+            ObservableCollection<Notes> items =
+                new(connection.Query<Notes>(query,
+                 new { uId = userId }).ToList());
+            return items;
+        }
+
+        /// <summary>
+        /// Adds the note to the specified source Id.
         /// </summary>
         /// <param name="sourceId">The source identifier.</param>
         /// <param name="content">The content of the note.</param>
-        /// <returns></returns>
+        /// <returns>True if note was successfully added to the database, false otherwise.</returns>
         public static bool AddNoteToSource(int sourceId, string content)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -58,9 +80,9 @@ namespace Group4DesktopApp.DAL
         /// <summary>
         /// Updates the content of the note to with the specified new content
         /// </summary>
-        /// <param name="noteId">The source identifier.</param>
+        /// <param name="noteId">The note identifier.</param>
         /// <param name="updatedContent">The content of the note.</param>
-        /// <returns></returns>
+        /// <returns>True if note was successfully updated, false otherwise.</returns>
         public static bool UpdateNoteContent(int noteId, string updatedContent)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
@@ -85,8 +107,8 @@ namespace Group4DesktopApp.DAL
         /// Deletes the note of the specified note ID.
         /// </summary>
         /// <param name="noteId">The note identifier.</param>
-        /// <returns></returns>
-        public static bool DeleteNote(int noteId)
+        /// <returns>True if note was successfully deleted, false otherwise.</returns>
+        public static bool DeleteNoteById(int noteId)
         {
             using var connection = new SqlConnection(Connection.ConnectionString);
             connection.Open();

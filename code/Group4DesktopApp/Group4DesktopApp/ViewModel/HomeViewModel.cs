@@ -13,6 +13,10 @@ using System.Windows.Media;
 
 namespace Group4DesktopApp.ViewModel
 {
+    /// <summary>
+    /// The Home Window ViewModel
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public class HomeViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Source> sources;
@@ -23,7 +27,9 @@ namespace Group4DesktopApp.ViewModel
         private string authorLastName;
         private string title;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeViewModel"/> class.
+        /// </summary>
         public HomeViewModel()
         {
             this.sources = new ObservableCollection<Source>();
@@ -35,12 +41,22 @@ namespace Group4DesktopApp.ViewModel
             this.authorLastName = String.Empty;
             this.title = String.Empty;
         }
-
+        /// <summary>
+        /// Gets the source type list property.
+        /// </summary>
+        /// <value>
+        /// The source type list property.
+        /// </value>
         public ObservableCollection<String> SourceTypeListProperty
         {
             get { return sourcesTypes; }
         }
-
+        /// <summary>
+        /// Gets or sets the source data property.
+        /// </summary>
+        /// <value>
+        /// The source data property.
+        /// </value>
         public ObservableCollection<Source> SourceDataProperty
         {
             get { return sources; }
@@ -51,7 +67,12 @@ namespace Group4DesktopApp.ViewModel
 
             }
         }
-
+        /// <summary>
+        /// Gets or sets the selected source property.
+        /// </summary>
+        /// <value>
+        /// The selected source property.
+        /// </value>
         public string SelectedSourceProperty
         {
             get { return selectedSource; }
@@ -61,7 +82,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(nameof(SelectedSourceProperty));
             }
         }
-
+        /// <summary>
+        /// Gets or sets the source name property.
+        /// </summary>
+        /// <value>
+        /// The source name property.
+        /// </value>
         public string SourceNameProperty
         {
             get { return sourceName; }
@@ -71,7 +97,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(nameof(SourceNameProperty));
             }
         }
-
+        /// <summary>
+        /// Gets or sets the author first name property.
+        /// </summary>
+        /// <value>
+        /// The author first name property.
+        /// </value>
         public string AuthorFirstNameProperty
         {
             get { return authorFirstName; }
@@ -81,7 +112,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(nameof(AuthorFirstNameProperty));
             }
         }
-
+        /// <summary>
+        /// Gets or sets the author last name property.
+        /// </summary>
+        /// <value>
+        /// The author last name property.
+        /// </value>
         public string AuthorLastNameProperty
         {
             get { return authorLastName; }
@@ -91,7 +127,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(nameof(AuthorLastNameProperty));
             }
         }
-
+        /// <summary>
+        /// Gets or sets the title property.
+        /// </summary>
+        /// <value>
+        /// The title property.
+        /// </value>
         public string TitleProperty
         {
             get { return title; }
@@ -101,17 +142,13 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(nameof(TitleProperty));
             }
         }
-
-        private void updateList(int userId)
-        {
-            var updatedList = SourceDAL.GetAllSourcesByUserId(userId);
-            var result = updatedList.Where(p => !this.sources.Any(p2 => p2.SourceId == p.SourceId));
-            foreach (var source in result)
-            {
-                this.sources.Add(source);
-            }
-        }
-
+        /// <summary>
+        /// Calls the Data Access Layer to insert the new source to the database.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="sourceType">Type of the source.</param>
+        /// <param name="content">The content.</param>
+        /// <returns>True if source was successfully added, false otherwise.</returns>
         public bool InsertNewSource(int userId, string sourceType, Byte[] content)
         {
             Source newSource = new Source(-1,userId,this.SourceNameProperty,DateTime.Now,content, sourceType, this.AuthorFirstNameProperty, this.AuthorLastNameProperty,this.TitleProperty);
@@ -122,7 +159,11 @@ namespace Group4DesktopApp.ViewModel
             }
             return success;
         }
-
+        /// <summary>
+        /// Calls the Data Access Layer to delete the source from the database.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>True if source was successfully deleted, false otherwise.</returns>
         public bool DeleteSource(Source source)
         {
             bool success = SourceDAL.DeleteSource(source);
@@ -132,9 +173,15 @@ namespace Group4DesktopApp.ViewModel
             }
             return success;
         }
-
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Populates the sources by user ID.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
         public void PopulateSourcesByID(int userId)
         {
             this.sources = SourceDAL.GetAllSourcesByUserId(userId);
@@ -155,6 +202,16 @@ namespace Group4DesktopApp.ViewModel
                 {
                     sourcesTypes.Add(source);
                 }
+            }
+        }
+
+        private void updateList(int userId)
+        {
+            var updatedList = SourceDAL.GetAllSourcesByUserId(userId);
+            var result = updatedList.Where(p => !this.sources.Any(p2 => p2.SourceId == p.SourceId));
+            foreach (var source in result)
+            {
+                this.sources.Add(source);
             }
         }
     }

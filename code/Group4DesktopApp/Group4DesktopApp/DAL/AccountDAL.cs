@@ -12,6 +12,11 @@ using System.Windows.Controls.Primitives;
 
 namespace Group4DesktopApp.DAL
 {
+    /// <summary>
+    /// The Account Data Access Layer
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class AccountDAL
     {
         /// <summary>

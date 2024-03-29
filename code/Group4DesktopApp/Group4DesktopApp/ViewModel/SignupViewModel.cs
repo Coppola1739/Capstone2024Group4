@@ -9,18 +9,31 @@ using System.Threading.Tasks;
 
 namespace Group4DesktopApp.ViewModel
 {
-    public  class SignupViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// The SignUp Window ViewModel
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
+    public class SignupViewModel : INotifyPropertyChanged
     {
         private string username;
         private string password;
         //private EmployeeDAL employeeDAL;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignupViewModel"/> class.
+        /// </summary>
         public SignupViewModel()
         {
             this.username = String.Empty;
             this.password = String.Empty;
         }
 
+        /// <summary>
+        /// Gets or sets the username property.
+        /// </summary>
+        /// <value>
+        /// The username property.
+        /// </value>
         public string UsernameProperty
         {
             get { return username; }
@@ -30,7 +43,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(UsernameProperty);
             }
         }
-
+        /// <summary>
+        /// Gets or sets the password property.
+        /// </summary>
+        /// <value>
+        /// The password property.
+        /// </value>
         public string PasswordProperty
         {
             get { return password; }
@@ -42,9 +60,9 @@ namespace Group4DesktopApp.ViewModel
         }
 
         /// <summary>
-        /// Gets the employee with the currently entered username and password
+        /// Calls the Data Access Layer to create and return a User with the currently entered username and password, null if failed.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>a User with the currently entered username and password, null if failed.</returns>
         public User? CreateAccount()
         {
             bool isAccountCreated = AccountDAL.CreateAccount(UsernameProperty, PasswordProperty);
@@ -61,6 +79,9 @@ namespace Group4DesktopApp.ViewModel
             return null;
         }
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyPropertyChanged(string property)

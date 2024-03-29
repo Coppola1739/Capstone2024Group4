@@ -28,6 +28,9 @@ namespace Group4DesktopApp.UserControls
         private bool IsUserDraggingSlider = false;
 
         private readonly DispatcherTimer Timer = new() { Interval = TimeSpan.FromSeconds(0.1) };
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoPlayer"/> class.
+        /// </summary>
         public VideoPlayer()
         {
             InitializeComponent();
@@ -35,6 +38,9 @@ namespace Group4DesktopApp.UserControls
             Timer.Start();
         }
 
+        /// <summary>
+        /// Loads the video.
+        /// </summary>
         public void loadVideo()
         {
             OpenFileDialog MediaOpenDialog = new()

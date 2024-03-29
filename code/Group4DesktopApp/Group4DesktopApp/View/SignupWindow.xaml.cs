@@ -19,6 +19,9 @@ namespace Group4DesktopApp.View
         const int MIN_INPUT_CHARS = 6;
         private SignupViewModel viewModel = new SignupViewModel();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignupWindow"/> class.
+        /// </summary>
         public SignupWindow()
         {
             InitializeComponent();

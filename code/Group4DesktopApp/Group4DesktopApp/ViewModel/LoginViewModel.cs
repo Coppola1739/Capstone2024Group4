@@ -9,19 +9,30 @@ using System.Threading.Tasks;
 
 namespace Group4DesktopApp.ViewModel
 {
+    /// <summary>
+    /// The Login Window ViewModel
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public class LoginViewModel : INotifyPropertyChanged
     {
         private string username;
         private string password;
-        //private EmployeeDAL employeeDAL;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginViewModel"/> class.
+        /// </summary>
         public LoginViewModel()
         {
             this.username = String.Empty;
             this.password = String.Empty;
-            //this.employeeDAL = new EmployeeDAL();
         }
 
+        /// <summary>
+        /// Gets or sets the username property.
+        /// </summary>
+        /// <value>
+        /// The username property.
+        /// </value>
         public string UsernameProperty
         {
             get { return username; }
@@ -31,7 +42,12 @@ namespace Group4DesktopApp.ViewModel
                 NotifyPropertyChanged(UsernameProperty);
             }
         }
-
+        /// <summary>
+        /// Gets or sets the password property.
+        /// </summary>
+        /// <value>
+        /// The password property.
+        /// </value>
         public string PasswordProperty
         {
             get { return password; }
@@ -43,9 +59,9 @@ namespace Group4DesktopApp.ViewModel
         }
 
         /// <summary>
-        /// Gets the employee with the currently entered username and password
+        /// Gets the User with the currently entered username and password
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the User with the currently entered username and password, null if not found.</returns>
         public User? getUser()
         {
             int? accID = AccountDAL.GetAccountID(UsernameProperty, PasswordProperty);
@@ -56,7 +72,9 @@ namespace Group4DesktopApp.ViewModel
             User? user = UserDAL.GetUserByID(accID.Value);
             return user;
         }
-
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyPropertyChanged(string property)
