@@ -20,33 +20,22 @@ namespace Group4DesktopApp.DAL
     /// </summary>
     public class TagsDAL
     {
-        /// <summary>
-        /// Returns a collection of every tag existing in the database.
-        /// </summary>
-        /// <returns>A collection of every tag existing in the database</returns>
-        public static ObservableCollection<Tags> GetAllTags()
-        {
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            var query = "Select * FROM Tags";
-            ObservableCollection<Tags> items =
-                new(connection.Query<Tags>(query).ToList());
-            return items;
-        }
 
         /// <summary>
         /// Adds a new tag to the database only if a tag with the specified tag name does not already exists.
         /// </summary>
         /// <param name="tagName">Name of the tag.</param>
         /// <returns>True if tag was successfully added, false otherwise</returns>
-        public static bool AddNewTag(string tagName)
+        public static bool AddNewTag(string tagName, [Optional] SqlConnection conn)
         {
-            if(string.IsNullOrWhiteSpace(tagName) || isTagExisting(tagName))
+            if(string.IsNullOrWhiteSpace(tagName) || isTagExisting(tagName,conn))
             {
                 return false;
             }
 
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
+            var con2 = Connection.SqlConnection(null);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
 
             var goodQuery = "insert into Tags (TagName) values (@tName)";
 
@@ -68,11 +57,12 @@ namespace Group4DesktopApp.DAL
         /// <returns>
         ///   <c>true</c> if a tag exists with the specified tag name; otherwise, <c>false</c>.
         /// </returns>
-        public static bool isTagExisting(string tagName)
+        public static bool isTagExisting(string tagName, [Optional] SqlConnection conn)
         {
 
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
+            var con2 = Connection.SqlConnection(conn);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
 
             var goodQuery = "SELECT COUNT(*) FROM Tags where TagName = @tName";
 

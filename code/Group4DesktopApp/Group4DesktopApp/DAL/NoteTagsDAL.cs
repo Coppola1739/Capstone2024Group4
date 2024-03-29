@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,16 +54,19 @@ namespace Group4DesktopApp.DAL
         /// <summary>
         /// Adds the specified tag name to the specified noteId
         /// </summary>
-        /// <param name="tagName"></param>
-        /// <param name="noteId"></param>
+        /// <param name="tagName">Name of the tag.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="conn">The optional connection object.</param>
         /// <returns>True, if added successfully, false otherwise</returns>
-        public static bool AddTagToNote(string tagName, int noteId)
+        public static bool AddTagToNote(string tagName, int noteId, [Optional] SqlConnection conn)
         {
-            using var connection = new SqlConnection(Connection.ConnectionString);
-            connection.Open();
 
             //Creates a new tag ONLY if tag name is not existing
-            TagsDAL.AddNewTag(tagName);
+            TagsDAL.AddNewTag(tagName, conn);
+
+            var con2 = Connection.SqlConnection(conn);
+            Connection.tryOpenConnection(ref con2);
+            using var connection = con2;
 
             var goodQuery = "insert into NoteTags (TagName,NotesId) values (@tName, @nId)";
 

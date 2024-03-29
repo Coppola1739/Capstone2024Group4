@@ -4,9 +4,17 @@ using Group4DesktopApp.DAL;
 
 namespace DesktopAppCapstoneTest.Tests
 {
+    /// <summary>
+    /// Test Class for all the Account DAL Methods
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class AccountDALTests
     {
 
+        /// <summary>
+        /// Test if the CreateAccount DAL method properly handles adding a valid account
+        /// </summary>
         [Test]
         public void CreateAccountDALisValid()
         {
@@ -39,7 +47,9 @@ namespace DesktopAppCapstoneTest.Tests
                 }
             }
         }
-
+        /// <summary>
+        /// Test if the CreateAccount DAL method properly handles adding an account with an already exisitng username
+        /// </summary>
         [Test]
         public void CreateAccountUserNameAlreadyExists()
         {
@@ -73,39 +83,45 @@ namespace DesktopAppCapstoneTest.Tests
             }
         }
 
+        /// <summary>
+        /// Test if the AccountDAL method properly handles searching for an invalid account ID
+        /// </summary>
         [Test]
-            public void TestAccountIDNotFound()
+        public void TestAccountIDNotFound()
+        {
+            bool noResult = false;
+            using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
             {
-                bool noResult = false;
-                using (TransactionScope scop = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
+                using var connection = new SqlConnection(Connection.ConnectionString);
+                connection.Open();
+                using SqlTransaction myTrans = connection.BeginTransaction();
+                using var myCommand = connection.CreateCommand();
+                myCommand.Transaction = myTrans;
+                try
                 {
-                    using var connection = new SqlConnection(Connection.ConnectionString);
-                    connection.Open();
-                    using SqlTransaction myTrans = connection.BeginTransaction();
-                    using var myCommand = connection.CreateCommand();
-                    myCommand.Transaction = myTrans;
-                    try
+                    int? value = AccountDAL.GetAccountID("", "", connection);
+                    if (value == null)
                     {
-                        int? value = AccountDAL.GetAccountID( "", "",connection);
-                        if (value == null)
-                        {
                         noResult = true;
-                        }
-                        myTrans.Rollback();
-                        connection.Close();
-                        Assert.IsTrue(noResult);
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        myTrans.Rollback();
-                        noResult = false;
-                        connection.Close();
+                    myTrans.Rollback();
+                    connection.Close();
+                    Assert.IsTrue(noResult);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    myTrans.Rollback();
+                    noResult = false;
+                    connection.Close();
                     Assert.Fail(ex.Message);
-                    }
                 }
             }
+        }
 
+        /// <summary>
+        /// Test if the Account DAL method properly handles getting an account by userID
+        /// </summary>
         [Test]
         public void TestGetAccountIDByCredentials()
         {

@@ -22,7 +22,7 @@ namespace Group4DesktopApp.DAL
         /// </summary>
         /// <param name="sqlConnection">The SQL connection.</param>
         /// <returns></returns>
-        public static SqlConnection SqlConnection(SqlConnection sqlConnection)
+        public static SqlConnection SqlConnection(SqlConnection? sqlConnection)
         {
             if (sqlConnection == null)
             {

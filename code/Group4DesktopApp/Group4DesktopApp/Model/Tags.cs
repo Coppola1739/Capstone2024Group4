@@ -13,27 +13,19 @@ namespace Group4DesktopApp.Model
     /// </summary>
     public class Tags
     {
-        private string tagName;
         /// <summary>
         /// Gets or sets the name of the tag.
         /// </summary>
         /// <value>
         /// The name of the tag.
         /// </value>
-        public string TagName
-        {
-            get { return tagName; }
-            set
-            {
-                tagName = value;
-            }
-        }
+        public string TagName { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Tags"/> class.
         /// </summary>
         public Tags()
         {
-            this.tagName = string.Empty;
+            TagName = string.Empty;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="Tags"/> class,
@@ -42,7 +34,7 @@ namespace Group4DesktopApp.Model
         /// <param name="tagName">Name of the tag.</param>
         public Tags(string tagName)
         {
-            this.tagName = tagName;
+            TagName = tagName;
         }
     }
 }

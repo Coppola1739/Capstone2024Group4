@@ -71,7 +71,7 @@ namespace Group4DesktopApp.View
                 this.selectedType = SourceType.Enum.PDF.ToString();
                 this.clearUploadFields();
                 this.stackFileChoose.Visibility = Visibility.Visible;
-                
+
             }
             else if (cmbSourceType.SelectedItem.Equals(SourceType.Enum.VIDEO.ToString()))
             {
@@ -133,7 +133,7 @@ namespace Group4DesktopApp.View
         {
             if (this.inputValidation())
             {
-                if(this.selectedType == SourceType.Enum.PDF.ToString())
+                if (this.selectedType == SourceType.Enum.PDF.ToString())
                 {
                     byte[] content = File.ReadAllBytes(this.chosenFilePath);
                     this.viewModel.InsertNewSource(this.loggedInUser.UserId, "PDF", content);
@@ -141,7 +141,8 @@ namespace Group4DesktopApp.View
                     this.lblUploadedSource.Content = "No file chosen";
                     this.clearMetaDataFields();
                     this.stackMetaData.Visibility = Visibility.Collapsed;
-                } else if(this.selectedType == SourceType.Enum.VIDEO.ToString())
+                }
+                else if (this.selectedType == SourceType.Enum.VIDEO.ToString())
                 {
                     byte[] youtubeURLcontent = System.Text.Encoding.Default.GetBytes(this.txtYoutubeUrl.Text);
                     this.viewModel.InsertNewSource(this.loggedInUser.UserId, "video", youtubeURLcontent);
@@ -149,7 +150,7 @@ namespace Group4DesktopApp.View
                     this.stackMetaData.Visibility = Visibility.Collapsed;
                     this.youtubeGrid.Visibility = Visibility.Visible;
                 }
-               
+
             }
         }
 
@@ -305,7 +306,8 @@ namespace Group4DesktopApp.View
 
         private void btnYoutubeUpload_Click(object sender, RoutedEventArgs e)
         {
-            if(LinkParser.IsYoutubeLink(this.txtYoutubeUrl.Text)) {
+            if (LinkParser.IsYoutubeLink(this.txtYoutubeUrl.Text))
+            {
                 this.txtYoutubeUrl.IsEnabled = false;
                 this.stackMetaData.Visibility = Visibility.Visible;
                 this.btnCancel.Visibility = Visibility.Visible;
@@ -325,9 +327,9 @@ namespace Group4DesktopApp.View
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-                MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
-                if (confirmBox == MessageBoxResult.Yes)
-                {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
 
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.Show();
@@ -337,8 +339,11 @@ namespace Group4DesktopApp.View
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            this.lstSearchedTags.Items.Add(new Tags(this.txtSearchBar.Text));
-            this.searchedTags.Add(this.txtSearchBar.Text);
+            if (!string.IsNullOrWhiteSpace(this.txtSearchBar.Text))
+            {
+                this.lstSearchedTags.Items.Add(new Tags(this.txtSearchBar.Text));
+                this.searchedTags.Add(this.txtSearchBar.Text);
+            }
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)

@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace DesktopAppCapstoneTest.Tests
 {
+    /// <summary>
+    /// Test Class for all the Source Model Methods
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class SourceModelTests
     {
+        /// <summary>
+        /// Test the Source Model Default constructor 
+        /// </summary>
         [Test]
         public void TestSourceDefaultConstructor()
         {
@@ -20,6 +28,10 @@ namespace DesktopAppCapstoneTest.Tests
 
 
         }
+
+        /// <summary>
+        /// Tests the Source constructor with parameters.
+        /// </summary>
         [Test]
         public void TestSourceConstructor()
         {

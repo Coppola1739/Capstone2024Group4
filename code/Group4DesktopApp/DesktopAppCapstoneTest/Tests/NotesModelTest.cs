@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace DesktopAppCapstoneTest.Tests
 {
+    /// <summary>
+    /// Test Class for all the Notes Model Methods
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class NotesModelTest
     {
+        /// <summary>
+        /// Test if the Notes Model Default constructor creates a new Note Object
+        /// </summary>
         [Test]
         public void TestNotesDefaultConstructor()
         {
@@ -19,6 +27,9 @@ namespace DesktopAppCapstoneTest.Tests
 
         }
 
+        /// <summary>
+        /// Test if the Notes Model constructor creates a new Note Object with specified data
+        /// </summary>
         [Test]
         public void TestNotesConstructor()
         {

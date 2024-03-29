@@ -6,9 +6,16 @@ using Group4DesktopApp.Model;
 
 namespace DesktopAppCapstoneTest.Tests
 {
+    /// <summary>
+    /// Test Class for all the User Model Methods
+    /// Author: Jeffrey Emekwue
+    /// Version: Spring 2024
+    /// </summary>
     public class UserModelTests
     {
-
+        /// <summary>
+        /// Tests User Model Getting User ID.
+        /// </summary>
         [Test]
         public void TestGetUserID()
         {
@@ -18,6 +25,9 @@ namespace DesktopAppCapstoneTest.Tests
 
         }
 
+        /// <summary>
+        /// Tests the User Model Getting username.
+        /// </summary>
         [Test]
         public void TestGetUserName()
         {
