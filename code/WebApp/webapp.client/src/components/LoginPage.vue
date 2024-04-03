@@ -5,7 +5,7 @@
         <input type="text" name="username" placeholder="Username" ref="usrField" required>
         <input type="password" name="password" placeholder="Password" ref="passField" required>
         <input @click="getUserIdBy" type="submit" value="Login">
-        
+
         <router-link to="/signup" custom
                      v-slot="{ href, navigate, isActive }">
             <a style="display: block; text-align: center; margin-top: 20px" :href="href" @click="navigate">
@@ -27,7 +27,7 @@
 
                         this.$router.push({
                             name: `HomePage`,
-                            query: { userId: data } // Pass userId as a param
+                            query: { userId: data } 
                         })
                     } else {
                         alert('Invalid Credentials');
@@ -42,39 +42,41 @@
 
     }
 </script>
-<style>
+
+<style scoped>
     body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
+        height: 2%;
+        margin: 4%;
     }
 
     .login-container {
-        width: 450px;
-        margin: 0 auto;
-        padding: 20px;
+        display: flex;
+        width: 200%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 5%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 15%;
     }
-
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
 
         .login-container input[type="text"],
         .login-container input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 2%;
             border: 1px solid #ccc;
             border-radius: 3px;
+            margin: 2%;
             box-sizing: border-box;
         }
 
         .login-container input[type="submit"] {
             width: 100%;
-            padding: 10px;
+            padding: 2%;
             background-color: #4CAF50;
             border: none;
             border-radius: 3px;

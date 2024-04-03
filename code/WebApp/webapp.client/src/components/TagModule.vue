@@ -110,4 +110,14 @@
         list-style-type: none;
         padding-left: 0; 
     }
+    button {
+        background-color: #007bff;
+        color: white;
+        border-radius: 20%;
+        border: 1px solid #007bff;
+        cursor: pointer;
+    }
+        button:hover {
+            background-color: #0056b3;
+        }
 </style>
