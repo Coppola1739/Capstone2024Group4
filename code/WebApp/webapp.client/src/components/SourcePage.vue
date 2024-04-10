@@ -182,6 +182,10 @@
             border: 1px solid #007bff;
         }
 
+        .notes-section{
+            margin-right: -40%;
+        }
+
     .pdf-viewer {
         width: 100%;
         height: 100%;
@@ -216,5 +220,12 @@
 
     .note {
         margin-bottom: 5%;
+    }
+    @media screen and (min-width: 1020px) {
+        .box {
+            padding: 10%;
+            margin-left: 90%;
+            max-width: 70%;
+        }
     }
 </style>

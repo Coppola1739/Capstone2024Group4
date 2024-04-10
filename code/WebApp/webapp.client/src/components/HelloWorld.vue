@@ -41,6 +41,7 @@
                         </div>
 
                         <button type="button" @click="submitForm">Submit</button>
+                        <button type="button" @click="cancelUpload">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -102,6 +103,18 @@
                     console.error('Error fetching user sources:', error);
                 } finally {
                     this.loading = false;
+                }
+            },
+            cancelUpload() {
+                this.formData.sourceName = '';
+                this.formData.authorFirstName = '';
+                this.formData.authorLastName = '';
+                this.formData.title = '';
+                this.selectedFileType = 'pdf';
+                this.videoLink = '';
+                this.showForm = false;
+                if (this.$refs.fileInput) {
+                    this.$refs.fileInput.value = '';
                 }
             },
             async handleSourceDeleted(deletedSourceId) {
@@ -206,6 +219,7 @@
         border: none;
         border-radius: 20%;
         cursor: pointer;
+        max-height: 40px;
     }
         .search-button:hover {
             background-color: #0056b3;
@@ -295,4 +309,12 @@
         button:hover {
             background-color: #0056b3;
         }
+
+    @media screen and (min-width: 1020px) {
+        .box{
+            padding: 10%;
+            margin-left:90%;
+            max-width: 70%;
+        }
+    }
 </style>

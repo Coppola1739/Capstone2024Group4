@@ -122,5 +122,30 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
+        [HttpGet("SearchTags")]
+        public async Task<IActionResult> SearchTags(string query)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(query))
+                {
+                    return BadRequest(new { Message = "Invalid search query" });
+                }
+
+                // Search for tags that contain the query string (case-insensitive)
+                var tags = await _context.Tags
+                    .Where(t => EF.Functions.Like(t.TagName, $"%{query}%"))
+                    .Select(t => t.TagName)
+                    .ToListAsync();
+
+                return Ok(tags);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
+
     }
 }

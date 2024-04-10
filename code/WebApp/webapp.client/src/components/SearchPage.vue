@@ -2,8 +2,13 @@
     <div>
         <div class="search-container">
             <div class="add-filter">
-                <input type="text" v-model="searchInput" @keydown.enter="addFilter" placeholder="Search notes">
+                <input type="text" v-model="searchInput" @input="fetchTagSuggestions" @keydown.enter="addFilter" placeholder="Search notes">
                 <button @click="addFilter">Add Filter</button>
+                <div v-if="tagSuggestions.length > 0" class="tag-suggestions">
+                    <ul>
+                        <li v-for="tag in tagSuggestions" :key="tag" @click="selectTag(tag)">{{ tag }}</li>
+                    </ul>
+                </div>
             </div>
             <div class="filter-list">
                 <div v-for="(filter, index) in appliedFilters" :key="index" class="filter-item">
@@ -32,13 +37,26 @@
             return {
                 searchInput: '',
                 notes: [],
-                appliedFilters: []
+                appliedFilters: [],
+                tagSuggestions: []
             };
         },
         methods: {
+            async fetchTagSuggestions() {
+                try {
+                    console.log(this.searchInput)
+                    const response = await fetch(`/Tag/SearchTags?query=${this.searchInput}`);
+                    if (response.ok) {
+                        this.tagSuggestions = await response.json();
+                    } else {
+                        console.error('Failed to fetch tag suggestions');
+                    }
+                } catch (error) {
+                    console.error('Error fetching tag suggestions', error);
+                }
+            },
             async searchNotes() {
                 try {
-                    console.log(this.appliedFilters)
                     const response = await fetch(`/Notes/GetNotesByTags`, {
                         method: 'POST',
                         headers: {
@@ -66,6 +84,11 @@
             },
             removeFilter(index) {
                 this.appliedFilters.splice(index, 1);
+            },
+            selectTag(tag) {
+                this.appliedFilters.push(tag);
+                this.searchInput = ''; // Clear search input after selecting tag
+                this.tagSuggestions = []; // Clear tag suggestions
             }
         }
     };
@@ -96,9 +119,10 @@
             cursor: pointer;
         }
 
-        .search-container button:hover {
+            .search-container button:hover {
                 background-color: #0056b3;
-         }
+            }
+
     .note-list {
         list-style-type: none;
         padding: 0;
@@ -107,7 +131,17 @@
     .filter-list {
         margin-top: 10px;
     }
+    li {
+        list-style-type: none;
+        padding: 10px;
+        background-color: #f0f0f0;
+        transition: background-color 0.3s;
+    }
 
+    li :hover{
+        background-color: azure;
+        cursor: pointer;
+    }
     .filter-item {
         display: inline-block;
         margin-right: 5px;
