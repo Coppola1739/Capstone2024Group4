@@ -87,8 +87,8 @@
             },
             selectTag(tag) {
                 this.appliedFilters.push(tag);
-                this.searchInput = ''; // Clear search input after selecting tag
-                this.tagSuggestions = []; // Clear tag suggestions
+                this.searchInput = '';
+                this.tagSuggestions = []; 
             }
         }
     };

@@ -179,10 +179,8 @@ namespace WebApp.Server.Controllers
         {
             try
             {
-                // Convert tag names to lowercase for case-insensitive comparison
                 appliedFilters = appliedFilters.Select(filter => filter.ToLower()).ToList();
 
-                // Get note IDs that have all the applied tags
                 var noteIds = await _context.NoteTags
                     .Where(nt => appliedFilters.Contains(nt.TagName.ToLower()))
                     .GroupBy(nt => nt.NotesId)
@@ -190,7 +188,6 @@ namespace WebApp.Server.Controllers
                     .Select(group => group.Key)
                     .ToListAsync();
 
-                // Get notes based on the filtered note IDs
                 var notes = await _context.Notes
                     .Where(note => noteIds.Contains(note.NotesId))
                     .ToListAsync();

@@ -40,11 +40,10 @@ namespace CapstoneTests
         {
             var sourceId = 1;
 
-            // Seed Source
             var source = new Source
             {
                 SourceId = sourceId,
-                UserId = 1, // Provide appropriate user ID
+                UserId = 1,
                 SourceName = "Example Source",
                 UploadDate = DateTime.UtcNow,
                 Content = Encoding.UTF8.GetBytes("Example Source Content"),
@@ -54,27 +53,23 @@ namespace CapstoneTests
                 Title = "Example Title"
             };
 
-            // Seed Notes
             var notes = new List<Notes>
             {
                 new Notes { NotesId = 1, SourceId = sourceId, Content = "Note 1 content" },
                 new Notes { NotesId = 2, SourceId = sourceId, Content = "Note 2 content" }
             };
 
-            // Seed Tag
             var tag = new Tag
             {
                 TagName = "Tag1"
             };
 
-            // Seed NoteTags
             var noteTags = new NoteTags
             {
                 TagName = "Tag1",
                 NotesId = 1
             };
 
-            // Add entities to DbContext and save changes
             await _dbContext.Source.AddAsync(source);
             await _dbContext.Notes.AddRangeAsync(notes);
             await _dbContext.Tags.AddAsync(tag);
@@ -165,7 +160,6 @@ namespace CapstoneTests
         [Test]
         public async Task UpdateNote_ExistingNoteId_ReturnsOkResult()
         {
-            // Arrange
             var noteId = 1;
             var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Original content" };
             _dbContext.Notes.Add(existingNote);
@@ -174,10 +168,8 @@ namespace CapstoneTests
             var controller = new NotesController(_dbContext);
             var updatedContent = "Updated content";
 
-            // Act
             var result = await controller.UpdateNote(noteId, updatedContent);
 
-            // Assert
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
             Assert.That(okResult.Value.ToString(), Is.EqualTo("{ Message = Note updated successfully }"));
@@ -190,7 +182,6 @@ namespace CapstoneTests
         [Test]
         public async Task DeleteNote_ExistingNoteId_ReturnsOkResult()
         {
-            // Arrange
             var noteId = 1;
             var existingNote = new Notes { NotesId = noteId, SourceId = 1, Content = "Note content" };
             _dbContext.Notes.Add(existingNote);
@@ -198,10 +189,8 @@ namespace CapstoneTests
 
             var controller = new NotesController(_dbContext);
 
-            // Act
             var result = await controller.DeleteNote(noteId);
 
-            // Assert
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
             Assert.That(okResult.Value.ToString(), Is.EqualTo("{ Message = Note deleted successfully }"));
@@ -266,15 +255,13 @@ namespace CapstoneTests
             [Test]
             public async Task GetNotesByTag_ExistingTag_ReturnsOkResult()
             {
-                // Arrange
                 await SeedDatabaseAsync();
                 var controller = new NotesController(_dbContext);
                 var tagName = "Tag1";
 
-                // Act
+                
                 var result = await controller.GetNotesByTag(tagName);
 
-                // Assert
                 var okResult = result as OkObjectResult;
                 Assert.That(okResult, Is.Not.Null);
 
@@ -286,15 +273,12 @@ namespace CapstoneTests
             [Test]
             public async Task GetNotesByTag_TagNotFound_ReturnsEmptyList()
             {
-                // Arrange
                 await SeedDatabaseAsync();
                 var controller = new NotesController(_dbContext);
                 var tagName = "NonExistingTag";
 
-                // Act
                 var result = await controller.GetNotesByTag(tagName);
 
-                // Assert
                 var okResult = result as OkObjectResult;
                 Assert.That(okResult, Is.Not.Null);
 
@@ -305,15 +289,12 @@ namespace CapstoneTests
             [Test]
             public async Task GetSourceByNoteId_ExistingNoteId_ReturnsOkResult()
             {
-                // Arrange
                 await SeedDatabaseAsync();
                 var controller = new NotesController(_dbContext);
                 var noteId = 1;
 
-                // Act
                 var result = await controller.GetSourceByNoteId(noteId);
 
-                // Assert
                 var okResult = result as OkObjectResult;
                 Assert.That(okResult, Is.Not.Null, "OkObjectResult is null");
 
@@ -322,12 +303,10 @@ namespace CapstoneTests
                     var source = okResult.Value as Source;
                     Assert.That(source, Is.Not.Null, "Source object is null");
 
-                    // Add additional assertion for source properties if necessary
 
                     Assert.That(source.SourceId, Is.EqualTo(1), "SourceId does not match expected value");
                 }
 
-                // Add logging to examine the result and source object
                 Console.WriteLine($"Result: {result}");
             }
 
@@ -335,19 +314,33 @@ namespace CapstoneTests
         [Test]
             public async Task GetSourceByNoteId_NoteIdNotFound_ReturnsNotFound()
             {
-                // Arrange
                 await SeedDatabaseAsync();
                 var controller = new NotesController(_dbContext);
                 var nonExistingNoteId = 9999;
 
-                // Act
                 var result = await controller.GetSourceByNoteId(nonExistingNoteId);
 
-                // Assert
                 Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
                 var notFoundResult = result as NotFoundObjectResult;
                 Assert.That(notFoundResult.Value.ToString(), Is.EqualTo("{ Message = Source not found for the provided note ID }"));
             }
+
+        [Test]
+        public async Task GetNotesByTags_ExistingTags_ReturnsOkResult()
+        {
+            await SeedDatabaseAsync();
+            var controller = new NotesController(_dbContext);
+            var appliedFilters = new List<string> { "Tag1" };
+
+            var result = await controller.GetNotesByTags(appliedFilters);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+
+            var notes = okResult.Value as List<Notes>;
+            Assert.That(notes, Is.Not.Null);
+            Assert.That(notes.Count, Is.EqualTo(1));
+        }
 
     }
 }

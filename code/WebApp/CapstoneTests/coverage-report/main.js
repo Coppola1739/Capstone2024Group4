@@ -221,11 +221,11 @@ var assemblies = [
   {
     "name": "WebApp.Server",
     "classes": [
-      { "name": "AddNoteModel", "rp": "WebApp.Server_AddNoteModel.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 210, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "AddNoteModel", "rp": "WebApp.Server_AddNoteModel.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 241, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "WebApp.Server.Controllers.FileController", "rp": "WebApp.Server_FileController.html", "cl": 85, "ucl": 6, "cal": 91, "tl": 230, "cb": 13, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "WebApp.Server.Controllers.FileUploadModel", "rp": "WebApp.Server_FileUploadModel.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 230, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "WebApp.Server.Controllers.NotesController", "rp": "WebApp.Server_NotesController.html", "cl": 78, "ucl": 8, "cal": 86, "tl": 210, "cb": 7, "tb": 8, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "WebApp.Server.Controllers.TagController", "rp": "WebApp.Server_TagController.html", "cl": 51, "ucl": 11, "cal": 62, "tl": 126, "cb": 10, "tb": 12, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "WebApp.Server.Controllers.NotesController", "rp": "WebApp.Server_NotesController.html", "cl": 92, "ucl": 11, "cal": 103, "tl": 241, "cb": 7, "tb": 8, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "WebApp.Server.Controllers.TagController", "rp": "WebApp.Server_TagController.html", "cl": 62, "ucl": 14, "cal": 76, "tl": 155, "cb": 12, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "WebApp.Server.Controllers.UserController", "rp": "WebApp.Server_UserController.html", "cl": 45, "ucl": 4, "cal": 49, "tl": 121, "cb": 15, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "WebApp.Server.Controllers.UserModel", "rp": "WebApp.Server_UserModel.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 121, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "WebApp.Server.Controllers.VideoUploadModel", "rp": "WebApp.Server_VideoUploadModel.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 230, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },

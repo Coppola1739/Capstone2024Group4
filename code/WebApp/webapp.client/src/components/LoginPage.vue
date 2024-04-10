@@ -90,8 +90,8 @@
     @media screen and (max-width: 1020px) {
         .login-container {
             margin: 20%;
-            padding: 10%; /* Adjust padding for smaller screens */
-            max-width: 70%; /* Allow the container to expand to full width */
+            padding: 10%;
+            max-width: 70%;
         }
     }
 </style>
