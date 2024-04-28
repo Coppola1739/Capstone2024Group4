@@ -3,6 +3,7 @@ using Group4DesktopApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,7 @@ namespace Group4DesktopApp.ViewModel
             int? accID = AccountDAL.GetAccountID(UsernameProperty, PasswordProperty);
             if (accID == null)
             {
+                Debug.WriteLine(PasswordProperty);
                 return null;
             }
             User? user = UserDAL.GetUserByID(accID.Value);

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Group4DesktopApp.View"
+        xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
         mc:Ignorable="d"
         Title="LoginWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF4F4F4">
     <Grid Margin="165,82,142,148">
@@ -11,12 +11,14 @@
             <Border.Effect>
                 <DropShadowEffect/>
             </Border.Effect>
-            <StackPanel HorizontalAlignment="Center" Orientation="Vertical"  VerticalAlignment="Center" Height="294" Background="White" Width="332">
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical"  VerticalAlignment="Center" Height="324" Background="White" Width="332">
                 <Label Content="Login" FontSize="36" HorizontalAlignment="Center"/>
                 <Label Content="Username:" Margin="0,20,0,0" Width="241"/>
                 <TextBox x:Name="txtUsername" TextWrapping="Wrap" Width="244" Height="28" Text="{Binding UsernameProperty, Mode=TwoWay}" TextChanged="txtUsername_TextChanged" FontSize="14"/>
                 <Label Content="Password:" Margin="0,10,0,0" Width="246"/>
-                <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="28" Text="{Binding PasswordProperty, Mode=TwoWay}" TextChanged="txtPassword_TextChanged" FontSize="14"/>
+                <PasswordBox x:Name="pboxPassword" Width="244" Height="28" PasswordChanged="pboxPassword_PasswordChanged" FontSize="14"/>
+                <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="28" IsReadOnly="True" Text="{Binding PasswordProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPassword_TextChanged" FontSize="14" Visibility="Collapsed"/>
+                <CheckBox x:Name="chboxShowPassword" Content="Show Password" Width="244" Click="chboxShowPassword_Click"/>
                 <Label x:Name="lblError" Content="Username and Password required" Foreground="Red" FontWeight="Bold" FontSize="11" HorizontalContentAlignment="Center" Visibility="Hidden"/>
                 <!--<PasswordBox x:Name="txtPassword" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay , NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>-->
                 <Button x:Name="btnLogin" Content="Login" Width="244" Height="26" Margin="0,10,0,0" Click="btnLogin_Click" Background="#FF4BAF4F" Foreground="White"/>

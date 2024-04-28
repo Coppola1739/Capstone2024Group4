@@ -211,5 +211,47 @@ namespace Group4DesktopApp.View
             LoginWindow.Show();
             this.Close();
         }
+
+        private void chboxShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox? cb = sender as CheckBox;
+            if (e.OriginalSource == cb && cb.IsChecked == true)
+            {
+                this.pboxPassword.Visibility = Visibility.Collapsed;
+                this.txtPassword.Visibility = Visibility.Visible;
+
+            }
+            else if (e.OriginalSource == cb && cb.IsChecked == false)
+            {
+                this.pboxPassword.Visibility = Visibility.Visible;
+                this.txtPassword.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void chboxCopyShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox? cb = sender as CheckBox;
+            if (e.OriginalSource == cb && cb.IsChecked == true)
+            {
+                this.pboxCopyPassword.Visibility = Visibility.Collapsed;
+                this.txtCopyPassword.Visibility = Visibility.Visible;
+
+            }
+            else if (e.OriginalSource == cb && cb.IsChecked == false)
+            {
+                this.pboxCopyPassword.Visibility = Visibility.Visible;
+                this.txtCopyPassword.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void pboxPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.txtPassword.Text = this.pboxPassword.Password;
+        }
+
+        private void pboxCopyPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.txtCopyPassword.Text = this.pboxCopyPassword.Password;
+        }
     }
 }

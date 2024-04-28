@@ -2,6 +2,7 @@
 using Group4DesktopApp.Model;
 using Group4DesktopApp.ViewModel;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -74,6 +75,27 @@ namespace Group4DesktopApp.View
         private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.lblError.Visibility = Visibility.Hidden;
+        }
+
+        private void chboxShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox? cb = sender as CheckBox;
+            if (e.OriginalSource == cb && cb.IsChecked == true)
+            {
+                this.pboxPassword.Visibility = Visibility.Collapsed;
+                this.txtPassword.Visibility = Visibility.Visible;
+
+            }
+            else if (e.OriginalSource == cb && cb.IsChecked == false)
+            {
+                this.pboxPassword.Visibility = Visibility.Visible;
+                this.txtPassword.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void pboxPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.txtPassword.Text = this.pboxPassword.Password;
         }
     }
 }
