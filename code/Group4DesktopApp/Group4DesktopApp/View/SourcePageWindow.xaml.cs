@@ -49,7 +49,7 @@ namespace Group4DesktopApp.View
             this.DataContext = this.viewModel;
             this.loggedInUser = loggedInUser;
             this.source = source;
-            this.lblSourceTitle.Content = source.Title;
+            this.lblSourceTitle.Content = source.SourceName;
             this.noteEditState = NoteState.ADDING;
             this.previousSelectedNote = null;
 

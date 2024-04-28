@@ -5,24 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group4DesktopApp.View"
         mc:Ignorable="d"
-        Title="SignupWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        Title="SignupWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF4F4F4">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Top" Height="518" Margin="0,56,0,0">
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Top" Height="468" Margin="0,56,0,0" Background="White" Width="396">
             <Label Content="Sign Up" FontSize="36" HorizontalAlignment="Center"/>
-            <Label Content="Enter a Username:" Margin="0,5,0,0"/>
+            <Label Content="Enter a Username:" Margin="0,5,0,0" Width="244"/>
             <TextBox x:Name="txtUsername" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding UsernameProperty, Mode=TwoWay}" TextChanged="txtUsername_TextChanged"/>
             <Label x:Name="lblUserError" Content="Username must not contain whitespace" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Hidden"/>
-            <Label Content="Enter a Password:" Margin="0,0,0,0"/>
+            <Label Content="Enter a Password:" Margin="0,0,0,0" Width="244"/>
             <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay}" TextChanged="txtPassword_TextChanged"/>
             <Label x:Name="lblPassError" Content="Password must not contain whitespace" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Hidden"/>
-            <Label Content="Confirm Password:"/>
+            <Label Content="Confirm Password:" Width="244"/>
             <TextBox x:Name="txtCopyPassword" TextWrapping="Wrap" Width="244" Height="20" Text="" TextChanged="txtCopyPassword_TextChanged"/>
             <Label x:Name="lblPassCopyError" Content="Passwords do not match" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Collapsed"/>
             <Label x:Name="lblError" Content="Username already exists" Foreground="Red" FontWeight="Bold" FontSize="11" Margin="0,20,0,0" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-            <Button x:Name="btnSignup" Content="Sign up" Width="108" Height="26" Click="btnSignup_Click"/>
+            <Button x:Name="btnSignup" Content="Sign up" Width="108" Height="26" Click="btnSignup_Click" Background="#FF4BAF4F" Foreground="White"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                 <TextBlock TextWrapping="Wrap" Text="Already have an account?"/>
-                <TextBlock x:Name="txtLoginLink" TextWrapping="Wrap" Text="Log in" Foreground="#FF0050FF" Margin="3,0,0,0" Cursor="Hand" MouseLeftButtonUp="txtLoginLink_MouseLeftButtonUp"/>
+                <TextBlock x:Name="txtLoginLink" TextWrapping="Wrap" Text="Log in" Foreground="#FF60BB9B" Margin="3,0,0,0" Cursor="Hand" MouseLeftButtonUp="txtLoginLink_MouseLeftButtonUp"/>
             </StackPanel>
         </StackPanel>
     </Grid>

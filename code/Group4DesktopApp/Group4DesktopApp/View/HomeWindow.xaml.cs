@@ -50,18 +50,6 @@ namespace Group4DesktopApp.View
             this.searchedTags = new List<string>();
         }
 
-        private void btnViewSource_Click(object sender, RoutedEventArgs e)
-        {
-            Source? selectedSource = this.SourcesList.SelectedItem as Source;
-            if (selectedSource != null)
-            {
-                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, selectedSource);
-                sourcePageWindow.Show();
-                this.Close();
-            }
-            Debug.WriteLine(this.SourcesList.Items.GetItemAt(0).ToString());
-        }
-
         private void cmbSourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.uploadGrid.Visibility = Visibility.Visible;
@@ -278,16 +266,14 @@ namespace Group4DesktopApp.View
 
         private void SourcesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox? lb = sender as ListBox;
-            if (e.OriginalSource == lb && lb.SelectedItem != null)
+            Source? selectedSource = this.SourcesList.SelectedItem as Source;
+            if (selectedSource != null)
             {
-                lb.ScrollIntoView(lb.SelectedItem);
-                this.btnDeleteSource.Visibility = Visibility.Visible;
+                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, selectedSource);
+                sourcePageWindow.Show();
+                this.Close();
             }
-            else
-            {
-                this.btnDeleteSource.Visibility = Visibility.Collapsed;
-            }
+            Debug.WriteLine(this.SourcesList.Items.GetItemAt(0).ToString());
         }
 
         private void btnDeleteSource_Click(object sender, RoutedEventArgs e)
@@ -433,6 +419,26 @@ namespace Group4DesktopApp.View
                 this.lstSearchedTags.Items.Remove(selectedTag);
                 this.searchedTags.Remove(selectedTag.TagName);
                 this.handleSearching();
+            }
+        }
+
+        private void btnDelSource_Click(object sender, RoutedEventArgs e)
+        {
+            var removeButton = sender as Control;
+            if (removeButton == null)
+            {
+                return;
+            }
+
+            Source? selectedSource = removeButton.DataContext as Source;
+            if (selectedSource != null)
+            {
+                MessageBoxResult confirmBox = AlertDialog.DeleteSourceConfirm();
+                if (confirmBox == MessageBoxResult.Yes)
+                {
+                    this.viewModel.DeleteSource(selectedSource);
+                    this.SourcesList.SelectedItem = null;
+                }
             }
         }
     }
