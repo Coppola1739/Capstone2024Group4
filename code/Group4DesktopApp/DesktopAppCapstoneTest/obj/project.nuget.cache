@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "4N8INiQam0gObfr8HRHNenv5xN1k9ibRvZwiOr0C1VSdiBp9oH7s6X8uAOnrHvpSOjK/aCTKNj9EmBj2HmMZ0w==",
+  "dgSpecHash": "XzuZ9t/08+gk9oZvOQvTiJhS3IU+GbCqHSgm7IdtjHvaNub5/oVPVy3eaK6N85DVgDPKPqZL9YdIOJeE+YaZ+w==",
   "success": true,
   "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\jef\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\dotnetprojects.wpftoolkit.input\\6.1.94\\dotnetprojects.wpftoolkit.input.6.1.94.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.net.test.sdk\\17.1.0\\microsoft.net.test.sdk.17.1.0.nupkg.sha512",

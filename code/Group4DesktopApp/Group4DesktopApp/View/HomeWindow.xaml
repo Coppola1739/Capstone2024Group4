@@ -18,32 +18,6 @@
                 <Button x:Name="btnDelSource" Content="X" Margin="0,0,20,44" Foreground="Red" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" Click="btnDelSource_Click" HorizontalAlignment="Right" Width="12"/>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="SearchResultTemplate">
-            <Grid Height="64" Width="631">
-                <Grid Margin="0,0,54,0">
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Content}" VerticalAlignment="Top"/>
-                </Grid>
-                <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Margin="582,12,0,0" VerticalAlignment="Top" Height="32" Width="29" Click="btnGo_Click">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF00FF0F"/>
-                            <GradientStop Color="#FF028300" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.Effect>
-                        <DropShadowEffect/>
-                    </Button.Effect>
-                </Button>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="SearchTagsTemplate">
-            <Grid Height="21" Width="NaN">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnRemoveTag" Content="X" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="18" BorderBrush="{x:Null}" Height="18" Click="btnRemoveTag_Click" Panel.ZIndex="3"/>
-                    <Button Content="{Binding TagName}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
     </Window.Resources>
     <Grid>
 
@@ -111,20 +85,6 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Grid Margin="0,61,117,0" HorizontalAlignment="Right" Width="544" Height="40" VerticalAlignment="Top" Visibility="Collapsed">
-            <Rectangle Fill="#7FBBBBBB" Stroke="#66000000"/>
-            <Button x:Name="btnClearSearch" Content="X" HorizontalAlignment="Left" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,3,0,3" Click="btnClearSearch_Click"/>
-            <TextBox x:Name="txtSearchBar" Margin="25,8,10,8" TextWrapping="Wrap" TextChanged="txtSearchBar_TextChanged"/>
-
-        </Grid>
-        <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,136,19,44" HorizontalAlignment="Right" Width="642" Visibility="Collapsed"/>
-        <ListBox x:Name="lstSearchedTags" ItemTemplate="{DynamicResource SearchTagsTemplate}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,99,19,0" HorizontalAlignment="Right" Width="642" Height="39" VerticalAlignment="Top" Visibility="Collapsed">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
 
     </Grid>
 </Window>

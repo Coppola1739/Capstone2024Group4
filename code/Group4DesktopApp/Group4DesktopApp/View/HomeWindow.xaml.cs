@@ -31,7 +31,6 @@ namespace Group4DesktopApp.View
         private HomeViewModel viewModel;
         private string selectedType;
         private string chosenFilePath;
-        private List<string> searchedTags;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeWindow"/> class.
@@ -47,7 +46,6 @@ namespace Group4DesktopApp.View
             this.viewModel.PopulateSourcesByID(loggedInUser.UserId);
             this.selectedType = string.Empty;
             this.chosenFilePath = string.Empty;
-            this.searchedTags = new List<string>();
         }
 
         private void cmbSourceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -325,101 +323,9 @@ namespace Group4DesktopApp.View
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.txtSearchBar.Text))
-            {
-                this.lstSearchedTags.Items.Add(new Tags(this.txtSearchBar.Text));
-                this.searchedTags.Add(this.txtSearchBar.Text);
-            }
-        }
-
-        private void btnGo_Click(object sender, RoutedEventArgs e)
-        {
-            var goButton = sender as Control;
-            if (goButton == null)
-            {
-                return;
-            }
-
-            Notes? selectedNote = goButton.DataContext as Notes;
-            if (selectedNote != null)
-            {
-                Source source = SourceDAL.GetSourceById(selectedNote.SourceId);
-
-                SourcePageWindow sourcePageWindow = new SourcePageWindow(loggedInUser, source);
-                sourcePageWindow.Show();
-                this.Close();
-            }
-        }
-
-        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.handleSearching();
-        }
-
-        private void handleSearching()
-        {
-            if (string.IsNullOrWhiteSpace(this.txtSearchBar.Text) && this.lstSearchedTags.Items.Count <= 0)
-            {
-                this.lstSearchResult.Visibility = Visibility.Collapsed;
-                this.lstSearchedTags.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-
-                this.updateSearchResult();
-            }
-        }
-
-        private void updateSearchResult()
-        {
-            this.lstSearchResult.Visibility = Visibility.Visible;
-            this.lstSearchedTags.Visibility = Visibility.Visible;
-            this.lstSearchResult.Items.Clear();
-            var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
-            var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
-
-            var foundNotes = notes.Where(obj => list.Any(aObj =>
-                aObj.TagName.IndexOf(this.txtSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
-                aObj.NotesId == obj.NotesId) && !string.IsNullOrWhiteSpace(this.txtSearchBar.Text));
-
-            foreach (var note in this.searchedTags)
-            {
-                var foundNotes2 = notes.Where(obj => list.Any(aObj =>
-                aObj.TagName.IndexOf(note, StringComparison.OrdinalIgnoreCase) >= 0 &&
-                aObj.NotesId == obj.NotesId));
-                foundNotes = foundNotes.Union(foundNotes2);
-            }
-
-
-            if (foundNotes.Any())
-            {
-                foreach (var note in foundNotes)
-                {
-                    this.lstSearchResult.Items.Add(note);
-                }
-            }
-        }
-
-        private void btnClearSearch_Click(object sender, RoutedEventArgs e)
-        {
-            this.txtSearchBar.Text = string.Empty;
-        }
-
-        private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
-        {
-            var removeButton = sender as Control;
-            if (removeButton == null)
-            {
-                return;
-            }
-
-            Tags? selectedTag = removeButton.DataContext as Tags;
-            if (selectedTag != null)
-            {
-                this.lstSearchedTags.Items.Remove(selectedTag);
-                this.searchedTags.Remove(selectedTag.TagName);
-                this.handleSearching();
-            }
+            SearchWindow searchWindow = new SearchWindow(loggedInUser);
+            searchWindow.Show();
+            this.Close();
         }
 
         private void btnDelSource_Click(object sender, RoutedEventArgs e)
