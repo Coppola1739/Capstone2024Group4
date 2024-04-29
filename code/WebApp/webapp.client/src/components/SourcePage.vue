@@ -175,6 +175,16 @@
         align-items: center;
         justify-content: space-between;
     }
+        .source-page button {
+            background-color: #007bff;
+            color: white;
+            border-radius: 5%;
+            border: 1px solid #007bff;
+        }
+
+        .notes-section{
+            margin-right: -40%;
+        }
 
     .pdf-viewer {
         width: 100%;
@@ -193,7 +203,7 @@
         align-items: start;
         margin-left: 20%;
         margin-top: 5%;
-        width: 60%; 
+        width: 100%; 
     }
 
     .add-note-section {
@@ -210,5 +220,12 @@
 
     .note {
         margin-bottom: 5%;
+    }
+    @media screen and (min-width: 1020px) {
+        .box {
+            padding: 10%;
+            margin-left: 90%;
+            max-width: 70%;
+        }
     }
 </style>

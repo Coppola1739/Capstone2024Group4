@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework.Internal;
 using WebApp.Server.Controllers;
 using WebApp.Server.Data;
 using WebApp.Server.Models;
@@ -44,8 +45,19 @@ namespace CapstoneTests
             };
 
             await _dbContext.NoteTags.AddRangeAsync(noteTags);
+
+            var tags = new List<Tag>
+            {
+                new Tag { TagName = "Tag1" },
+                new Tag { TagName = "Tag2" },
+                new Tag { TagName = "AnotherTag" }
+            };
+
+            await _dbContext.Tags.AddRangeAsync(tags);
+
             await _dbContext.SaveChangesAsync();
         }
+
 
         [Test]
         public async Task GetTagByNotesID_ExistingNotesId_ReturnsOkResult()
@@ -142,6 +154,53 @@ namespace CapstoneTests
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = (BadRequestObjectResult)result;
             Assert.That(badRequestResult.Value.ToString(), Is.EqualTo("{ Message = Invalid tag name }"));
+        }
+
+        [Test]
+        public async Task SearchTags_ValidQuery_ReturnsOkResult()
+        {
+            await SeedDatabaseAsync();
+            var controller = new TagController(_dbContext);
+            var query = "Tag";
+
+           var result = await controller.SearchTags(query);
+           
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Console.WriteLine(okResult.Value);
+            var tags = okResult.Value as List<string>;
+            Assert.That(tags, Is.Not.Null);
+            Assert.That(tags.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task SearchTags_EmptyQuery_ReturnsBadRequest()
+        {
+            var controller = new TagController(_dbContext);
+            string query = null;
+
+            var result = await controller.SearchTags(query);
+
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.That(badRequestResult.Value.ToString(), Is.EqualTo("{ Message = Invalid search query }"));
+        }
+
+        [Test]
+        public async Task SearchTags_NoMatchingTags_ReturnsEmptyList()
+        {
+            await SeedDatabaseAsync();
+            var controller = new TagController(_dbContext);
+            var query = "NonExistingTag";
+
+            var result = await controller.SearchTags(query);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+
+            var tags = okResult.Value as List<string>;
+            Assert.That(tags, Is.Not.Null);
+            Assert.That(tags.Count, Is.EqualTo(0));
         }
     }
 }

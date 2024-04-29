@@ -113,4 +113,15 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+
+    .note button {
+        background-color: #007bff;
+        color: white;
+        border-radius: 5%;
+        border: 1px solid #007bff;
+        cursor: pointer;
+    }
+        .note button:hover {
+            background-color: #0056b3;
+        }
 </style>

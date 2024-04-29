@@ -170,6 +170,37 @@ namespace WebApp.Server.Controllers
         }
 
         /// <summary>
+        /// Gets notes by applied filters.
+        /// </summary>
+        /// <param name="appliedFilters">List of tags to filter notes.</param>
+        /// <returns>List of notes that match all applied filters.</returns>
+        [HttpPost("GetNotesByTags")]
+        public async Task<IActionResult> GetNotesByTags([FromBody] List<string> appliedFilters)
+        {
+            try
+            {
+                appliedFilters = appliedFilters.Select(filter => filter.ToLower()).ToList();
+
+                var noteIds = await _context.NoteTags
+                    .Where(nt => appliedFilters.Contains(nt.TagName.ToLower()))
+                    .GroupBy(nt => nt.NotesId)
+                    .Where(group => group.Count() == appliedFilters.Count)
+                    .Select(group => group.Key)
+                    .ToListAsync();
+
+                var notes = await _context.Notes
+                    .Where(note => noteIds.Contains(note.NotesId))
+                    .ToListAsync();
+
+                return Ok(notes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Gets the source by note ID.
         /// </summary>
         /// <param name="noteId">The note ID.</param>

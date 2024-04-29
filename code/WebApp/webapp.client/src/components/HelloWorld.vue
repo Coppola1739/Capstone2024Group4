@@ -1,7 +1,9 @@
 <template>
     <div class="box">
+        <div class="header-info">
         <h1>Capstone Project</h1>
         <router-link to="/searchpage" class="search-button">Search</router-link>
+        </div>
         <div class="source-content">
             <div class="upload-box">
                 <div class="pdf-upload-section">
@@ -39,6 +41,7 @@
                         </div>
 
                         <button type="button" @click="submitForm">Submit</button>
+                        <button type="button" @click="cancelUpload">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -102,6 +105,18 @@
                     this.loading = false;
                 }
             },
+            cancelUpload() {
+                this.formData.sourceName = '';
+                this.formData.authorFirstName = '';
+                this.formData.authorLastName = '';
+                this.formData.title = '';
+                this.selectedFileType = 'pdf';
+                this.videoLink = '';
+                this.showForm = false;
+                if (this.$refs.fileInput) {
+                    this.$refs.fileInput.value = '';
+                }
+            },
             async handleSourceDeleted(deletedSourceId) {
                 await this.fetchUserSources();
             },
@@ -143,8 +158,7 @@
                 }
 
                 this.showForm = false;
-                console.log(formData.videoLink);
-                console.log(formData.sourceName);
+
                 try {
                     let response;
                     if (this.selectedFileType === 'video') {
@@ -185,17 +199,27 @@
     .box {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .header-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: inherit;
     }
     .search-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 10px 20px;
         background-color: #007bff;
+        margin-left: 20%;
         color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         border: none;
-        border-radius: 4px;
+        border-radius: 20%;
         cursor: pointer;
+        max-height: 40px;
     }
         .search-button:hover {
             background-color: #0056b3;
@@ -215,6 +239,7 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+        padding-right: 30%;
     }
 
     .pdf-upload-section {
@@ -230,7 +255,6 @@
 
     .source-modules-column {
         flex: content;
-        margin-left: 20px;
     }
     .source-modules-column .delete-icon {
             pointer-events: auto; 
@@ -285,4 +309,12 @@
         button:hover {
             background-color: #0056b3;
         }
+
+    @media screen and (min-width: 1020px) {
+        .box{
+            padding: 10%;
+            margin-left:90%;
+            max-width: 70%;
+        }
+    }
 </style>
