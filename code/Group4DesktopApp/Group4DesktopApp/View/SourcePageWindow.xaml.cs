@@ -4,6 +4,7 @@ using Group4DesktopApp.Resources;
 using Group4DesktopApp.Utilities;
 using Group4DesktopApp.ViewModel;
 using Microsoft.Web.WebView2.Core;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -22,7 +23,6 @@ namespace Group4DesktopApp.View
     {
         private const double YOUTUBE_PLAYER_WIDTH_OFFSET = 20.0;
         private const double YOUTUBE_PLAYER_HEIGHT_OFFSET = 20.0;
-        Regex youtubeRegex = new Regex("youtu(?:\\.be|be\\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
 
         private enum NoteState
         {
@@ -49,7 +49,7 @@ namespace Group4DesktopApp.View
             this.DataContext = this.viewModel;
             this.loggedInUser = loggedInUser;
             this.source = source;
-            this.lblSourceTitle.Content = source.Title;
+            this.lblSourceTitle.Content = source.SourceName;
             this.noteEditState = NoteState.ADDING;
             this.previousSelectedNote = null;
 
@@ -93,7 +93,7 @@ namespace Group4DesktopApp.View
                     break;
 
                 default:
-                    Debug.WriteLine("Could not handle source type");
+                    Console.WriteLine("Could not handle source type");
                     break;
             }
 

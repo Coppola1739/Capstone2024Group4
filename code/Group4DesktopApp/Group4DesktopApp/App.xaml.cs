@@ -1,13 +1,10 @@
-﻿using Group4DesktopApp.Resources;
+﻿using Group4DesktopApp.Datatier;
+using Group4DesktopApp.Resources;
+using Group4DesktopApp.View;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Group4DesktopApp
@@ -24,9 +21,26 @@ namespace Group4DesktopApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            this.loadDatabaseFromArtifacts();
             this.deletePreviousResources();
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
+        }
+
+        private void loadDatabaseFromArtifacts()
+        {
+            if (!DatabaseVerifier.DoesDatabaseExist())
+            {
+                NonModalAlertDialog alertWindow = new NonModalAlertDialog("Loading database from artifacts.");
+                alertWindow.Show();
+                DACImporter.ImportDatabaseFromDAC(DatabaseVerifier.DACFile);
+                if (alertWindow.IsActive)
+                {
+                    alertWindow.Hide();
+                }
+                MessageBox.Show("Database imported successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void CurrentDomain_ProcessExit(object? sender, EventArgs e)
@@ -51,7 +65,7 @@ namespace Group4DesktopApp
                     }
                     catch (System.IO.IOException)
                     {
-                        Debug.WriteLine($"Could not Delete {Path.GetDirectoryName(resource)}");
+                        Console.WriteLine($"Could not Delete {Path.GetDirectoryName(resource)}");
                     }
                 }
             }

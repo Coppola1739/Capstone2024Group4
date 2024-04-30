@@ -13,7 +13,7 @@ namespace Group4DesktopApp.View
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private LoginViewModel viewModel;
+        private readonly LoginViewModel viewModel;
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginWindow"/> class.
         /// </summary>
@@ -35,7 +35,8 @@ namespace Group4DesktopApp.View
                     Window HomeWindow = new HomeWindow(user);
                     HomeWindow.Show();
                     this.Close();
-                } else
+                }
+                else
                 {
                     this.showErrorMessage("Incorrect username or password");
                 }
@@ -74,6 +75,39 @@ namespace Group4DesktopApp.View
         private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.lblError.Visibility = Visibility.Hidden;
+        }
+
+        private void chboxShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox? cb = sender as CheckBox;
+            if (e.OriginalSource == cb && cb.IsChecked == true)
+            {
+                this.pboxPassword.Visibility = Visibility.Collapsed;
+                this.txtPassword.Visibility = Visibility.Visible;
+
+            }
+            else if (e.OriginalSource == cb && cb.IsChecked == false)
+            {
+                this.pboxPassword.Visibility = Visibility.Visible;
+                this.txtPassword.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void pboxPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.txtPassword.Text = this.pboxPassword.Password;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is NonModalAlertDialog)
+                {
+                    window.Close();
+                }
+            }
         }
     }
 }

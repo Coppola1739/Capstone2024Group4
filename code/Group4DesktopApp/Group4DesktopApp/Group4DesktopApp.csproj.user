@@ -16,6 +16,12 @@
     <Compile Update="View\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\NonModalAlertDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\SearchWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\SignupWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +37,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\NonModalAlertDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SearchWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SignupWindow.xaml">

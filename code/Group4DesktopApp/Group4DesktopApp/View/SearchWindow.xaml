@@ -1,0 +1,57 @@
+﻿<Window x:Class="Group4DesktopApp.View.SearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:wpfToolkit="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
+        mc:Ignorable="d"
+        Title="SearchWindow" Height="650" Width="1190" Background="#FFF4F4F4" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate x:Key="SearchResultTemplate">
+            <Grid Height="64" Width="530">
+                <Grid Margin="0,0,54,0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Content}" VerticalAlignment="Top"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="SearchTagsTemplate">
+            <Grid Height="21" Width="NaN">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnRemoveTag" Content="X" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Width="18" BorderBrush="{x:Null}" Height="18" Click="btnRemoveTag_Click" Panel.ZIndex="3"/>
+                    <Button Content="{Binding TagName}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Menu Panel.ZIndex="3" Height="43" VerticalAlignment="Top">
+            <Button x:Name="btnBack" Content="Back" Height="32" Width="39" Click="btnBack_Click"/>
+            <Label Content="Search Notes" Width="979" FontWeight="Bold" FontSize="20"/>
+        </Menu>
+        <StackPanel>
+            <Grid Margin="293,150,353,88">
+                <Border BorderThickness="2" Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="20,20,0,0" Background="White" BorderBrush="#FFA1A1A1"/>
+                <Button x:Name="btnClearSearch" Content="X" HorizontalAlignment="Left" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,3,0,3" Click="btnClearSearch_Click"/>
+                <toolkit:AutoCompleteBox x:Name="autoComplete" Margin="25,10,10,8" TextChanged="autoComplete_TextChanged" BorderBrush="#7F898989"/>
+            </Grid>
+            <ListBox x:Name="lstSearchedTags" ItemTemplate="{DynamicResource SearchTagsTemplate}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-150,353,0" Height="36" Visibility="Hidden">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-60,353,120" SelectionChanged="lstSearchResult_SelectionChanged" Height="259" Visibility="Hidden"/>
+        </StackPanel>
+        <Button x:Name="btnAddFilter" Content="Add Filter" Margin="0,150,258,0" VerticalAlignment="Top" Height="40" Background="#FF007BFF" Foreground="White" FontWeight="Bold" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="78" Click="btnAddFilter_Click">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>

@@ -1,11 +1,7 @@
 ﻿using Group4DesktopApp.DAL;
 using Group4DesktopApp.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Group4DesktopApp.ViewModel
 {
@@ -17,7 +13,6 @@ namespace Group4DesktopApp.ViewModel
     {
         private string username;
         private string password;
-        //private EmployeeDAL employeeDAL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupViewModel"/> class.

@@ -13,6 +13,11 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
 	  <PackageReference Include="Dapper" Version="2.1.28" />
+	  <PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
+	  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+	  <PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.2.111" />
+	  <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="171.30.0" />
+	  <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" Version="161.9109.0" />
 	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
 	  <PackageReference Include="ReportGenerator" Version="5.2.0" />
 	  <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />

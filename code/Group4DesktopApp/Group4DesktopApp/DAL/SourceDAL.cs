@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -119,9 +118,8 @@ namespace Group4DesktopApp.DAL
                 myTrans.Commit();
                 return true;
 
-            } catch(SqlException ex)
+            } catch(SqlException)
             {
-                Debug.WriteLine(ex.ToString());
                 myTrans.Rollback();
                 return false;
             }

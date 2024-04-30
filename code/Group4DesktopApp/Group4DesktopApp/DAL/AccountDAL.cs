@@ -34,7 +34,7 @@ namespace Group4DesktopApp.DAL
             using var connection = con2;
 
 
-            var goodQuery = "select UserId from Users where Username = @uname AND Password = @pword";
+            var goodQuery = "select UserId from Users where Username = @uname AND Password COLLATE Latin1_General_CS_AS = @pword";
 
             using var command = new SqlCommand(goodQuery, connection);
 
