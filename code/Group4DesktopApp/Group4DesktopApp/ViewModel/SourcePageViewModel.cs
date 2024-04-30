@@ -1,13 +1,8 @@
 ﻿using Group4DesktopApp.DAL;
 using Group4DesktopApp.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace Group4DesktopApp.ViewModel
 {

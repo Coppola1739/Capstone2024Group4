@@ -2,18 +2,10 @@
 using Group4DesktopApp.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Group4DesktopApp.View
 {
@@ -24,6 +16,11 @@ namespace Group4DesktopApp.View
     {
         private User loggedInUser;
         private List<string> searchedTags;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchWindow"/> class.
+        /// </summary>
+        /// <param name="loggedInUser">The logged in user.</param>
         public SearchWindow(User loggedInUser)
         {
             InitializeComponent();
@@ -32,6 +29,12 @@ namespace Group4DesktopApp.View
             List<string> tagsUnderUser = NoteTagsDAL.GetAllTagsByUserId(loggedInUser.UserId).Select(o => o.TagName).ToList();
             this.autoComplete.ItemsSource = tagsUnderUser;
             this.searchedTags = new List<string>();
+            this.lstSearchResult.PreviewMouseRightButtonDown += ListView_PreviewMouseRightButtonDown;
+        }
+
+        private void ListView_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
@@ -128,7 +131,6 @@ namespace Group4DesktopApp.View
                 sourcePageWindow.Show();
                 this.Close();
             }
-            Debug.WriteLine(this.lstSearchResult.Items.GetItemAt(0).ToString());
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

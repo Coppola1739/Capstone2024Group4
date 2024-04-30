@@ -7,8 +7,18 @@ namespace Group4DesktopApp.View
     /// </summary>
     public partial class NonModalAlertDialog : Window
     {
+        /// <summary>
+        /// Gets or sets the alert message.
+        /// </summary>
+        /// <value>
+        /// The alert message.
+        /// </value>
         public string AlertMessage { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NonModalAlertDialog"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public NonModalAlertDialog(string message)
         {
             InitializeComponent();
@@ -18,7 +28,7 @@ namespace Group4DesktopApp.View
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }

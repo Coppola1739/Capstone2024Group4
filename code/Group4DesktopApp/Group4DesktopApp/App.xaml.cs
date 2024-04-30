@@ -2,14 +2,9 @@
 using Group4DesktopApp.Resources;
 using Group4DesktopApp.View;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Group4DesktopApp
@@ -70,7 +65,7 @@ namespace Group4DesktopApp
                     }
                     catch (System.IO.IOException)
                     {
-                        Debug.WriteLine($"Could not Delete {Path.GetDirectoryName(resource)}");
+                        Console.WriteLine($"Could not Delete {Path.GetDirectoryName(resource)}");
                     }
                 }
             }
