@@ -12,10 +12,21 @@ namespace Group4DesktopApp.DAL
     [ExcludeFromCodeCoverage]
     public static class Connection
     {
+
+        /// <summary>
+        /// The server name
+        /// </summary>
+        public static readonly string ServerName = "(localdb)\\MSSQLLocalDB";
+
+        /// <summary>
+        /// The database name
+        /// </summary>
+        public static readonly string DBName = "capstone2024";
+
         /// <summary>
         /// The connection string
         /// </summary>
-        public static readonly string ConnectionString = "Server=(localdb)\\MSSQLLocalDB; Database=capstone2024";
+        public static readonly string ConnectionString = "Server=" + ServerName + "; Database=" + DBName;
 
         /// <summary>
         /// Returns a new SQLConnection Object if specified one is null or undefined. Otherwise, returns the same one if valid

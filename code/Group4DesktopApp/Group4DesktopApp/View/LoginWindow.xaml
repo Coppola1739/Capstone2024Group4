@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:viewmodel="clr-namespace:Group4DesktopApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF4F4F4">
+        Title="LoginWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="#FFF4F4F4" Loaded="Window_Loaded">
     <Grid Margin="165,82,142,148">
         <Border BorderThickness="3" CornerRadius="20" Background="White" Margin="24,10,24,0">
             <Border.Effect>

@@ -64,6 +64,18 @@
               "target": "Package",
               "version": "[17.1.0, )"
             },
+            "Microsoft.SqlServer.DacFx": {
+              "target": "Package",
+              "version": "[162.2.111, )"
+            },
+            "Microsoft.SqlServer.SqlManagementObjects": {
+              "target": "Package",
+              "version": "[171.30.0, )"
+            },
+            "Microsoft.SqlServer.TransactSql.ScriptDom": {
+              "target": "Package",
+              "version": "[161.9109.0, )"
+            },
             "NUnit": {
               "target": "Package",
               "version": "[3.13.3, )"
@@ -152,6 +164,18 @@
             "Extended.Wpf.Toolkit": {
               "target": "Package",
               "version": "[4.6.0, )"
+            },
+            "Microsoft.SqlServer.DacFx": {
+              "target": "Package",
+              "version": "[162.2.111, )"
+            },
+            "Microsoft.SqlServer.SqlManagementObjects": {
+              "target": "Package",
+              "version": "[171.30.0, )"
+            },
+            "Microsoft.SqlServer.TransactSql.ScriptDom": {
+              "target": "Package",
+              "version": "[161.9109.0, )"
             },
             "Microsoft.Web.WebView2": {
               "target": "Package",

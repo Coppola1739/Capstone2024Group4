@@ -2,6 +2,7 @@
 using Group4DesktopApp.Model;
 using Group4DesktopApp.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ namespace Group4DesktopApp.View
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private LoginViewModel viewModel;
+        private readonly LoginViewModel viewModel;
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginWindow"/> class.
         /// </summary>
@@ -36,7 +37,8 @@ namespace Group4DesktopApp.View
                     Window HomeWindow = new HomeWindow(user);
                     HomeWindow.Show();
                     this.Close();
-                } else
+                }
+                else
                 {
                     this.showErrorMessage("Incorrect username or password");
                 }
@@ -96,6 +98,18 @@ namespace Group4DesktopApp.View
         private void pboxPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             this.txtPassword.Text = this.pboxPassword.Password;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is NonModalAlertDialog)
+                {
+                    window.Close();
+                }
+            }
         }
     }
 }
