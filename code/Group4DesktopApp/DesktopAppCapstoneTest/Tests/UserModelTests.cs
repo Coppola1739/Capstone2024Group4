@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Group4DesktopApp;
-using Group4DesktopApp.UserControls;
 using System.Security.Cryptography.X509Certificates;
 using Group4DesktopApp.Model;
 

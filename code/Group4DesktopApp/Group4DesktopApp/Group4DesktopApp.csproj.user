@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UserControls\VideoPlayer.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\HomeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,9 +27,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UserControls\VideoPlayer.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\HomeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
