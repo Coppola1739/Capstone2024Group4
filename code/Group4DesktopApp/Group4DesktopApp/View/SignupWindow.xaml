@@ -15,7 +15,7 @@
             <Label Content="Enter a Password:" Margin="0,0,0,0" Width="244"/>
 
             <PasswordBox x:Name="pboxPassword" Width="244" Height="20" PasswordChanged="pboxPassword_PasswordChanged"/>
-            <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay}" TextChanged="txtPassword_TextChanged" Visibility="Collapsed"/>
+            <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPassword_TextChanged" Visibility="Collapsed"/>
             <CheckBox x:Name="chboxShowPassword" Content="Show Password" Width="244" Click="chboxShowPassword_Click"/>
 
             <Label x:Name="lblPassError" Content="Password must not contain whitespace" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Hidden"/>
