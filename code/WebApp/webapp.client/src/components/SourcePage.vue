@@ -145,6 +145,10 @@
                 }
             },
             async addNote() {
+                if (!this.newNoteContent.trim()) {
+                    alert("Note cannot be empty!");
+                    return;
+                }
                 const formData = new FormData();
                 formData.append('sourceId', this.id);
                 formData.append('content', this.newNoteContent);
