@@ -15,14 +15,14 @@
             <Label Content="Enter a Password:" Margin="0,0,0,0" Width="244"/>
 
             <PasswordBox x:Name="pboxPassword" Width="244" Height="20" PasswordChanged="pboxPassword_PasswordChanged"/>
-            <TextBox x:Name="txtPassword" TextWrapping="Wrap" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPassword_TextChanged" Visibility="Collapsed"/>
+            <TextBox x:Name="txtPassword" TextWrapping="Wrap" IsReadOnly="True" Width="244" Height="20" Text="{Binding PasswordProperty, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPassword_TextChanged" Visibility="Collapsed"/>
             <CheckBox x:Name="chboxShowPassword" Content="Show Password" Width="244" Click="chboxShowPassword_Click"/>
 
             <Label x:Name="lblPassError" Content="Password must not contain whitespace" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Hidden"/>
             <Label Content="Confirm Password:" Width="244"/>
 
             <PasswordBox x:Name="pboxCopyPassword" Width="244" Height="20" PasswordChanged="pboxCopyPassword_PasswordChanged"/>
-            <TextBox x:Name="txtCopyPassword" TextWrapping="Wrap" Width="244" Height="20" Text="" TextChanged="txtCopyPassword_TextChanged" Visibility="Collapsed"/>
+            <TextBox x:Name="txtCopyPassword" TextWrapping="Wrap" IsReadOnly="True" Width="244" Height="20" Text="" TextChanged="txtCopyPassword_TextChanged" Visibility="Collapsed"/>
             <CheckBox x:Name="chboxCopyShowPassword" Content="Show Password" Width="244" Click="chboxCopyShowPassword_Click"/>
 
             <Label x:Name="lblPassCopyError" Content="Passwords do not match" Foreground="Red" FontWeight="Bold" FontSize="11" Visibility="Collapsed"/>

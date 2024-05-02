@@ -193,6 +193,12 @@ namespace Group4DesktopApp.View
                 this.lblPassError.Visibility = Visibility.Hidden;
                 this.lblError.Visibility = Visibility.Hidden;
             }
+            bool isCopyValid = this.isPassCopyValid(this.txtPassword.Text, this.txtCopyPassword.Text);
+            if (isCopyValid)
+            {
+                this.lblPassCopyError.Visibility = Visibility.Hidden;
+                this.lblError.Visibility = Visibility.Hidden;
+            }
         }
 
         private void txtCopyPassword_TextChanged(object sender, TextChangedEventArgs e)

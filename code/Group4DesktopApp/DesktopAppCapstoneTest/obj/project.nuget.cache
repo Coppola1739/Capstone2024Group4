@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kEKM3aXhXv+XHRk/u5XFrIqUHC3MmyLPC/flJSL5i68A6nve1zgtYVhq8VG0wyi+PO6frOaPjJc+6wb7jI2h8A==",
+  "dgSpecHash": "s7MQbwpMVJgswcGEpkOSSzFTQAebH5obAnvikD2jAdsMPwHO8/gYnfQJixGnBJvxHQrgDMs+V635NOazjT02YA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\Final\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
+  "projectFilePath": "C:\\Users\\victo\\Desktop\\Important Documents\\proj\\LastOne\\Capstone2024Group4\\code\\Group4DesktopApp\\DesktopAppCapstoneTest\\DesktopAppCapstoneTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
