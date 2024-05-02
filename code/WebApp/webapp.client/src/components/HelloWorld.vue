@@ -1,9 +1,10 @@
 <template>
     <div class="box">
         <div class="header-info">
-        <h1>Capstone Project</h1>
-        <router-link :to="{path: '/searchpage', query: {userId: this.userId} }" class="search-button">Search</router-link>
+            <h1>Capstone Project</h1>
+            <Navbar :userId="userId" />
         </div>
+
         <div class="source-content">
             <div class="upload-box">
                 <div class="pdf-upload-section">
@@ -54,7 +55,8 @@
                                   :sourceId="source.sourceId"
                                   :sourceName="source.sourceName"
                                   :uploadDate="source.uploadDate"
-                                  @source-deleted="handleSourceDeleted" />
+                                  @source-deleted="handleSourceDeleted" 
+                                  :userId="userId" />
                 </div>
             </div>
         </div>
@@ -63,10 +65,12 @@
 
 <script>
     import { defineComponent } from 'vue';
+    import Navbar from './NavbarModule.vue';
     import SourceModule from './SourceModule.vue';
 
     export default defineComponent({
         components: {
+            Navbar,
             SourceModule,
         },
         data() {
@@ -204,26 +208,13 @@
         width: 100%;
         height: 100%;
     }
-    .header-info{
-        display: flex;
-        flex-direction: row;
-        justify-content: inherit;
-    }
-    .search-button {
-        background-color: #007bff;
-        margin-left: 20%;
-        color: white;
+    .header-info {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        border: none;
-        border-radius: 20%;
-        cursor: pointer;
-        max-height: 40px;
+        align-items: center;
+        padding: 30px;
+        background-color: #f0f0f0;
     }
-        .search-button:hover {
-            background-color: #0056b3;
-        }
     .source-content {
         display: flex;
         flex-direction: row-reverse;

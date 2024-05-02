@@ -1,5 +1,6 @@
 <template>
     <div class="source-page">
+        <Navbar :userId="userIdFromQuery" />
         <div class="source-details" v-if="source">
             <div v-if="isVideoSource">
                 <iframe width="560" height="315" :src="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -29,13 +30,19 @@
 
 <script>
     import NotesModule from './NotesModule.vue';
+    import Navbar from './NavbarModule.vue';
     
     export default {
         components: {
+            Navbar,
             NotesModule,
         },
         props: {
             id: {
+                type: [Number, String],
+                required: true,
+            },
+            userId: {
                 type: [Number, String],
                 required: true,
             },
@@ -49,9 +56,11 @@
                 newNoteContent: '',
                 notes: [],
                 showAllNotes: false,
+                userIdFromQuery: null,
             };
         },
         mounted() {
+            this.userIdFromQuery = this.$route.query.userId;
             const sourceId = Number(this.id);
             this.fetchSourceDetails(sourceId)
                 .then(() => {
@@ -188,7 +197,7 @@
 
     .pdf-viewer {
         width: 100%;
-        height: 100%;
+        height: 100vh;
     }
 
     .source-details {

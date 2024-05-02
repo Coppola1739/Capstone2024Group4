@@ -1,6 +1,6 @@
 <template>
     <div class="source-module">
-        <router-link :to="{ name: 'SourcePage', params: { id: sourceId }}">
+        <router-link :to="{ name: 'SourcePage', params: { id: sourceId }, query: { userId: userId } }">
             <div class="source-info">
                 <h3>{{ sourceName }}</h3>
                 <p>Uploaded on: {{ uploadDate }}</p>
@@ -16,6 +16,7 @@
             sourceId: Number,
             sourceName: String,
             uploadDate: String,
+            userId: [Number, String]
         },
         methods: {
             deleteSource() {

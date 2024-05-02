@@ -1,6 +1,8 @@
 <template>
     <div>
+
         <div class="search-container">
+            <Navbar :userId="userId" />
             <div class="add-filter">
                 <input type="text" v-model="searchInput" @input="fetchTagSuggestions" @keydown.enter="addFilter" placeholder="Search notes">
                 <button @click="addFilter">Add Filter</button>
@@ -28,9 +30,11 @@
 
 <script>
     import NoteModuleVue from './SearchNotesModule.vue';
+    import Navbar from './NavbarModule.vue';
 
     export default {
         components: {
+            Navbar,
             NoteModuleVue
         },
         data() {
