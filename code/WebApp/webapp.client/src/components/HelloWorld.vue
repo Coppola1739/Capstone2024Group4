@@ -2,7 +2,7 @@
     <div class="box">
         <div class="header-info">
         <h1>Capstone Project</h1>
-        <router-link to="/searchpage" class="search-button">Search</router-link>
+        <router-link :to="{path: '/searchpage', query: {userId: this.userId} }" class="search-button">Search</router-link>
         </div>
         <div class="source-content">
             <div class="upload-box">

@@ -36,6 +36,7 @@
         data() {
             return {
                 searchInput: '',
+                userId: this.$route.query.userId,
                 notes: [],
                 appliedFilters: [],
                 tagSuggestions: []
@@ -45,7 +46,7 @@
             async fetchTagSuggestions() {
                 try {
                     console.log(this.searchInput)
-                    const response = await fetch(`/Tag/SearchTags?query=${this.searchInput}`);
+                    const response = await fetch(`/Tag/SearchTags?query=${this.searchInput}&userId=${this.userId}`);
                     if (response.ok) {
                         this.tagSuggestions = await response.json();
                     } else {
@@ -57,7 +58,7 @@
             },
             async searchNotes() {
                 try {
-                    const response = await fetch(`/Notes/GetNotesByTags`, {
+                    const response = await fetch(`/Notes/GetNotesByTags?userId=${this.userId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

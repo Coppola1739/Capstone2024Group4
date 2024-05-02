@@ -170,16 +170,24 @@ namespace WebApp.Server.Controllers
         }
 
         /// <summary>
-        /// Gets notes by applied filters.
+        /// Gets notes by applied filters under the specified userId.
         /// </summary>
         /// <param name="appliedFilters">List of tags to filter notes.</param>
+        /// <param name="userId">The userId to search for the notes under.</param>
         /// <returns>List of notes that match all applied filters.</returns>
         [HttpPost("GetNotesByTags")]
-        public async Task<IActionResult> GetNotesByTags([FromBody] List<string> appliedFilters)
+        public async Task<IActionResult> GetNotesByTags([FromBody] List<string> appliedFilters, string userId)
         {
             try
             {
                 appliedFilters = appliedFilters.Select(filter => filter.ToLower()).ToList();
+
+                int user = int.Parse(userId);
+
+                var sources = await _context.Source
+                    .Where(s => s.UserId == user)
+                    .Select(s => s.SourceId)
+                    .ToListAsync();
 
                 var noteIds = await _context.NoteTags
                     .Where(nt => appliedFilters.Contains(nt.TagName.ToLower()))
@@ -190,6 +198,7 @@ namespace WebApp.Server.Controllers
 
                 var notes = await _context.Notes
                     .Where(note => noteIds.Contains(note.NotesId))
+                    .Where(note => sources.Contains(note.SourceId))
                     .ToListAsync();
 
                 return Ok(notes);

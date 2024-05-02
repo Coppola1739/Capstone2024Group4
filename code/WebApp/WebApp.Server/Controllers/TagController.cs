@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Server.Data;
@@ -81,7 +82,7 @@ namespace WebApp.Server.Controllers
                     _context.Tags.Add(tag);
                     await _context.SaveChangesAsync();
                 }
-               
+
 
                 return Ok(new { Message = "Tag added successfully" });
             }
@@ -123,12 +124,13 @@ namespace WebApp.Server.Controllers
             }
         }
         /// <summary>
-        /// Searches the tags.
+        /// Searches the tags under a user.
         /// </summary>
         /// <param name="query">The query.</param>
+        /// <param name="userId">The user Id.</param>
         /// <returns>a list of tags that match the search query, bad request if the search query is null or empty, 500 if newroek issues</returns>
         [HttpGet("SearchTags")]
-        public async Task<IActionResult> SearchTags(string query)
+        public async Task<IActionResult> SearchTags(string query, string userId)
         {
             try
             {
@@ -136,11 +138,31 @@ namespace WebApp.Server.Controllers
                 {
                     return BadRequest(new { Message = "Invalid search query" });
                 }
+                int user = int.Parse(userId);
+
+                var sources = await _context.Source
+                    .Where(s => s.UserId == user)
+                    .Select(s => s.SourceId)
+                    .ToListAsync();
+                Debug.WriteLine("Found Sources");
+
+                var notes = await _context.Notes
+                    .Where(n => sources.Contains(n.SourceId))
+                    .Select(n => n.NotesId)
+                    .ToListAsync();
+
+                var noteTag = await _context.NoteTags
+                    .Where(nt => notes.Contains(nt.NotesId))
+                    .Select(nt => nt.TagName)
+                    .ToListAsync();
+                Debug.WriteLine("Found Notes");
 
                 var tags = await _context.Tags
                     .Where(t => EF.Functions.Like(t.TagName, $"%{query}%"))
+                    .Where(t => noteTag.Contains(t.TagName))
                     .Select(t => t.TagName)
                     .ToListAsync();
+                Debug.WriteLine("Found Sources");
 
                 return Ok(tags);
             }
@@ -149,7 +171,5 @@ namespace WebApp.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
-
-
     }
 }
