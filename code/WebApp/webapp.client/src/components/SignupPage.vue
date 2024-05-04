@@ -8,6 +8,12 @@
 
         <label for="password">Enter a Password:</label>
         <input type="password" name="password" placeholder="Password" ref="passField" required>
+        <p class="password-requirements">Password must:</p>
+        <ul class="password-requirements-list">
+            <li>Be at least 6 characters long</li>
+            <li>Contain at least one uppercase letter</li>
+            <li>Contain at least one symbol [!@$%^&*()]</li>
+        </ul>
 
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" name="confirmPassword" placeholder="Confirm Password" ref="confirmPassField" required>
@@ -52,8 +58,8 @@
                     alertMessage += "Password must contain at least one uppercase letter.\n";
                     invalidFields = true;
                 }
-                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-                    alertMessage += "Password must contain at least one symbol.\n";
+                if (!/^[!@$%^&*()]+$/.test(password)) {
+                    alertMessage += "Password must contain at least one of the following symbols (only these symbols): !@$%^&*().\n";
                     invalidFields = true;
                 }
                 if (this.$refs.passField.value !== this.$refs.confirmPassField.value) {
