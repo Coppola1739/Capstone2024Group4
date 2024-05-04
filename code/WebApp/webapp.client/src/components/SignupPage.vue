@@ -58,7 +58,7 @@
                     alertMessage += "Password must contain at least one uppercase letter.\n";
                     invalidFields = true;
                 }
-                if (!/[!@$%^&*()]+$/.test(password)) {
+                if (!/[!@$%^&*()]+/.test(password)) {
                     alertMessage += "Password must contain at least one of the following symbols (only these symbols): !@$%^&*().\n";
                     invalidFields = true;
                 }
