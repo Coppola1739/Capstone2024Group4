@@ -85,6 +85,7 @@
                 if (this.searchInput.trim() !== '' && !this.appliedFilters.includes(this.searchInput.trim())) {
                     this.appliedFilters.push(this.searchInput.trim());
                     this.searchInput = '';
+                    this.tagSuggestions.splice(0);
                 }
             },
             removeFilter(index) {

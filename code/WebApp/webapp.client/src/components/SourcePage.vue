@@ -3,11 +3,11 @@
         <Navbar :userId="userIdFromQuery" />
         <div class="source-details" v-if="source">
             <div v-if="isVideoSource">
-                <iframe width="560" height="315" :src="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" :src="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:sticky; top:0"></iframe>
             </div>
-            <div v-else class="pdf-viewer">
+            <div v-else class="pdf-viewer" style="position:sticky; top:0">
                 <h1>{{ source.sourceName }}</h1>
-                <iframe :src="pdfUrl" type="application/pdf" width="100%" height="800px"></iframe>
+                <iframe :src="pdfUrl" type="application/pdf" width="100%" height="80%"></iframe>
             </div>
             <div class="notes-section">
                 <div class="add-note-section">
