@@ -46,18 +46,28 @@
             <Grid Margin="293,150,353,88">
                 <Border BorderThickness="2" Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="20,20,0,0" Background="White" BorderBrush="#FFA1A1A1"/>
                 <Button x:Name="btnClearSearch" Content="X" HorizontalAlignment="Left" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,3,0,3" Click="btnClearSearch_Click"/>
-                <toolkit:AutoCompleteBox x:Name="autoComplete" Margin="25,10,10,8" TextChanged="autoComplete_TextChanged" BorderBrush="#7F898989"/>
+                <toolkit:AutoCompleteBox x:Name="autoComplete" Margin="25,10,10,8" BorderBrush="#7F898989"/>
             </Grid>
-            <ListBox x:Name="lstSearchedTags" ItemTemplate="{DynamicResource SearchTagsTemplate}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-150,353,0" Height="36" Visibility="Hidden">
+            <ListBox x:Name="lstSearchedTags" ItemTemplate="{DynamicResource SearchTagsTemplate}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-140,353,0" Height="46" Visibility="Hidden">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-            <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-60,353,120" SelectionChanged="lstSearchResult_SelectionChanged" Height="259" Visibility="Hidden"/>
+            <ListBox ItemTemplate="{DynamicResource SearchResultTemplate}" x:Name="lstSearchResult" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="293,-48,353,120" SelectionChanged="lstSearchResult_SelectionChanged" Height="259" Visibility="Hidden"/>
         </StackPanel>
         <Button x:Name="btnAddFilter" Content="Add Filter" Margin="0,150,258,0" VerticalAlignment="Top" Height="40" Background="#FF007BFF" Foreground="White" FontWeight="Bold" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="78" Click="btnAddFilter_Click">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="btnTagSearch" Content="Search" Margin="0,200,258,0" VerticalAlignment="Top" Height="40" Background="#FF007BFF" Foreground="White" FontWeight="Bold" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="78" Click="btnTagSearch_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
