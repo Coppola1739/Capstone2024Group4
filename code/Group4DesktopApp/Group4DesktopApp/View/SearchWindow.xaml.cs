@@ -2,6 +2,8 @@
 using Group4DesktopApp.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,15 +58,10 @@ namespace Group4DesktopApp.View
 
         private void handleSearching()
         {
-            if (string.IsNullOrWhiteSpace(this.autoComplete.Text) && this.lstSearchedTags.Items.Count <= 0)
+            if (this.lstSearchedTags.Items.Count <= 0 || string.IsNullOrWhiteSpace(this.autoComplete.Text) && this.lstSearchedTags.Items.Count <= 0)
             {
                 this.lstSearchResult.Visibility = Visibility.Collapsed;
                 this.lstSearchedTags.Visibility = Visibility.Collapsed;
-            }   
-            else
-            {
-
-                this.updateSearchResult();
             }
         }
 
@@ -76,9 +73,7 @@ namespace Group4DesktopApp.View
             var list = NoteTagsDAL.GetAllTagsByUserId(this.loggedInUser.UserId);
             var notes = NotesDAL.GetAllNotesByUserId(this.loggedInUser.UserId);
 
-            var foundNotes = notes.Where(obj => list.Any(aObj =>
-                aObj.TagName.IndexOf(this.autoComplete.Text, StringComparison.OrdinalIgnoreCase) >= 0 &&
-                aObj.NotesId == obj.NotesId) && !string.IsNullOrWhiteSpace(this.autoComplete.Text));
+            IEnumerable<Notes> foundNotes = new Collection<Notes>();
 
             foreach (var note in this.searchedTags)
             {
@@ -102,17 +97,13 @@ namespace Group4DesktopApp.View
             }
         }
 
-        private void autoComplete_TextChanged(object sender, RoutedEventArgs e)
-        {
-            this.handleSearching();
-        }
-
         private void btnAddFilter_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(this.autoComplete.Text) && !this.searchedTags.Contains(this.autoComplete.Text, StringComparer.OrdinalIgnoreCase))
             {
                 this.lstSearchedTags.Items.Add(new Tags(this.autoComplete.Text));
                 this.searchedTags.Add(this.autoComplete.Text);
+                this.lstSearchedTags.Visibility = Visibility.Visible;
             }
         }
 
@@ -133,16 +124,46 @@ namespace Group4DesktopApp.View
             }
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            Window HomeWindow = new HomeWindow(this.loggedInUser);
-            HomeWindow.Show();
-            this.Close();
-        }
-
         private void btnClearSearch_Click(object sender, RoutedEventArgs e)
         {
             this.autoComplete.Text = string.Empty;
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(HomeWindow))
+            {
+                HomeWindow homeWindow = new HomeWindow(this.loggedInUser);
+                homeWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(SearchWindow))
+            {
+                SearchWindow searchWindow = new SearchWindow(loggedInUser);
+                searchWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
+
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnTagSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.updateSearchResult();
         }
     }
 }
