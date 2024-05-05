@@ -170,17 +170,6 @@ namespace Group4DesktopApp.View
             this.youtubePlayer.NavigateToString(htmlContent);
         }
 
-        private void btnBackHome_Click(object sender, RoutedEventArgs e)
-        {
-            Window HomeWindow = new HomeWindow(this.loggedInUser);
-            HomeWindow.Show();
-            if (this.youtubePlayer.Visibility == Visibility.Visible)
-            {
-                this.youtubePlayer.NavigateToString("");
-            }
-            this.Close();
-        }
-
         private void btnAddNote_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(this.txtNoteBox.Text))
@@ -394,6 +383,38 @@ namespace Group4DesktopApp.View
         private void btnTags_Click(object sender, RoutedEventArgs e)
         {
             this.TagGrid.Visibility = Visibility.Visible;
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(HomeWindow))
+            {
+                HomeWindow homeWindow = new HomeWindow(this.loggedInUser);
+                homeWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(SearchWindow))
+            {
+                SearchWindow searchWindow = new SearchWindow(loggedInUser);
+                searchWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
+
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
+            }
         }
     }
 

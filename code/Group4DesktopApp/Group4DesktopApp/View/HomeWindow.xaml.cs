@@ -278,25 +278,6 @@ namespace Group4DesktopApp.View
             this.btnCancel.Visibility = Visibility.Collapsed;
         }
 
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
-            if (confirmBox == MessageBoxResult.Yes)
-            {
-
-                LoginWindow loginWindow = new LoginWindow();
-                loginWindow.Show();
-                this.Close();
-            }
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            SearchWindow searchWindow = new SearchWindow(loggedInUser);
-            searchWindow.Show();
-            this.Close();
-        }
-
         private void btnDelSource_Click(object sender, RoutedEventArgs e)
         {
             var removeButton = sender as Control;
@@ -314,6 +295,38 @@ namespace Group4DesktopApp.View
                     this.viewModel.DeleteSource(selectedSource);
                     this.SourcesList.SelectedItem = null;
                 }
+            }
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(HomeWindow))
+            {
+                HomeWindow homeWindow = new HomeWindow(this.loggedInUser);
+                homeWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(SearchWindow))
+            {
+                SearchWindow searchWindow = new SearchWindow(loggedInUser);
+                searchWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
+
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
             }
         }
     }

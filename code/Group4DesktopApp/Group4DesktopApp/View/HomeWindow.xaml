@@ -78,13 +78,22 @@
 
         </Grid>
         <Menu Height="52" VerticalAlignment="Top">
-            <Button x:Name="btnLogout" Content="Logout" Margin="0,15,0,0" Click="btnLogout_Click"/>
+            <Button x:Name="btnHome" Content="Home" Margin="0,5,0,0" Width="70" Height="27" Background="#FF007BFF" Foreground="White" BorderBrush="{x:Null}" Click="btnHome_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="btnSearchNav" Margin="0,5,0,0" Content="Search" Width="70" Height="27" Background="#FF007BFF" BorderBrush="{x:Null}" Foreground="White" Click="btnSearch_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="btnLogout" Margin="0,5,30,0"  Content="Logout" Width="70" Height="27" Background="#FF007BFF" BorderBrush="{x:Null}" Foreground="White" Click="btnLogout_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
         </Menu>
-        <Button x:Name="btnSearch" Content="Search" BorderBrush="{x:Null}" Background="#FF007BFF" Foreground="White" FontWeight="Bold" Margin="0,60,50,0" HorizontalAlignment="Right" Width="61" Height="40" VerticalAlignment="Top" BorderThickness="1,1,1,1" Click="btnSearch_Click" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
 
     </Grid>
 </Window>

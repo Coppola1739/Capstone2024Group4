@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group4DesktopApp.View" xmlns:wpfToolkit="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         mc:Ignorable="d"
-        Title="SearchWindow" Height="650" Width="1190" Background="#FFF4F4F4" WindowStartupLocation="CenterScreen">
+        Title="SearchWindow" Height="800" Width="1190" Background="#FFF4F4F4" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Key="SearchResultTemplate">
             <Grid Height="64" Width="530">
@@ -25,8 +25,22 @@
     </Window.Resources>
     <Grid>
         <Menu Panel.ZIndex="3" Height="43" VerticalAlignment="Top">
-            <Button x:Name="btnBack" Content="Back" Height="32" Width="39" Click="btnBack_Click"/>
-            <Label Content="Search Notes" Width="979" FontWeight="Bold" FontSize="20"/>
+            <Button x:Name="btnHome" Content="Home" Margin="0,5,0,0" Width="70" Height="27" Background="#FF007BFF" Foreground="White" BorderBrush="{x:Null}" Click="btnHome_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="btnSearchNav" Margin="0,5,0,0" Content="Search" Width="70" Height="27" Background="#FF007BFF" BorderBrush="{x:Null}" Foreground="White" Click="btnSearch_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="btnLogout" Margin="0,5,30,0"  Content="Logout" Width="70" Height="27" Background="#FF007BFF" BorderBrush="{x:Null}" Foreground="White" Click="btnLogout_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Label Content="Search Notes" Width="832" FontWeight="Bold" FontSize="20"/>
         </Menu>
         <StackPanel>
             <Grid Margin="293,150,353,88">

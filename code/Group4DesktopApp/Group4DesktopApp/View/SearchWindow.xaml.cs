@@ -133,16 +133,41 @@ namespace Group4DesktopApp.View
             }
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            Window HomeWindow = new HomeWindow(this.loggedInUser);
-            HomeWindow.Show();
-            this.Close();
-        }
-
         private void btnClearSearch_Click(object sender, RoutedEventArgs e)
         {
             this.autoComplete.Text = string.Empty;
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(HomeWindow))
+            {
+                HomeWindow homeWindow = new HomeWindow(this.loggedInUser);
+                homeWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GetType() != typeof(SearchWindow))
+            {
+                SearchWindow searchWindow = new SearchWindow(loggedInUser);
+                searchWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult confirmBox = AlertDialog.LogoutConfirm();
+            if (confirmBox == MessageBoxResult.Yes)
+            {
+
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Show();
+                this.Close();
+            }
         }
     }
 }
