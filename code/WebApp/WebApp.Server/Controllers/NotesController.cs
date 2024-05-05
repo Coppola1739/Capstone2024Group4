@@ -184,24 +184,34 @@ namespace WebApp.Server.Controllers
 
                 int user = int.Parse(userId);
 
-                var sources = await _context.Source
+                var userSourceIds = await _context.Source
                     .Where(s => s.UserId == user)
                     .Select(s => s.SourceId)
                     .ToListAsync();
 
-                var noteIds = await _context.NoteTags
-                    .Where(nt => appliedFilters.Contains(nt.TagName.ToLower()))
+                var userNoteIds = await _context.Notes
+                    .Where(note => userSourceIds.Contains(note.SourceId))
+                    .Select(note => note.NotesId)
+                    .ToListAsync();
+
+                var userNoteTags = await _context.NoteTags
+                    .Where(nt => userNoteIds.Contains(nt.NotesId))
+                    .ToListAsync();
+
+                var matchingNoteTags = userNoteTags
+                    .Where(nt => appliedFilters.Any(filter => nt.TagName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0))
                     .GroupBy(nt => nt.NotesId)
-                    .Where(group => group.Count() == appliedFilters.Count)
+                    .OrderByDescending(group => group.Sum(nt => appliedFilters.Count(filter => nt.TagName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)))
                     .Select(group => group.Key)
+                    .ToList();
+
+                var foundMatchingNotes = await _context.Notes
+                    .Where(note => matchingNoteTags.Contains(note.NotesId))
                     .ToListAsync();
 
-                var notes = await _context.Notes
-                    .Where(note => noteIds.Contains(note.NotesId))
-                    .Where(note => sources.Contains(note.SourceId))
-                    .ToListAsync();
+                var sortedList = foundMatchingNotes.OrderBy(item => matchingNoteTags.IndexOf(item.NotesId));
 
-                return Ok(notes);
+                return Ok(sortedList);
             }
             catch (Exception ex)
             {
