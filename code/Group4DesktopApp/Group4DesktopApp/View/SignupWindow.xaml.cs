@@ -16,6 +16,7 @@ namespace Group4DesktopApp.View
     public partial class SignupWindow : Window
     {
         Regex VALIDUSERNAMEREGEX = new Regex("^[a-zA-Z0-9 ]*$");
+        Regex VALID_SPECIAL_CHAR = new Regex("[!@$%^&*()]+");
         const int MIN_INPUT_CHARS = 6;
         private SignupViewModel viewModel = new SignupViewModel();
 
@@ -127,10 +128,10 @@ namespace Group4DesktopApp.View
                 isInvalid = true;
                 errors += "Password must have at least one uppercase letter\n";
             }
-            if (!pass.Any(CharChecker.IsSpecialCharacter))
+            if (!isTextContainingValidSpecialChar(pass))
             {
                 isInvalid = true;
-                errors += "Password must have at least one symbol ex(#,%,@ etc.)";
+                errors += "Password must have at least one of the following symbols: !@$%^&*()";
             }
             if (isInvalid)
             {
@@ -138,6 +139,15 @@ namespace Group4DesktopApp.View
                 return false;
             }
             return true;
+        }
+
+        private bool isTextContainingValidSpecialChar(string text)
+        {
+            if(VALID_SPECIAL_CHAR.IsMatch(text))
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool isPassCopyValid(string original, string copy)
