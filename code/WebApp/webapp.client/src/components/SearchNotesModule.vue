@@ -36,7 +36,7 @@
                     if (response.ok) {
                         const source = await response.json();
                         if (source.sourceId) {
-                            this.$router.push({ name: 'SourcePage', params: { id: source.sourceId } });
+                            this.$router.push({ name: 'SourcePage', params: { id: source.sourceId }, query: { userId: source.userId } });
                         } else {
                             console.error('Source not found for the provided note ID');
                         }
