@@ -5,6 +5,11 @@
 
         <label for="username">Enter a Username:</label>
         <input type="text" name="username" placeholder="Username" ref="usrField" required>
+        <p class="username-requirements">Username must:</p>
+        <ul class="username-requirements-list">
+            <li>Be at least 6 characters long</li>
+            <li>Not contain special characters</li>
+        </ul>
 
         <label for="password">Enter a Password:</label>
         <input type="password" name="password" placeholder="Password" ref="passField" required>
@@ -44,6 +49,14 @@
 
                 if (!this.$refs.usrField.value || /\s/.test(this.$refs.usrField.value)) {
                     alertMessage += "Username cannot be empty or contain spaces.\n";
+                    invalidFields = true;
+                }
+                if (this.$refs.usrField.value.length < 6) {
+                    alertMessage += "Username must be at least 6 characters long.\n";
+                    invalidFields = true;
+                }
+                if (!/^[a-zA-Z0-9 ]*$/.test(this.$refs.usrField.value)) {
+                    alertMessage += "Username cannot contain special characters\n";
                     invalidFields = true;
                 }
                 if (!password || /\s/.test(password)) {
