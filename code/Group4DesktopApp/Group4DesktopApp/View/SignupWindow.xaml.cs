@@ -27,6 +27,24 @@ namespace Group4DesktopApp.View
         {
             InitializeComponent();
             this.DataContext = viewModel;
+            this.lblUserError.Content = string.Empty;
+            this.lblUserError.Content += "Username is required\n";
+            this.lblUserError.Content += "Username cannot contain whitespace\n";
+            this.lblUserError.Content += $"Username must have {MIN_INPUT_CHARS} or more characters\n";
+            this.lblUserError.Content += "Username cannot contain specical characters";
+
+            this.lblPassError.Content = string.Empty;
+            this.lblPassError.Content += "Password is required\n";
+            this.lblPassError.Content += "Password cannot contain whitespace\n";
+            this.lblPassError.Content += $"Password must have {MIN_INPUT_CHARS} or more characters\n";
+            this.lblPassError.Content += "Password must have at least one uppercase letter\n";
+            this.lblPassError.Content += "Password must have at least one of the following symbols: !@$%^&*()";
+
+            this.lblPassCopyError.Content = string.Empty;
+            this.lblPassCopyError.Visibility = Visibility.Visible;
+            this.lblPassCopyError.Content += "Passwords must match";
+
+
         }
 
         private void btnSignup_Click(object sender, RoutedEventArgs e)
@@ -183,42 +201,6 @@ namespace Group4DesktopApp.View
         {
             this.lblError.Content = message;
             this.lblError.Visibility = Visibility.Visible;
-        }
-
-        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool isValid = this.isUserValid(this.txtUsername.Text);
-            if(isValid)
-            {
-                this.lblUserError.Visibility= Visibility.Hidden;
-                this.lblError.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool isValid = this.isPassValid(this.txtPassword.Text);
-            if (isValid)
-            {
-                this.lblPassError.Visibility = Visibility.Hidden;
-                this.lblError.Visibility = Visibility.Hidden;
-            }
-            bool isCopyValid = this.isPassCopyValid(this.txtPassword.Text, this.txtCopyPassword.Text);
-            if (isCopyValid)
-            {
-                this.lblPassCopyError.Visibility = Visibility.Hidden;
-                this.lblError.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void txtCopyPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool isValid = this.isPassCopyValid(this.txtPassword.Text, this.txtCopyPassword.Text);
-            if (isValid)
-            {
-                this.lblPassCopyError.Visibility = Visibility.Hidden;
-                this.lblError.Visibility = Visibility.Hidden;
-            }
         }
 
         private void txtLoginLink_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
